@@ -1,0 +1,17 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../data/site";
+---
+
+<Base title={`${site.line} — ${site.name}`}>
+  <main class="experience" id="content">
+    <div>
+      <h1>{site.line}</h1>
+      <p>{site.sentence}</p>
+      <nav aria-label="יציאה מן העמוד">
+        <a href="/">הבית</a>
+        <a class="action" href="/join">הצטרפו לתנועה</a>
+      </nav>
+    </div>
+  </main>
+</Base>

@@ -1,0 +1,164 @@
+{
+  "title": "Choose the visual world",
+  "question": "The homepage is unequal sheets you can open, with a bar on the top and a bar on the side. Keep the station case, take the notice board, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "The station case",
+      "kicker": "THE ROLL",
+      "lineage": "An Israeli bus-stop glass case, read in noon light",
+      "thesis": "The organization is a public case: unequal sheets behind glass, and joining is the orange route you take.",
+      "palette": ["#f4f7fb", "#003090", "#f05400", "#101820"],
+      "materials": ["aluminum frame", "enamel plates", "glass", "paper sheets"],
+      "viewport": "A floating enamel header and a side route strip frame a glass case of unequal posters. The real logo sits in the header. The tallest blue sheet carries the civic sentence. A small orange ticket says הצטרפו.",
+      "risk": "If the glass and the route strip are only decoration, it collapses into a card grid with a blue navbar.",
+      "raised": [
+        {
+          "from": "Gravity rain",
+          "raise": "Sheets keep their own mass and settle by content height, instead of stretching to one card size."
+        },
+        {
+          "from": "Paper menagerie",
+          "raise": "One orange is live, and it belongs only to the sheet your hand is on."
+        },
+        {
+          "from": "Layout desk",
+          "raise": "The lead sheet may break the case grid when the notice is the one that matters."
+        },
+        {
+          "from": "Block registration",
+          "raise": "The top and side bars are the registration notches: they stay put between sheets, and only a full-page experience lifts the frame off."
+        },
+        {
+          "from": "Meter bridge",
+          "raise": "The side rail is one sweep of same-height stops, and one of them sits in the orange."
+        },
+        {
+          "from": "Ink basin",
+          "raise": "The newest sheet is the darkest ink in the case. Older notices sit lighter."
+        }
+      ],
+      "comp": ".impeccable/mocks/decision/assigned.webp"
+    },
+    {
+      "id": "model-pick",
+      "label": "The notice wall",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "The municipal notice board outside a community center",
+      "thesis": "Belonging starts as a board you already know how to read: papers of different sizes, one orange pin on the join slip.",
+      "palette": ["#c4a574", "#f7f4ee", "#003090", "#f05400"],
+      "materials": ["cork", "pinned paper", "one orange pin"],
+      "viewport": "Cork fills the page. A thin top rail holds the real logo. A side index of pins names the sheets. Unequal notes pack down the board, and הצטרפו is the only orange ticket.",
+      "risk": "Familiar. A warm board of papers is where civic homepages land, and it fails if the cork is a texture over ordinary cards.",
+      "comp": ".impeccable/mocks/decision/model-pick.webp"
+    },
+    {
+      "id": "challenger-gravity",
+      "label": "Gravity rain",
+      "verdict": "declined",
+      "lineage": "A garden where each cloud pulls rain on its own law",
+      "thesis": "Each notice would fall into place by a color of gravity, and the join would be a river finding its flower.",
+      "palette": ["#6d726c", "#2f6fed", "#d64545", "#111111"],
+      "materials": ["dusk garden", "colored rain", "one black flower"],
+      "viewport": "Bent Hebrew baselines and sheets drifting toward colored clouds.",
+      "case": "Loses both. Citizens of Israel do not see themselves in an impossible garden, and bent type hides the invitation.",
+      "kept": "Sheets keep their own mass and settle by content height.",
+      "risk": "The garden replaces the address.",
+      "hero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-gravity-rain-garden-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-gravity-rain-garden.webp"
+    },
+    {
+      "id": "challenger-menagerie",
+      "label": "Paper menagerie",
+      "verdict": "declined",
+      "lineage": "A hand-cranked paper procession",
+      "thesis": "Turning a crank would open each notice in order, with one crimson fold for the figure in motion.",
+      "palette": ["#f4f1ea", "#c4b59a", "#1c1c1c", "#c4292e"],
+      "materials": ["cut white paper", "kraft board", "one crimson fold"],
+      "viewport": "A procession of paper figures, the join hidden until the crank reaches it.",
+      "case": "Loses both. A paper toy is not how this audience recognizes a movement, and the invitation waits on a crank.",
+      "kept": "One orange is live, and it belongs only to the sheet your hand is on.",
+      "risk": "Motion replaces the sentence.",
+      "hero": "https://impeccable.style/worlds/cards/kinetic-sculpture-automata-crank-paper-menagerie-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/kinetic-sculpture-automata-crank-paper-menagerie.webp"
+    },
+    {
+      "id": "challenger-raygun",
+      "label": "Layout desk",
+      "verdict": "declined",
+      "lineage": "A surf-magazine layout desk where columns collide",
+      "thesis": "The eye would assemble the page from the loudest fragment, and reading order would be earned.",
+      "palette": ["#f3ead8", "#111111", "#e8452c", "#7ec8c3"],
+      "materials": ["uncoated stock", "overprinted black type", "one spot color"],
+      "viewport": "Headlines crashing through each other, the civic sentence buried under the wreckage.",
+      "case": "Loses both. A surf magazine is not this audience, and a page you feel before you can read fails the invitation.",
+      "kept": "The lead sheet may break the grid when the notice is the one that matters.",
+      "risk": "Illegible Hebrew dressed up as attitude.",
+      "hero": "https://impeccable.style/worlds/cards/design-canon-raygun-layout-desk-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/design-canon-raygun-layout-desk.webp"
+    },
+    {
+      "id": "challenger-ukiyoe",
+      "label": "Block registration",
+      "verdict": "declined",
+      "lineage": "A woodblock print built one registered color at a time",
+      "thesis": "The page would print in layers, outline first, and the offer would arrive on a later pull.",
+      "palette": ["#f3e6cf", "#1d3f73", "#c23b3b", "#6b4a2a"],
+      "materials": ["kozo paper", "flat pigment blocks", "black keyline"],
+      "viewport": "A sheet still missing its colors, the join waiting for a later impression.",
+      "case": "Loses both. A Japanese print is not this audience’s object, and a delayed reveal hides the door.",
+      "kept": "The bars are registration notches: they stay put, and only a full-page experience lifts the frame.",
+      "risk": "The print becomes the subject.",
+      "hero": "https://impeccable.style/worlds/cards/graphic-worlds-publishing-ukiyoe-block-registration-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/graphic-worlds-publishing-ukiyoe-block-registration.webp"
+    },
+    {
+      "id": "challenger-vu",
+      "label": "Meter bridge",
+      "verdict": "declined",
+      "lineage": "A row of VU meters behind glass",
+      "thesis": "Identical channels would be read as a sweep, and opening one would be beside the point.",
+      "palette": ["#f3efe4", "#1a1a1a", "#8a5a32", "#c4292e"],
+      "materials": ["ivory meter faces", "walnut and steel", "one red arc"],
+      "viewport": "A row of identical meters, none of them a page you can open.",
+      "case": "Loses both. A recording desk is not this audience, and the grammar forbids opening a sheet.",
+      "kept": "The side rail is one sweep of same-height stops, one of them in the orange.",
+      "risk": "A tool for operators, not a public address.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-vu-meter-bridge-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/signals-instruments-vu-meter-bridge.webp"
+    },
+    {
+      "id": "challenger-ink",
+      "label": "Ink basin",
+      "verdict": "declined",
+      "lineage": "A basin of marbled ink",
+      "thesis": "The page would be one liquid surface, and the words would sit outside it.",
+      "palette": ["#f7f7f5", "#1a2744", "#3d4a55", "#0e0e0e"],
+      "materials": ["paper-white water", "indigo ink", "feathered currents"],
+      "viewport": "A swirling basin with the Hebrew held in a still margin, because the surface cannot carry a sentence.",
+      "case": "Loses both. Marbling is not this audience’s object, and a surface that cannot hold Hebrew fails the page.",
+      "kept": "The newest sheet is the darkest ink. Older notices sit lighter.",
+      "risk": "Atmosphere with the address exiled to the edge.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-fluid-ink-basin-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/medium-native-fluid-ink-basin.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "A centered invitation: the logo, the line, one blue button.",
+    "palette": ["#ffffff", "#101820", "#003090"],
+    "materials": ["white field", "centered stack", "one button"],
+    "viewport": "The real logo centered, בונים תקומה ציונית beneath it, הצטרפו לתנועה as a blue button, quiet space around them.",
+    "risk": "This is the splash the project is replacing, played straight.",
+    "comp": ".impeccable/mocks/decision/canon.webp"
+  },
+  "steer": true
+}

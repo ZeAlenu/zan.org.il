@@ -1,0 +1,240 @@
+{
+  "tool": "build-phase",
+  "version": 2,
+  "startedAt": "2026-10-02T05:08:12.452Z",
+  "comp": ".impeccable/mocks/station-join.webp",
+  "direction": "7efe08d8",
+  "breakpoint": "1280x720",
+  "artifact": null,
+  "phase": "hero",
+  "phases": {
+    "comps": {
+      "status": "closed",
+      "openedAt": "2026-10-02T05:08:12.452Z",
+      "closedAt": "2026-10-02T05:12:32.226Z",
+      "attempts": 1,
+      "notes": [],
+      "gate": {
+        "ok": true,
+        "reasons": [],
+        "summary": "3 comps, 1 approved",
+        "approved": ".impeccable/mocks/station-join.webp",
+        "at": "2026-10-02T05:12:32.226Z"
+      },
+      "forced": null
+    },
+    "spec": {
+      "status": "closed",
+      "openedAt": "2026-10-02T05:12:32.248Z",
+      "closedAt": "2026-10-02T05:15:48.897Z",
+      "attempts": 3,
+      "notes": [],
+      "gate": {
+        "ok": true,
+        "reasons": [],
+        "summary": "24 regions, 1 plates, 7 text regions measured",
+        "at": "2026-10-02T05:15:48.897Z"
+      },
+      "forced": null
+    },
+    "plates": {
+      "status": "closed",
+      "openedAt": "2026-10-02T05:15:48.897Z",
+      "closedAt": "2026-10-02T05:15:54.082Z",
+      "attempts": 1,
+      "notes": [],
+      "gate": {
+        "ok": true,
+        "reasons": [],
+        "summary": "1/1 plates",
+        "at": "2026-10-02T05:15:54.082Z"
+      },
+      "forced": null
+    },
+    "hero": {
+      "status": "open",
+      "openedAt": "2026-10-02T05:15:54.082Z",
+      "closedAt": null,
+      "attempts": 0,
+      "notes": [],
+      "gate": {
+        "ok": false,
+        "reasons": [
+          "hero overall 62.8% < 72% (structure 51%, color 75%, detail 52%)",
+          "region header is missing (detail 0%, structure 55%): the comp shows material the build does not",
+          "region link-whatsapp is missing (detail 0%, structure 63%): the comp shows material the build does not",
+          "region link-x is missing (detail 0%, structure 72%): the comp shows material the build does not",
+          "region logo-card is missing (detail 3%, structure 42%): the comp shows material the build does not",
+          "region logo is missing (detail 5%, structure 51%): the comp shows material the build does not",
+          "region rail is missing (detail 6%, structure 81%): the comp shows material the build does not",
+          "region stop-home is missing (detail 2%, structure 77%): the comp shows material the build does not",
+          "region stop-about is missing (detail 4%, structure 69%): the comp shows material the build does not",
+          "region stop-vision is missing (detail 2%, structure 75%): the comp shows material the build does not",
+          "region stop-join is missing (detail 2%, structure 68%): the comp shows material the build does not",
+          "region stop-contact is missing (detail 1%, structure 79%): the comp shows material the build does not",
+          "region email-sheet is missing (detail 0%, structure 60%): the comp shows material the build does not",
+          "region email-text is missing (detail 0%, structure 56%): the comp shows material the build does not",
+          "region x-sheet is missing (detail 2%, structure 70%): the comp shows material the build does not",
+          "region x-text is missing (detail 1%, structure 60%): the comp shows material the build does not",
+          "region line-text is missing (detail 0%, structure 36%): the comp shows material the build does not",
+          "region about-title (text) is contradicted (structure 50%, detail added 14%): the composition of this text region differs from the comp; re-derive it from the spec box",
+          "region join-sub (text) is contradicted (structure 90%, detail added 15%): the composition of this text region differs from the comp; re-derive it from the spec box",
+          "control link-mail drifts to 48% (structure 53%, color 65%): its chrome differs from the comp's; open .impeccable/review/diff/hero/regions/link-mail.png and match the border, fill, radius, chevron or arrow, and label size",
+          "region stop-about: its ink sits in a 66x14px box in the comp and 13x9px in the build (padding, row height, or size); match the box, not only the position",
+          "region stop-join: its ink sits in a 75x14px box in the comp and 16x12px in the build (padding, row height, or size); match the box, not only the position",
+          "READINGS, each one CSS edit (4):",
+          "text about-body: 3 lines in the build, 4 in the comp; the measure (max-width, font-size, letter-spacing) wraps it differently, so the block is a different shape",
+          "text about-body: the face renders 35% heavier than the comp's (ink density 0.82 vs 0.61); drop a weight step or use the ranked face",
+          "chrome header: its rule sits 12px into the box in the comp and 24px in the build (+12px), so the strip is taller than the comp's; match the height, not only the position",
+          "chrome line-sheet: its rule sits 119px into the box in the comp and 46px in the build (-73px), so the strip is shorter than the comp's; match the height, not only the position",
+          "plate logo is clipped at the bottom: the comp's artwork keeps a margin there (ink box 240x104 at 0,13 in the region) and the build's runs to the edge (118x79 at 0,65); size the box to the artwork's aspect and use object-fit: contain, or place the <img> at the artwork's own size, never cover on a narrower box",
+          "the build carries ink in 4 grid cells where the comp is calm (I2, A5, B7, D9); nothing exists on the page that the comp does not show (a kicker, an extra nav item, a divider, a second row of controls); remove it or name it in a stated decision after the hero passes"
+        ],
+        "summary": "hero 63% (drift)",
+        "score": 0.6278,
+        "verdict": "drift",
+        "report": ".impeccable/review/diff/hero/report.json",
+        "sideBySide": "/Users/mvxlr/code/zan.org.il/.impeccable/review/diff/hero/side-by-side.png",
+        "worst": [
+          "logo missing 35%",
+          "header missing 37%",
+          "logo-card missing 39%"
+        ],
+        "worstIds": [
+          "logo",
+          "header",
+          "logo-card"
+        ],
+        "worstCrops": [
+          {
+            "id": "logo",
+            "verdict": "missing",
+            "score": {
+              "overall": 0.345,
+              "structure": 0.5088,
+              "color": 0.8927,
+              "colorIntersection": 0.8014,
+              "paletteMatch": 0.9419,
+              "detail": 0.0453,
+              "detailRaw": 0.1234,
+              "detailAdded": 0.1563,
+              "bands": 0.3333
+            },
+            "file": ".impeccable/review/diff/hero/regions/logo.png"
+          },
+          {
+            "id": "header",
+            "verdict": "missing",
+            "score": {
+              "overall": 0.3699,
+              "structure": 0.5494,
+              "color": 0.7105,
+              "colorIntersection": 0.2643,
+              "paletteMatch": 0.9508,
+              "detail": 0,
+              "detailRaw": 0.0855,
+              "detailAdded": 0.3229,
+              "bands": 0
+            },
+            "file": ".impeccable/review/diff/hero/regions/header.png"
+          },
+          {
+            "id": "logo-card",
+            "verdict": "missing",
+            "score": {
+              "overall": 0.3929,
+              "structure": 0.4242,
+              "color": 0.8274,
+              "colorIntersection": 0.6219,
+              "paletteMatch": 0.9381,
+              "detail": 0.0331,
+              "detailRaw": 0.1373,
+              "detailAdded": 0.2083,
+              "bands": 0.1952
+            },
+            "file": ".impeccable/review/diff/hero/regions/logo-card.png"
+          }
+        ],
+        "regionVerdicts": {
+          "header": "missing",
+          "link-mail": "drift",
+          "link-whatsapp": "missing",
+          "link-x": "missing",
+          "logo-card": "missing",
+          "logo": "missing",
+          "rail": "missing",
+          "stop-home": "missing",
+          "stop-about": "missing",
+          "stop-vision": "missing",
+          "stop-join": "missing",
+          "stop-contact": "missing",
+          "about-sheet": "contradicted",
+          "about-title": "contradicted",
+          "about-body": "drift",
+          "join-sheet": "drift",
+          "join-title": "drift",
+          "join-sub": "contradicted",
+          "email-sheet": "missing",
+          "email-text": "missing",
+          "x-sheet": "missing",
+          "x-text": "missing",
+          "line-sheet": "drift",
+          "line-text": "missing"
+        },
+        "at": "2026-10-02T05:24:18.597Z"
+      },
+      "forced": null,
+      "readingsSeen": {
+        "text about-body: 3 lines in the build, 4 in the comp; the measure (max-width, font-size, letter-spacing) wraps it differently, so the block is a different shape": 1,
+        "text about-body: the face renders 35% heavier than the comp's (ink density 0.82 vs 0.61); drop a weight step or use the ranked face": 1,
+        "chrome header: its rule sits 12px into the box in the comp and 24px in the build (+12px), so the strip is taller than the comp's; match the height, not only the position": 1,
+        "chrome line-sheet: its rule sits 119px into the box in the comp and 46px in the build (-73px), so the strip is shorter than the comp's; match the height, not only the position": 1
+      },
+      "records": 1
+    },
+    "sections": {
+      "status": "pending",
+      "openedAt": null,
+      "closedAt": null,
+      "attempts": 0,
+      "notes": [],
+      "gate": null,
+      "forced": null
+    },
+    "motion": {
+      "status": "pending",
+      "openedAt": null,
+      "closedAt": null,
+      "attempts": 0,
+      "notes": [],
+      "gate": null,
+      "forced": null
+    },
+    "responsive": {
+      "status": "pending",
+      "openedAt": null,
+      "closedAt": null,
+      "attempts": 0,
+      "notes": [],
+      "gate": null,
+      "forced": null
+    },
+    "review": {
+      "status": "pending",
+      "openedAt": null,
+      "closedAt": null,
+      "attempts": 0,
+      "notes": [],
+      "gate": null,
+      "forced": null
+    }
+  },
+  "finish": null,
+  "plates": {
+    "logo": {
+      "status": "ok",
+      "score": 0.6667,
+      "size": "1254x1254"
+    }
+  }
+}

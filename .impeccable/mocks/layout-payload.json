@@ -1,0 +1,45 @@
+{
+  "title": "Choose the homepage arrangement",
+  "question": "The station case stays. Which arrangement should the homepage use? The first is the picture you already kept.",
+  "options": [
+    {
+      "id": "lead",
+      "label": "Unequal sheets",
+      "kicker": "AS DRAWN",
+      "lineage": "The station case you kept",
+      "thesis": "A tall blue sheet in the middle, a small orange join ticket on it, and shorter notices around them.",
+      "palette": ["#f4f7fb", "#003090", "#f05400", "#101820"],
+      "materials": ["aluminum frame", "enamel plates", "glass", "paper sheets"],
+      "viewport": "Floating blue header, white side route card, masonry with empty space still in the case.",
+      "risk": "The empty sheets read as a template, and the join ticket can look stuck on rather than like its own notice.",
+      "comp": ".impeccable/mocks/station-lead.webp"
+    },
+    {
+      "id": "packed",
+      "label": "The wide sheet",
+      "lineage": "The same case, packed",
+      "thesis": "One wide blue poster carries the sentence, and a row of short notices sits under it, including the orange join.",
+      "palette": ["#f4f7fb", "#003090", "#f05400", "#101820"],
+      "materials": ["aluminum frame", "enamel plates", "glass", "paper sheets"],
+      "viewport": "Thin blue header, a flush blue side rail, a wide lead poster, four short sheets in a row.",
+      "risk": "The wide poster becomes an ordinary banner, and the row under it is the same height.",
+      "comp": ".impeccable/mocks/station-packed.webp"
+    },
+    {
+      "id": "join",
+      "label": "Join first",
+      "lineage": "The same case, action largest",
+      "thesis": "The orange join sheet is the largest thing on the page. The sentence sits in a tall blue sheet beside it.",
+      "palette": ["#f4f7fb", "#003090", "#f05400", "#101820"],
+      "materials": ["aluminum frame", "enamel plates", "glass", "paper sheets"],
+      "viewport": "Floating blue header, white side card, orange sheet dominant, blue sentence beside it, short notices below.",
+      "risk": "The invitation shouts over who the organization is, and a newcomer may not know what they are joining.",
+      "comp": ".impeccable/mocks/station-join.webp"
+    }
+  ],
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  },
+  "steer": true
+}

@@ -1,0 +1,28 @@
+{
+  "regions": [
+    { "id": "header", "kind": "chrome", "grid": "A0:H1", "note": "floating enamel-blue header bar" },
+    { "id": "link-mail", "kind": "control", "grid": "A0:B1", "note": "header link דוא״ל" },
+    { "id": "link-whatsapp", "kind": "control", "grid": "B0:C1", "note": "header link וואטסאפ" },
+    { "id": "link-x", "kind": "control", "grid": "C0:D1", "note": "header link X" },
+    { "id": "logo-card", "kind": "chrome", "grid": "H0:J1", "note": "white rounded plate holding the logo" },
+    { "id": "logo", "kind": "plate", "grid": "I0:J1", "bleed": true, "note": "the real זה עלינו logo lockup, star book and wordmark, sitting in the corner card" },
+    { "id": "rail", "kind": "chrome", "grid": "J2:J6", "note": "white side route card" },
+    { "id": "stop-home", "kind": "control", "grid": "J2:J2", "note": "stop הבית" },
+    { "id": "stop-about", "kind": "control", "grid": "J3:J3", "note": "stop מי אנחנו" },
+    { "id": "stop-vision", "kind": "control", "grid": "J4:J4", "note": "stop החזון" },
+    { "id": "stop-join", "kind": "control", "grid": "J5:J5", "note": "stop הצטרפות in orange" },
+    { "id": "stop-contact", "kind": "control", "grid": "J6:J6", "note": "stop קשר" },
+    { "id": "about-sheet", "kind": "chrome", "grid": "B2:D6", "note": "tall blue sheet" },
+    { "id": "about-title", "kind": "text", "grid": "C3:D4", "note": "white headline זה עלינו on the blue sheet" },
+    { "id": "about-body", "kind": "text", "grid": "B4:D6", "note": "white civic sentence on the blue sheet" },
+    { "id": "join-sheet", "kind": "chrome", "grid": "E2:H6", "note": "large orange join sheet" },
+    { "id": "join-title", "kind": "text", "grid": "E3:H5", "note": "white headline הצטרפו לתנועה" },
+    { "id": "join-sub", "kind": "text", "grid": "E5:H6", "note": "smaller white line קהילת הוואטסאפ" },
+    { "id": "email-sheet", "kind": "chrome", "grid": "B7:D8", "note": "white email sheet" },
+    { "id": "email-text", "kind": "text", "grid": "C7:D7", "note": "zealenu@gmail.com" },
+    { "id": "x-sheet", "kind": "chrome", "grid": "E7:G8", "note": "white X sheet" },
+    { "id": "x-text", "kind": "text", "grid": "F7:G7", "note": "@ZeAlenu" },
+    { "id": "line-sheet", "kind": "chrome", "grid": "D8:G9", "note": "white sheet for the line" },
+    { "id": "line-text", "kind": "text", "grid": "E9:F9", "note": "blue line בונים תקומה ציונית" }
+  ]
+}

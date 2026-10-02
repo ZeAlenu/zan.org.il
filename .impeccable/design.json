@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-02T13:09:00+03:00",
+  "title": "Design System: זה עלינו",
+  "extensions": {
+    "colorMeta": {
+      "enamel": {
+        "role": "primary",
+        "displayName": "Enamel Blue",
+        "canonical": "#003090",
+        "tonalRamp": [
+          "oklch(15% 0.165 262)",
+          "oklch(26% 0.165 262)",
+          "oklch(38% 0.165 262)",
+          "oklch(50% 0.165 262)",
+          "oklch(62% 0.165 262)",
+          "oklch(74% 0.165 262)",
+          "oklch(85% 0.165 262)",
+          "oklch(95% 0.165 262)"
+        ]
+      },
+      "route-orange": {
+        "role": "secondary",
+        "displayName": "Route Orange",
+        "canonical": "#f05400",
+        "tonalRamp": [
+          "oklch(15% 0.204 40)",
+          "oklch(26% 0.204 40)",
+          "oklch(38% 0.204 40)",
+          "oklch(50% 0.204 40)",
+          "oklch(62% 0.204 40)",
+          "oklch(74% 0.204 40)",
+          "oklch(85% 0.204 40)",
+          "oklch(95% 0.204 40)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#0e1d55",
+        "tonalRamp": [
+          "oklch(15% 0.103 267.1)",
+          "oklch(26% 0.103 267.1)",
+          "oklch(38% 0.103 267.1)",
+          "oklch(50% 0.103 267.1)",
+          "oklch(62% 0.103 267.1)",
+          "oklch(74% 0.103 267.1)",
+          "oklch(85% 0.103 267.1)",
+          "oklch(95% 0.103 267.1)"
+        ]
+      },
+      "glass": {
+        "role": "neutral",
+        "displayName": "Daylight Glass",
+        "canonical": "#f4f6f8",
+        "tonalRamp": [
+          "oklch(15% 0.003 247.9)",
+          "oklch(26% 0.003 247.9)",
+          "oklch(38% 0.003 247.9)",
+          "oklch(50% 0.003 247.9)",
+          "oklch(62% 0.003 247.9)",
+          "oklch(74% 0.003 247.9)",
+          "oklch(85% 0.003 247.9)",
+          "oklch(95% 0.003 247.9)"
+        ]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Sheet White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(50% 0 0)",
+          "oklch(62% 0 0)",
+          "oklch(74% 0 0)",
+          "oklch(85% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Secular One 400 for the join sheet title. Reading titles and the line page use the same face at their own clamps."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "The about sheet title."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "The logo line on its paper sheet."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Rubik 400 for reading pages, about 28ch, line-height 1.45."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Rubik 700 for header links, rail stops, the map button, and the action."
+      }
+    },
+    "shadows": [
+      {
+        "name": "sheet-lift",
+        "value": "0 8px 18px rgba(8, 23, 70, 0.1)",
+        "purpose": "The one lift under the header, logo card, rail, home sheets, and reading sheet."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "max-800",
+        "value": "800px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Action",
+      "kind": "button",
+      "refersTo": "button-action",
+      "description": "Route-orange action that leads to join.",
+      "html": "<a class=\"ds-action\" href=\"#\">הצטרפו לתנועה</a>",
+      "css": ".ds-action { display: inline-block; background: var(--orange); color: white; text-decoration: none; font-family: var(--text); font-weight: 700; font-size: 1.3rem; padding: 0.85rem 1.3rem; border-radius: 14px; } .ds-action:hover { background: #de4e08; } .ds-action:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }"
+    },
+    {
+      "name": "Action on join",
+      "kind": "button",
+      "refersTo": "button-on-join",
+      "description": "White action on the orange join reading page.",
+      "html": "<a class=\"ds-action-join\" href=\"#\">קהילת הוואטסאפ</a>",
+      "css": ".ds-action-join { display: inline-block; background: white; color: var(--orange); text-decoration: none; font-family: var(--text); font-weight: 700; font-size: 1.3rem; padding: 0.85rem 1.3rem; border-radius: 14px; } .ds-action-join:hover { background: #fff4ee; } .ds-action-join:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }"
+    },
+    {
+      "name": "Map button",
+      "kind": "button",
+      "refersTo": "map-button",
+      "description": "White button in the enamel header that opens the map.",
+      "html": "<a class=\"ds-map-entry\" href=\"#\"><span>חירות</span> <span dir=\"ltr\">vs.</span> <span>ברית אדומה-ירוקה</span></a>",
+      "css": ".ds-map-entry { display: inline-flex; align-items: center; gap: 0.35em; height: 46px; padding: 0 16px; background: white; color: var(--blue); border-radius: 14px; text-decoration: none; font-family: var(--text); font-weight: 700; font-size: 1.02rem; direction: rtl; } .ds-map-entry:hover { color: var(--orange); } .ds-map-entry:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }"
+    },
+    {
+      "name": "Header",
+      "kind": "nav",
+      "refersTo": "header",
+      "description": "Floating enamel bar with contact links on the physical left.",
+      "html": "<header class=\"ds-bar\"><nav class=\"ds-links\"><a href=\"#\">דוא״ל</a><a href=\"#\">וואטסאפ</a><a href=\"#\">X</a></nav></header>",
+      "css": ".ds-bar { display: flex; align-items: center; height: 76px; padding: 0 8px; background: var(--blue); border-radius: 22px; box-shadow: var(--shadow); direction: ltr; } .ds-links { display: flex; align-items: center; gap: 32px; direction: rtl; } .ds-links a { color: white; text-decoration: none; font-family: var(--text); font-weight: 700; font-size: 1.15rem; } .ds-links a:hover { color: #ffe4d4; } .ds-links a:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }"
+    },
+    {
+      "name": "Route rail",
+      "kind": "nav",
+      "refersTo": "rail",
+      "description": "White side rail. The join stop is the orange chip.",
+      "html": "<nav class=\"ds-rail\"><a class=\"ds-rail-stop\" href=\"#\" aria-current=\"page\">הבית</a><a class=\"ds-rail-stop\" href=\"#\">מי אנחנו</a><a class=\"ds-rail-join\" href=\"#\">הצטרפות</a></nav>",
+      "css": ".ds-rail { display: flex; flex-direction: column; gap: 2px; width: 168px; padding: 14px 10px; background: white; border-radius: 22px; box-shadow: var(--shadow); } .ds-rail-stop, .ds-rail-join { display: block; text-align: center; text-decoration: none; font-family: var(--text); font-weight: 700; font-size: 1.02rem; line-height: 1.2; padding: 11px 6px; border-radius: 12px; } .ds-rail-stop { color: var(--blue); } .ds-rail-stop:hover { background: #eef2f8; } .ds-rail-stop[aria-current=\"page\"] { box-shadow: inset 0 0 0 2px var(--blue); } .ds-rail-join { background: var(--orange); color: var(--blue-ink); } .ds-rail-stop:focus-visible, .ds-rail-join:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }"
+    },
+    {
+      "name": "Join sheet",
+      "kind": "card",
+      "refersTo": "sheet-join",
+      "description": "The wide orange join sheet.",
+      "html": "<a class=\"ds-join-sheet\" href=\"#\"><p class=\"ds-join-title\">הצטרפו<br>לתנועה</p><p class=\"ds-join-sub\">קהילת הוואטסאפ</p></a>",
+      "css": ".ds-join-sheet { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; text-decoration: none; min-height: 380px; padding: 1.4rem 1.5rem; background: var(--orange); color: white; border-radius: 22px; box-shadow: var(--shadow); } .ds-join-sheet:hover { transform: translateY(-2px); } .ds-join-title { font-family: var(--display); font-weight: 400; font-size: clamp(3.4rem, 5.4vw, 5.6rem); line-height: 0.92; margin: 0; } .ds-join-sub { margin: 0.45em 0 0; font-family: var(--text); font-weight: 700; font-size: clamp(1.2rem, 1.6vw, 1.7rem); } .ds-join-sheet:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }"
+    },
+    {
+      "name": "Enamel sheet",
+      "kind": "card",
+      "refersTo": "sheet-about",
+      "description": "The tall enamel about sheet.",
+      "html": "<a class=\"ds-about-sheet\" href=\"#\"><p class=\"ds-about-title\">זה<br>עלינו</p><p class=\"ds-about-body\">זה עלינו הוא ארגון אזרחי, הפועל למען חזון תקומה ציונית של העם היהודי בארצו.</p></a>",
+      "css": ".ds-about-sheet { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; text-decoration: none; min-height: 340px; padding: 1.4rem 1.5rem; background: var(--blue); color: white; border-radius: 22px; box-shadow: var(--shadow); } .ds-about-sheet:hover { transform: translateY(-2px); } .ds-about-title { font-family: var(--display); font-weight: 400; font-size: clamp(2.4rem, 3.6vw, 3.6rem); line-height: 0.92; margin: 0 0 0.45em; } .ds-about-body { margin: 0; max-width: 22ch; font-family: var(--text); font-weight: 400; font-size: clamp(1rem, 1.25vw, 1.25rem); line-height: 1.45; } .ds-about-sheet:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }"
+    },
+    {
+      "name": "Paper sheet",
+      "kind": "card",
+      "refersTo": "sheet-paper",
+      "description": "Paper sheet for the logo line. Email and X use the same paper with Rubik 700.",
+      "html": "<a class=\"ds-paper-sheet\" href=\"#\"><p class=\"ds-line-title\">בונים תקומה ציונית</p></a>",
+      "css": ".ds-paper-sheet { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; text-decoration: none; min-height: 96px; padding: 1.4rem 1.5rem; background: white; color: var(--blue); border-radius: 22px; box-shadow: var(--shadow); } .ds-paper-sheet:hover { transform: translateY(-2px); } .ds-line-title { font-family: var(--display); font-weight: 400; font-size: clamp(1.6rem, 2.2vw, 2.2rem); line-height: 0.92; margin: 0; } .ds-paper-sheet:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }"
+    },
+    {
+      "name": "Reading sheet",
+      "kind": "card",
+      "refersTo": "reading",
+      "description": "The single interior sheet. Join and about recolor it orange or enamel.",
+      "html": "<article class=\"ds-reading\"><h1>יצירת קשר</h1><p>zealenu@gmail.com</p></article>",
+      "css": ".ds-reading { display: flex; flex-direction: column; align-items: flex-start; padding: clamp(2.5rem, 5vw, 4.5rem); background: white; color: var(--blue-ink); border-radius: 22px; box-shadow: var(--shadow); } .ds-reading h1 { font-family: var(--display); font-weight: 400; font-size: clamp(3.4rem, 6.4vw, 6rem); line-height: 0.92; margin: 0 0 0.45em; color: var(--blue); } .ds-reading p { font-family: var(--text); font-size: clamp(1.25rem, 1.8vw, 1.7rem); line-height: 1.45; max-width: 28ch; margin: 0; }"
+    },
+    {
+      "name": "Logo plate",
+      "kind": "custom",
+      "refersTo": "logo-card",
+      "description": "White plate on the physical right. It holds the real logo and links home.",
+      "html": "<a class=\"ds-logo-card\" href=\"#\" aria-label=\"זה עלינו\"></a>",
+      "css": ".ds-logo-card { display: grid; place-items: center; width: 168px; height: 104px; background: white; border-radius: 18px; box-shadow: var(--shadow); } .ds-logo-card:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The station case",
+    "overview": "The station case sets a daylight-glass ground. Enamel and paper sheets sit on it, lifted by one soft offset shadow. Route orange fills the join sheet and chips the join stop. The real logo is the only mark. A screen holds a few large sheets.\n\nRoute orange is the join voice. It fills the join sheet, the join stop, and the action that leads there. Enamel is the floating header, the about sheet, and the full-bleed line page. Quieter stops stay paper, in enamel type. Hebrew runs right to left. Secular One at 400 carries display. Rubik carries body and the interface.\n\nThe station frame floats an enamel header and a white side rail. Interior pages are one reading sheet in that frame. The line page fills the viewport with enamel and leaves the frame. The confirmed rejections are a centered splash and an equal-card grid.",
+    "keyCharacteristics": [
+      "Daylight glass ground",
+      "Enamel and paper sheets",
+      "Route orange as the join voice",
+      "One soft offset shadow",
+      "The real logo is the only mark"
+    ],
+    "rules": [
+      {
+        "name": "The Join Voice Rule",
+        "body": "Route orange is the join voice: it fills the join sheet, chips the join stop, and fills the action that leads there. It is not a general enamel substitute.",
+        "section": "colors"
+      },
+      {
+        "name": "The Display Face Rule",
+        "body": "Secular One 400 is the display face. Rubik is body and UI. Do not substitute a system display face.",
+        "section": "typography"
+      },
+      {
+        "name": "The Station Frame Rule",
+        "body": "Station pages sit under a floating enamel header and a white side rail. The line page leaves that frame and fills the viewport with enamel.",
+        "section": "layout"
+      },
+      {
+        "name": "The One Shadow Rule",
+        "body": "Lifted surfaces share one soft offset shadow, 0 8px 18px rgba(8, 23, 70, 0.1). The current stop’s inset stroke is a selection mark, not a second shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Sheet Radius Rule",
+        "body": "The header, the rail, and sheets share a 22px radius. The logo card is 18px. The map button and the action are 14px. Rail stops are 12px.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Enamel and Paper Rule",
+        "body": "Surfaces are enamel or paper. Route orange is the chip on the join stop and the fill of the join sheet.",
+        "section": "components"
+      },
+      {
+        "name": "The Only Mark Rule",
+        "body": "The real logo is the only mark. Do not add a glyph icon or a second lockup.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do paint the ground daylight glass and lift the header, logo card, rail, and sheets with the one shadow.",
+      "Do keep route orange for the join sheet, the join stop, and the action.",
+      "Do set display in Secular One 400 and set body and UI in Rubik.",
+      "Do use the real logo as the only mark.",
+      "Do round the header, the rail, and sheets to 22px."
+    ],
+    "donts": [
+      "Don't center a splash.",
+      "Don't lay sheets out as an equal-card grid.",
+      "Don't add a second shadow or a hard offset shadow.",
+      "Don't add glyph icons or a second mark.",
+      "Don't bring the map page’s chart palette or its Heebo type into this system."
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+---
+import Base from "../layouts/Base.astro";
+import "@fontsource/heebo/hebrew-400.css";
+import "@fontsource/heebo/hebrew-500.css";
+import "@fontsource/heebo/hebrew-700.css";
+import "@fontsource/heebo/latin-400.css";
+import "@fontsource/heebo/latin-700.css";
+import "@xyflow/react/dist/style.css";
+import "../map/styles.css";
+import MapApp from "../map/App.tsx";
+import { site } from "../data/site";
+---
+
+<Base title={`${site.mapTitle} — ${site.name}`} description="מפה של דתות ואיזמים כשושלות של דפוס מגדל בבל (קולקטיביזם) מול החירות.">
+  <div class="map-root" id="content">
+    <MapApp client:only="react" />
+  </div>
+</Base>

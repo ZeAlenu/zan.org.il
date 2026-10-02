@@ -1,0 +1,37 @@
+---
+import Base from "./Base.astro";
+import { site, stops, type StopId } from "../data/site";
+
+interface Props {
+  title: string;
+  description?: string;
+  current: StopId;
+}
+
+const { title, description, current } = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <header class="bar">
+    <a class="logo-card" href="/" aria-label={site.name}>
+      <img src="/brand/logo-star.svg" alt="" />
+    </a>
+    <a class="map-entry" href={site.mapHref} dir="rtl">
+      <span>חירות</span>
+      <span dir="ltr">vs.</span>
+      <span>ברית אדומה-ירוקה</span>
+    </a>
+  </header>
+  <nav class="rail" aria-label="ניווט">
+    {
+      stops.map((stop) => (
+        <a href={stop.href} aria-current={stop.id === current ? "page" : undefined}>
+          {stop.label}
+        </a>
+      ))
+    }
+  </nav>
+  <div id="content">
+    <slot />
+  </div>
+</Base>

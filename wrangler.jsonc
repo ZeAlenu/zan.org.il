@@ -1,0 +1,16 @@
+{
+  "name": "zan-org-il",
+  "account_id": "77f0c1c932cf504cebd401ad4f204943",
+  "compatibility_date": "2026-10-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": {
+    "directory": "./dist/client",
+    "not_found_handling": "404-page"
+  },
+  "routes": [
+    { "pattern": "zan.org.il", "custom_domain": true },
+    { "pattern": "www.zan.org.il", "custom_domain": true }
+  ]
+}

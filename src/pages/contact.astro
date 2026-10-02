@@ -1,0 +1,19 @@
+---
+import Frame from "../layouts/Frame.astro";
+import { site } from "../data/site";
+---
+
+<Frame title={`קשר — ${site.name}`} current="contact">
+  <main class="reading">
+    <h1>יצירת קשר</h1>
+    <p>
+      <a href={`mailto:${site.email}`} dir="ltr">{site.email}</a>
+    </p>
+    <p>
+      <a href={site.whatsapp} rel="noopener">קבוצת הוואטסאפ</a>
+    </p>
+    <p>
+      <a href={site.x} rel="noopener" dir="ltr">{site.xHandle}</a>
+    </p>
+  </main>
+</Frame>

@@ -1,0 +1,12 @@
+---
+import Frame from "../layouts/Frame.astro";
+import { site } from "../data/site";
+---
+
+<Frame title={`הצטרפות — ${site.name}`} current="join">
+  <main class="reading reading-join">
+    <h1>הצטרפו לתנועה</h1>
+    <p>ההצטרפות לזה עלינו נעשית בקבוצת הוואטסאפ.</p>
+    <a class="action" href={site.whatsapp} rel="noopener">קהילת הוואטסאפ</a>
+  </main>
+</Frame>
