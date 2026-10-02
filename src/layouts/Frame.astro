@@ -16,10 +16,10 @@ const { title, description, current } = Astro.props;
     <a class="logo-card" href="/" aria-label={site.name}>
       <img src="/brand/logo-star.svg" alt="" />
     </a>
-    <a class="map-entry" href={site.mapHref} dir="rtl">
-      <span>חירות</span>
-      <span dir="ltr">vs.</span>
-      <span>ברית אדומה-ירוקה</span>
+    <a class="map-entry" href={site.mapHref}>
+      <span class="side-liberty">חירות</span>
+      <span class="side-vs" dir="ltr">vs.</span>
+      <span class="side-other">ברית אדומה-ירוקה</span>
     </a>
   </header>
   <nav class="rail" aria-label="ניווט">

@@ -60,13 +60,18 @@ components:
     backgroundColor: "#fff4ee"
     textColor: "{colors.route-orange}"
   map-button:
+    backgroundColor: transparent
+    textColor: "{colors.sheet}"
+    typography: "{typography.display}"
+  map-button-other:
     backgroundColor: "{colors.sheet}"
     textColor: "{colors.enamel}"
     rounded: "{rounded.button}"
-    padding: "0 16px"
-    height: "46px"
+    padding: "0 14px"
+    height: "40px"
   map-button-hover:
-    backgroundColor: "{colors.sheet}"
+    textColor: "#ffe4d4"
+  map-button-other-hover:
     textColor: "{colors.route-orange}"
   header:
     backgroundColor: "{colors.enamel}"
@@ -161,7 +166,7 @@ Daylight glass is the ground. Enamel and route orange are the two voices. Ink is
 
 - **Ink** (`#0e1d55`): Body text on paper, and the type on the orange join stop.
 - **Daylight Glass** (`#f4f6f8`): The page ground behind the floating frame.
-- **Sheet White** (`#ffffff`): Paper sheets, the logo card, the rail, the map button, and type on enamel or route orange.
+- **Sheet White** (`#ffffff`): Paper sheets, the logo card, the rail, the paper chip on the map entry, and type on enamel or route orange.
 
 ### Named Rules
 
@@ -180,7 +185,7 @@ Daylight glass is the ground. Enamel and route orange are the two voices. Ink is
 - **Headline** (400, `clamp(2.4rem, 3.6vw, 3.6rem)`, line-height 0.92): The about sheet title. Under 800px it is 2.2rem.
 - **Title** (400, `clamp(1.6rem, 2.2vw, 2.2rem)`, line-height 0.92): The logo line on its paper sheet.
 - **Body** (400, `clamp(1.25rem, 1.8vw, 1.7rem)`, line-height 1.45): Reading pages, held to about 28ch. The about sheet’s supporting sentence is `clamp(1rem, 1.25vw, 1.25rem)` and about 22ch. The root line-height is 1.45.
-- **Label** (700): Header links at 1.15rem. Rail stops and the map button at 1.02rem, with rail line-height 1.2. The action at 1.3rem. The join sheet’s supporting line is Rubik 700 at `clamp(1.2rem, 1.6vw, 1.7rem)`. Email and X sheets are Rubik 700 at `clamp(1.15rem, 1.5vw, 1.55rem)`.
+- **Label** (700): Rail stops at 1.02rem, with rail line-height 1.2. The map entry’s paper chip is Rubik 700 at 1.02rem; חירות in that entry is Secular One. The action at 1.3rem. The join sheet’s supporting line is Rubik 700 at `clamp(1.2rem, 1.6vw, 1.7rem)`. Email and X sheets are Rubik 700 at `clamp(1.15rem, 1.5vw, 1.55rem)`.
 
 ### Named Rules
 
@@ -214,11 +219,11 @@ The system is lifted. Header, logo card, rail, home sheets, and the reading shee
 
 ## Shapes
 
-Corners are large and shared. The header, the rail, the home sheets, and the reading sheet are 22px. The logo card is 18px. The map button and the action are 14px. Rail stops are 12px. The header is a full pill-ended bar; the rail is the same radius, stacked as a route card.
+Corners are large and shared. The header, the rail, the home sheets, and the reading sheet are 22px. The logo card is 18px. The map entry’s paper chip and the action are 14px. Rail stops are 12px. The header is a full pill-ended bar; the rail is the same radius, stacked as a route card.
 
 ### Named Rules
 
-**The Sheet Radius Rule.** The header, the rail, and sheets share a 22px radius. The logo card is 18px. The map button and the action are 14px. Rail stops are 12px.
+**The Sheet Radius Rule.** The header, the rail, and sheets share a 22px radius. The logo card is 18px. The map entry’s paper chip and the action are 14px. Rail stops are 12px.
 
 ## Components
 
@@ -229,7 +234,7 @@ Surfaces are enamel or paper. Route orange is the chip on the join stop and the 
 - **Shape:** 14px radius. The action is Rubik 700 at 1.3rem, padding 0.85rem 1.3rem.
 - **Primary:** Route-orange fill, sheet-white type. Hover fills `#de4e08`.
 - **On the join reading page:** Sheet-white fill, route-orange type. Hover fills `#fff4ee`.
-- **Map button:** Sheet-white fill, enamel type, 46px tall, padding 0 16px, Rubik 700 at 1.02rem. Hover turns the type route orange. Under 800px it spans the header and the height becomes auto.
+- **Map entry:** The opposition, set in the enamel bar. חירות is Secular One in sheet white on the enamel. vs. is `#ffe4d4`. ברית אדומה-ירוקה is a paper chip, enamel type, 14px radius, 40px tall. Hover turns חירות to `#ffe4d4` and the chip’s type to route orange. The map page repeats the same split, larger, in its own enamel bar.
 
 ### Chips
 
@@ -249,7 +254,7 @@ Surfaces are enamel or paper. Route orange is the chip on the join stop and the 
 
 ### Navigation
 
-The enamel header carries three contact links (mail, WhatsApp, X) in sheet-white Rubik 700 at 1.15rem. Hover turns them `#ffe4d4`. The map button sits in the bar, toward the logo. The rail is the route: home, about, vision, join, contact. The logo image is the home mark; the header does not repeat a wordmark.
+The enamel header carries the map entry toward the logo: חירות in white on the enamel, ברית אדומה-ירוקה on a paper chip. The rail is the route: home, about, vision, join, contact. The logo image is the home mark; the header does not repeat a wordmark.
 
 ### Line page
 
@@ -277,4 +282,4 @@ Full-viewport enamel, display at `clamp(3.4rem, 8vw, 7rem)`, line-height 0.9, wh
 - **Don't** lay sheets out as an equal-card grid.
 - **Don't** add a second shadow or a hard offset shadow.
 - **Don't** add glyph icons or a second mark.
-- **Don't** bring the map page’s chart palette or its Heebo type into this system.
+- **Don't** bring the map’s genealogy colors onto the station pages. On the map, those colors stay on the nodes and on the two alliance fills.

@@ -16,52 +16,75 @@ body,
   display: block;
 }
 
-body {
-  font-family: Heebo, "Arial Hebrew", sans-serif;
-}
-
 .app {
   display: flex;
   flex-direction: column;
+  gap: 12px;
   height: 100%;
+  padding: 12px;
+  background: var(--glass);
+  color: var(--blue-ink);
 }
 
 .top {
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  flex: none;
+  padding: 16px 18px 18px;
+  background: var(--blue);
+  color: white;
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+}
+
+.top-row {
+  display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 24px;
-  padding: 16px 24px 12px;
-  border-bottom: 1px solid;
+  align-items: center;
+  gap: 16px;
 }
 
 .map-home {
   flex: none;
-  color: inherit;
+  color: white;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 1.15rem;
   text-decoration: none;
 }
 
-.map-home:hover { color: #083796; }
+.map-home:hover { color: #ffe4d4; }
 
-.top h1 {
-  margin: 0 0 4px;
-  font-size: 22px;
-  font-weight: 700;
+.top .vs-line {
+  margin-bottom: 8px;
+}
+
+.top .side-liberty {
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+}
+
+.top .side-other {
+  height: 46px;
+  padding: 0 16px;
+  font-size: 1.02rem;
 }
 
 .top p {
   margin: 0;
-  max-width: 980px;
-  font-size: 14px;
-  line-height: 21px;
+  max-width: 62ch;
+  color: #ffe4d4;
+  font-size: 1.02rem;
+  line-height: 1.45;
 }
 
-.subtitle {
-  margin: 0 0 2px;
-  font-size: 15px;
-  font-weight: 500;
+.map-lead {
+  font-weight: 700;
+}
+
+.map-note {
+  margin-top: 2px;
+  font-weight: 400;
 }
 
 .map-key {
@@ -79,13 +102,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  width: 36px;
+  height: 36px;
   padding: 4px;
   list-style: none;
-  background: #fefefe;
-  color: inherit;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.08);
+  background: white;
+  color: var(--blue);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
   cursor: pointer;
   user-select: none;
 }
@@ -95,23 +119,55 @@ body {
 }
 
 .map-key summary:hover {
-  background: #f4f4f4;
+  color: var(--orange);
 }
 
 .map-key .legend {
   position: absolute;
-  bottom: 34px;
+  bottom: 44px;
   left: 0;
-  width: 220px;
-  padding: 10px 12px;
-  background: #fefefe;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.08);
+  width: 240px;
+  padding: 14px 14px;
+  background: white;
+  color: var(--blue-ink);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
 }
 
 @media (max-width: 699px) {
   .react-flow__minimap {
     display: none;
   }
+
+  .app {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .top {
+    gap: 8px;
+    padding: 14px;
+  }
+
+  .top-row {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .top .vs-line {
+    white-space: normal;
+    flex-wrap: wrap;
+  }
+
+  .top .side-liberty { font-size: 1.7rem; }
+
+  .top .side-other {
+    height: auto;
+    min-height: 40px;
+    padding: 6px 12px;
+  }
+
+  .map-home { font-size: 1.02rem; }
 }
 
 .legend {
@@ -157,7 +213,7 @@ body {
   gap: 3px;
   padding: 0 12px;
   border-style: solid;
-  border-radius: 6px;
+  border-radius: 12px;
   direction: rtl;
   text-align: center;
   overflow: hidden;
@@ -179,24 +235,35 @@ body {
 .frame {
   position: relative;
   border: 1.5px dashed;
+  border-color: #7a808a;
   border-radius: 14px;
   pointer-events: none;
   transition: opacity 120ms ease;
 }
 
+.frame.is-dimmed { opacity: 0.28; }
+
+.frame-exile {
+  border-color: #1f5fa6;
+  background: color-mix(in srgb, #1f5fa6 8%, transparent);
+}
+
 .frame-label {
   position: absolute;
-  top: -30px;
+  top: -42px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 3px 14px;
-  border: 1px solid;
-  border-radius: 999px;
-  font-size: 13px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 14px;
+  background: white;
+  color: var(--blue);
+  box-shadow: var(--shadow);
+  font-family: var(--text);
+  font-size: 0.95rem;
   font-weight: 700;
-  line-height: 20px;
-  letter-spacing: 0.01em;
+  line-height: 1;
+  gap: 8px;
   white-space: nowrap;
   direction: rtl;
   transform: translateX(-50%);
@@ -205,21 +272,10 @@ body {
 .frame-label-marks {
   display: inline-flex;
   gap: 3px;
-  direction: ltr;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1;
 }
 
-.frame-label-dots {
-  display: inline-flex;
-  gap: 3px;
-}
-
-.frame-label-dots i {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
 
 .header {
   text-align: center;
@@ -245,13 +301,22 @@ body {
   top: 0;
   bottom: 0;
   left: 0;
+}
+
+.axis-pair {
+  position: absolute;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 14px 0;
+  gap: 22px;
+  transform: translateY(-50%);
 }
 
 .axis-label {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -263,16 +328,27 @@ body {
   direction: rtl;
 }
 
+.axis-label::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 46%;
+  width: 8.4rem;
+  height: 3.2rem;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, currentColor 22%, transparent) 0%,
+    color-mix(in srgb, currentColor 8%, transparent) 46%,
+    transparent 74%
+  );
+  filter: blur(7px);
+}
+
 .axis-arrow {
   font-size: 11px;
   line-height: 12px;
-}
-
-.axis-spine {
-  flex: 1;
-  margin: 8px 0;
-  border-left: 1.5px solid;
-  opacity: 0.45;
 }
 
 .react-flow__node-frame,
@@ -289,12 +365,38 @@ body {
   width: 420px;
   max-width: calc(100% - 24px);
   overflow-y: auto;
-  padding: 16px 18px 18px;
-  border: 1px solid;
-  border-radius: 12px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  padding: 18px 20px 20px;
+  background: white;
+  color: var(--blue-ink);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
   direction: rtl;
   z-index: 10;
+}
+
+.react-flow__controls {
+  border: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.react-flow__controls-button {
+  border: 0;
+  background: white;
+  fill: var(--blue);
+}
+
+.react-flow__controls-button:hover {
+  background: #eef2f8;
+  fill: var(--blue);
+}
+
+.react-flow__minimap {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: white;
 }
 
 .detail-top {

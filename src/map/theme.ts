@@ -13,14 +13,14 @@ export type Palette = Record<EdgeColor, string> & {
 };
 
 export const palette: Palette = {
-  page: "#f7f7f5",
+  page: "#f4f6f8",
   panel: "#ffffff",
   box: "#ffffff",
-  root: "#eef0f3",
-  text: "#15171b",
-  text2: "#4a4f58",
-  text3: "#7a808a",
-  line: "#d5d8de",
+  root: "#e7edf6",
+  text: "#0e1d55",
+  text2: "#24356f",
+  text3: "#3d4e86",
+  line: "#d3dced",
   white: "#ffffff",
   COL: "#c63a4a",
   LIB: "#0f7892",

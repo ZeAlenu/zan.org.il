@@ -70,22 +70,47 @@ a { color: inherit; }
   box-shadow: var(--shadow);
 }
 
-.map-entry {
+.map-entry,
+.vs-line {
   display: inline-flex;
   align-items: center;
-  direction: rtl;
-  height: 46px;
-  padding: 0 16px;
-  background: white;
-  color: var(--blue);
-  border-radius: 14px;
+  gap: 10px;
+  min-height: 46px;
+  margin: 0;
+  color: white;
   text-decoration: none;
   font-weight: 700;
   font-size: 1.02rem;
   white-space: nowrap;
 }
 
-.map-entry:hover { color: var(--orange); }
+.side-liberty {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.side-vs {
+  color: #ffe4d4;
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+.side-other {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 14px;
+  background: white;
+  color: var(--blue);
+  border-radius: 14px;
+  font-weight: 700;
+}
+
+.map-entry:hover .side-liberty { color: #ffe4d4; }
+
+.map-entry:hover .side-other { color: var(--orange); }
 
 .logo-card {
   display: grid;
@@ -321,13 +346,19 @@ a { color: inherit; }
   }
 
   .map-entry {
-    height: auto;
+    flex: 1 1 auto;
     min-height: 40px;
-    justify-content: center;
+    justify-content: flex-start;
     white-space: normal;
-    text-align: center;
     font-size: 0.92rem;
-    padding: 8px 10px;
+  }
+
+  .side-liberty { font-size: 1.25rem; }
+
+  .side-other {
+    height: auto;
+    min-height: 36px;
+    padding: 6px 10px;
   }
 
   .logo-card {
