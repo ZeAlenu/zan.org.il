@@ -1,6 +1,6 @@
 import { Handle, Position, type Node, type NodeProps } from "@xyflow/react";
-import { NODES, type ChartNode, type Frame } from "./chart";
-import { AXIS_W, AXIS_X, BAND_RIGHT, BAND_TOP, NODE_H, NODE_W, RIDGE_Y, colX, rowY } from "./layout";
+import { FRAMES, NODES, nodeOf, type ChartNode, type Frame } from "./chart";
+import { AXIS_W, AXIS_X, BAND_TOP, MAP_W, NODE_H, NODE_W, RIDGE_Y, boundsOf, colX, rowY } from "./layout";
 import type { Palette } from "./theme";
 
 export type IdeaData = {
@@ -60,10 +60,8 @@ export function IdeaBox({ data }: NodeProps<IdeaNode>) {
   );
 }
 
-function frameBackground(frame: Frame, palette: Palette): string {
+function frameBackground(frame: Frame, palette: Palette): string | undefined {
   switch (frame.look) {
-    case "exile":
-      return `${palette.JEW}14`;
     case "redGreen":
       return `linear-gradient(to top right, ${palette.COL}38 50%, ${palette.ISL}38 50%)`;
     case "liberty":
@@ -72,6 +70,8 @@ function frameBackground(frame: Frame, palette: Palette): string {
         `linear-gradient(to top right, transparent 50%, ${palette.page} 50%)`,
         `repeating-linear-gradient(to bottom, ${palette.COL}4d 0 12px, ${palette.white}26 12px 24px)`,
       ].join(", ");
+    case "exile":
+      return undefined;
     default: {
       const unreachable: never = frame.look;
       return unreachable;
@@ -81,41 +81,12 @@ function frameBackground(frame: Frame, palette: Palette): string {
 
 function frameMarks(frame: Frame): string[] | null {
   switch (frame.look) {
-    case "exile":
-      return ["✡️"];
     case "liberty":
       return ["🇮🇱", "🇺🇸"];
     case "redGreen":
+      return ["🍉"];
+    case "exile":
       return null;
-    default: {
-      const unreachable: never = frame.look;
-      return unreachable;
-    }
-  }
-}
-
-function frameColors(frame: Frame, palette: Palette): string[] {
-  switch (frame.look) {
-    case "exile":
-      return [palette.JEW];
-    case "redGreen":
-      return [palette.COL, palette.ISL];
-    case "liberty":
-      return [palette.JEW, palette.COL];
-    default: {
-      const unreachable: never = frame.look;
-      return unreachable;
-    }
-  }
-}
-
-function frameStroke(frame: Frame, palette: Palette): string {
-  switch (frame.look) {
-    case "exile":
-      return palette.JEW;
-    case "redGreen":
-    case "liberty":
-      return palette.text3;
     default: {
       const unreachable: never = frame.look;
       return unreachable;
@@ -125,43 +96,22 @@ function frameStroke(frame: Frame, palette: Palette): string {
 
 export function FrameBox({ data, width, height }: NodeProps<FrameNode>) {
   const { frame, palette, dimmed, labelCenter } = data;
-  const stroke = frameStroke(frame, palette);
+  const background = frameBackground(frame, palette);
   const marks = frameMarks(frame);
-  const colors = frameColors(frame, palette);
   return (
     <div
-      className="frame"
+      className={`frame frame-${frame.look}${dimmed ? " is-dimmed" : ""}`}
       title={`${frame.label}. ${frame.tooltip}`}
-      style={{
-        width,
-        height,
-        background: frameBackground(frame, palette),
-        borderColor: stroke,
-        opacity: dimmed ? 0.3 : 1,
-      }}
+      style={{ width, height, background }}
     >
-      <div
-        className="frame-label"
-        style={{
-          left: labelCenter,
-          color: frame.look === "exile" ? palette.JEW : palette.text,
-          background: palette.panel,
-          borderColor: stroke,
-        }}
-      >
+      <div className="frame-label" style={{ left: labelCenter }}>
         {marks ? (
-          <span className="frame-label-marks">
+          <span className="frame-label-marks" aria-hidden="true">
             {marks.map((mark) => (
               <span key={mark}>{mark}</span>
             ))}
           </span>
-        ) : (
-          <span className="frame-label-dots">
-            {colors.map((color) => (
-              <i key={color} style={{ background: color }} />
-            ))}
-          </span>
-        )}
+        ) : null}
         {frame.label}
       </div>
     </div>
@@ -176,8 +126,11 @@ export function LayerHeader({ data }: NodeProps<HeaderNode>) {
   );
 }
 
+const RIGHT_AXIS_X = MAP_W + 40;
+
 function ridgePieces(): Array<{ left: number; width: number }> {
   const gap = 8;
+  const ridgeEnd = RIGHT_AXIS_X + AXIS_W / 2;
   const occupied = NODES.filter((node) => {
     const top = rowY(node.row);
     return RIDGE_Y >= top && RIDGE_Y <= top + NODE_H;
@@ -192,10 +145,44 @@ function ridgePieces(): Array<{ left: number; width: number }> {
     }
     cursor = Math.max(cursor, left + NODE_W + gap);
   }
-  if (cursor < BAND_RIGHT) {
-    pieces.push({ left: cursor - AXIS_X, width: BAND_RIGHT - cursor });
+  if (cursor < ridgeEnd) {
+    pieces.push({ left: cursor - AXIS_X, width: ridgeEnd - cursor });
   }
-  return pieces;
+  return pieces.flatMap((piece) => openForLibertyLabel(piece));
+}
+
+const LIBERTY_LABEL_HALF = 77;
+const LABEL_LINE_GAP = 2;
+
+function openForLibertyLabel(piece: { left: number; width: number }): Array<{ left: number; width: number }> {
+  const frame = FRAMES.find((item) => item.look === "liberty");
+  if (!frame) return [piece];
+  const box = boundsOf(frame.members.map(nodeOf));
+  const center = box.x + box.w / 2 + 1.5;
+  const spanLeft = center - LIBERTY_LABEL_HALF - LABEL_LINE_GAP - AXIS_X;
+  const spanRight = center + LIBERTY_LABEL_HALF + LABEL_LINE_GAP - AXIS_X;
+  const start = piece.left;
+  const end = piece.left + piece.width;
+  if (end <= spanLeft || start >= spanRight) return [piece];
+  const parts: Array<{ left: number; width: number }> = [];
+  if (start < spanLeft) parts.push({ left: start, width: spanLeft - start });
+  if (end > spanRight) parts.push({ left: spanRight, width: end - spanRight });
+  return parts;
+}
+
+function AxisLabels({ palette }: { palette: Palette }) {
+  return (
+    <>
+      <div className="axis-label" style={{ color: palette.COL }}>
+        <span className="axis-arrow">▲</span>
+        קולקטיביזם
+      </div>
+      <div className="axis-label" style={{ color: palette.LIB }}>
+        אינדיבידואליזם
+        <span className="axis-arrow">▼</span>
+      </div>
+    </>
+  );
 }
 
 export function Axis({ data, width, height }: NodeProps<AxisNode>) {
@@ -211,14 +198,13 @@ export function Axis({ data, width, height }: NodeProps<AxisNode>) {
         />
       ))}
       <div className="axis-col" style={{ width: AXIS_W }}>
-        <div className="axis-label" style={{ color: palette.COL }}>
-          <span className="axis-arrow">▲</span>
-          קולקטיביזם
+        <div className="axis-pair" style={{ top: ridgeTop }}>
+          <AxisLabels palette={palette} />
         </div>
-        <div className="axis-spine" style={{ borderColor: palette.text3 }} />
-        <div className="axis-label" style={{ color: palette.LIB }}>
-          אינדיבידואליזם
-          <span className="axis-arrow">▼</span>
+      </div>
+      <div className="axis-col" style={{ width: AXIS_W, left: RIGHT_AXIS_X - AXIS_X }}>
+        <div className="axis-pair" style={{ top: ridgeTop }}>
+          <AxisLabels palette={palette} />
         </div>
       </div>
     </div>

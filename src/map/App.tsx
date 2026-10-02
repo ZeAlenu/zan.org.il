@@ -24,14 +24,15 @@ import {
   type Kind,
 } from "./chart";
 import {
+  AXIS_W,
   AXIS_X,
   BAND_BOTTOM,
-  BAND_RIGHT,
   BAND_TOP,
   boundsOf,
   colX,
   FRAME_PAD,
   LAYER_COUNT,
+  MAP_W,
   NODE_H,
   NODE_W,
   rowY,
@@ -120,7 +121,7 @@ function buildNodes(palette: Palette, lit: Set<string> | null, selectedId: strin
     id: "axis",
     type: "axis",
     position: { x: AXIS_X, y: BAND_TOP },
-    width: BAND_RIGHT - AXIS_X,
+    width: MAP_W + 40 + AXIS_W - AXIS_X,
     height: BAND_BOTTOM - BAND_TOP,
     data: { palette },
     selectable: false,
@@ -183,7 +184,7 @@ function buildEdges(palette: Palette, path: Set<string> | null): Edge[] {
       ...handlesFor(edge),
       type: "default",
       label: edge.label,
-      labelStyle: { fill: color, fontFamily: "Heebo, sans-serif", fontSize: 12, fontWeight: 600 },
+      labelStyle: { fill: color, fontFamily: "Rubik, sans-serif", fontSize: 12, fontWeight: 700 },
       labelBgStyle: { fill: palette.page },
       labelBgPadding: [6, 3] as [number, number],
       labelBgBorderRadius: 4,
@@ -203,7 +204,7 @@ const OPENING_PAD = 16;
 
 function openingViewport(width: number, height: number): { x: number; y: number; zoom: number } {
   const lastLayer = LAYER_COUNT - 1;
-  const right = colX(lastLayer) + NODE_W + FRAME_PAD;
+  const right = MAP_W + 40 + AXIS_W;
   const bottom = Math.max(...NODES.filter((node) => node.layer >= lastLayer - 2).map((node) => rowY(node.row))) + NODE_H + FRAME_PAD;
   const zoom = Math.min(1.25, Math.max(0.7, (height - 2 * OPENING_PAD) / (bottom - OPENING_TOP)));
   const y = OPENING_PAD - OPENING_TOP * zoom;
@@ -375,18 +376,18 @@ export default function App() {
   const edges = useMemo(() => buildEdges(palette, lit), [lit]);
 
   return (
-    <div className="app" style={{ background: palette.page, color: palette.text }}>
-      <header className="top" dir="rtl" style={{ borderColor: palette.line }}>
-        <div className="top-text">
-          <h1>
-            חירות <span dir="ltr">vs.</span> ברית אדומה-ירוקה
+    <div className="app">
+      <header className="top">
+        <div className="top-row">
+          <h1 className="vs-line">
+            <span className="side-liberty">חירות</span>
+            <span className="side-vs" dir="ltr">vs.</span>
+            <span className="side-other">ברית אדומה-ירוקה</span>
           </h1>
-          <p className="subtitle">מלחמת התרבות בת 3800 השנים.</p>
-          <p style={{ color: palette.text2 }}>
-            מפה של דתות ואיזמים כשושלות של דפוס מגדל בבל (קולקטיביזם) מול החירות.
-          </p>
+          <a className="map-home" href="/">הבית</a>
         </div>
-        <a className="map-home" href="/">הבית</a>
+        <p className="map-lead">מלחמת התרבות בת 3800 השנים.</p>
+        <p className="map-note">מפה של דתות ואיזמים כשושלות של דפוס מגדל בבל (קולקטיביזם) מול החירות.</p>
       </header>
       <main className="stage">
         <details className="map-key" style={{ color: palette.text }}>
@@ -433,7 +434,7 @@ export default function App() {
           onNodeMouseLeave={() => setHoverId(null)}
           onPaneClick={() => setSelectedId(null)}
         >
-          <Background variant={BackgroundVariant.Dots} gap={24} size={1} color={palette.line} />
+          <Background variant={BackgroundVariant.Dots} gap={24} size={1.15} color="#c5d0e4" />
           <Controls showInteractive={false} position="bottom-left" />
           <ChartMinimap path={lit} />
         </ReactFlow>
