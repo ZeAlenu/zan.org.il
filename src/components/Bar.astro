@@ -1,0 +1,42 @@
+---
+import { site } from "../data/site";
+
+export interface BarLink {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  mark?: boolean;
+  links?: BarLink[];
+  link?: BarLink;
+  description?: string;
+}
+
+const { mark = false, links = [], link, description } = Astro.props;
+const described = link && description ? { link, description } : null;
+---
+
+<header class:list={["bar", { "bar-mark": mark }]}>
+  <a class="logo-card" href="/" aria-label={site.name}>
+    <img src="/brand/logo-star.svg" alt="" />
+  </a>
+  {
+    mark ? null : (
+      <>
+        {links.map((item) => (
+          <a class="bar-link" href={item.href}>
+            {item.label}
+          </a>
+        ))}
+        {described && (
+          <a class="bar-described" href={described.link.href}>
+            <span>{described.link.label}</span>
+            <span class="bar-note">{described.description}</span>
+          </a>
+        )}
+        <slot />
+      </>
+    )
+  }
+</header>

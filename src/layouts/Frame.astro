@@ -1,6 +1,7 @@
 ---
 import Base from "./Base.astro";
-import { site, stops, type StopId } from "../data/site";
+import Bar from "../components/Bar.astro";
+import { stops, type StopId } from "../data/site";
 
 interface Props {
   title: string;
@@ -12,16 +13,9 @@ const { title, description, current } = Astro.props;
 ---
 
 <Base title={title} description={description}>
-  <header class="bar">
-    <a class="logo-card" href="/" aria-label={site.name}>
-      <img src="/brand/logo-star.svg" alt="" />
-    </a>
-    <a class="map-entry" href={site.mapHref}>
-      <span class="side-liberty">חירות</span>
-      <span class="side-vs" dir="ltr">vs.</span>
-      <span class="side-other">ברית אדומה-ירוקה</span>
-    </a>
-  </header>
+  <Bar>
+    <slot name="bar" />
+  </Bar>
   <nav class="rail" aria-label="ניווט">
     {
       stops.map((stop) => (
