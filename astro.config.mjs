@@ -5,7 +5,8 @@ import { shareImages } from './src/share/images.ts';
 
 export default defineConfig({
   site: 'https://zan.org.il',
-  trailingSlash: 'always',
+  trailingSlash: 'never',
+  build: { format: 'file' },
   devToolbar: { enabled: false },
   session: false,
   integrations: [react(), shareImages()],
@@ -13,6 +14,6 @@ export default defineConfig({
     imageService: 'compile',
   }),
   redirects: {
-    '/map': '/redgreen/',
+    '/map': '/redgreen',
   },
 });

@@ -1,8 +1,0 @@
-# Bare page URLs 307 with an empty body under auto-trailing-slash.
-# WhatsApp will not follow that hop, so proxy them onto the folder URL.
-/redgreen    /redgreen/    200
-/about       /about/       200
-/vision      /vision/      200
-/join        /join/        200
-/contact     /contact/     200
-/map         /redgreen/    301
