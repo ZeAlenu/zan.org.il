@@ -8,16 +8,18 @@ import { site } from "../data/site";
 ---
 
 <Base title={`${site.mapTitle} — ${site.name}`} description="מפה של דתות ואיזמים כשושלות של דפוס מגדל בבל (קולקטיביזם) מול החירות.">
-  <Bar>
-    <div class="bar-copy">
-      <p>מלחמת התרבות בת 3800 השנים.</p>
-      <p>מפה של דתות ואיזמים כשושלות של דפוס מגדל בבל (קולקטיביזם) מול החירות.</p>
-    </div>
-  </Bar>
-  <div class="map-page" id="content">
-    <h1 class="map-title">{site.mapTitle}</h1>
-    <div class="map-root">
-      <MapApp client:only="react" />
+  <div class="map-screen">
+    <Bar>
+      <div class="bar-copy">
+        <p>מלחמת התרבות בת 3800 השנים.</p>
+        <p>מפה של דתות ואיזמים כשושלות של דפוס מגדל בבל (קולקטיביזם) מול החירות.</p>
+      </div>
+    </Bar>
+    <div class="map-page" id="content">
+      <h1 class="map-title">{site.mapTitle}</h1>
+      <div class="map-root">
+        <MapApp client:only="react" />
+      </div>
     </div>
   </div>
 </Base>

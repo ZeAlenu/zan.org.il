@@ -16,12 +16,30 @@ body,
   display: block;
 }
 
+.map-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  padding: var(--pad);
+}
+
+.map-screen > .bar {
+  position: relative;
+  top: auto;
+  right: auto;
+  left: auto;
+  flex: none;
+  width: auto;
+  margin: 0;
+}
+
 .map-page {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  height: 100%;
-  padding: calc(var(--pad) + var(--bar-h) + 12px) 12px 12px;
+  flex: 1;
+  min-height: 0;
+  height: auto;
 }
 
 .map-title {
@@ -104,9 +122,9 @@ body,
 }
 
 @media (max-width: 800px) {
-  .map-page {
+  .map-screen {
     gap: 8px;
-    padding: 128px 8px 8px;
+    padding: 12px;
   }
 }
 
