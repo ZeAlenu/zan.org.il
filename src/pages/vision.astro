@@ -1,17 +1,17 @@
 ---
 import Base from "../layouts/Base.astro";
 import Bar from "../components/Bar.astro";
-import { site } from "../data/site";
+import { pages, site } from "../data/site";
 ---
 
-<Base title={`${site.line} — ${site.name}`}>
+<Base title={pages.vision.title}>
   <Bar mark />
   <main class="experience" id="content">
     <div>
       <h1>{site.line}</h1>
       <p>{site.sentence}</p>
       <nav aria-label="יציאה מן העמוד">
-        <a class="action" href="/join">הצטרפו לתנועה</a>
+        <a class="action" href="/join">{site.joinTitle}</a>
       </nav>
     </div>
   </main>
