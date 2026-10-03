@@ -2,10 +2,13 @@
   "name": "zan-org-il",
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host 0.0.0.0 --port 4321",
     "build": "astro build",
     "preview": "astro preview",
     "deploy": "astro build && wrangler deploy"
+  },
+  "engines": {
+    "node": "24.18.0"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.3",
