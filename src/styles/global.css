@@ -141,6 +141,9 @@ a { color: inherit; }
 
 .bar-copy p {
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .bar-copy p:first-child {
@@ -152,10 +155,7 @@ a { color: inherit; }
 }
 
 .bar:has(.bar-copy) {
-  height: auto;
-  min-height: var(--bar-h);
-  padding-top: 12px;
-  padding-bottom: 12px;
+  flex-wrap: nowrap;
 }
 
 .logo-card {
@@ -405,6 +405,10 @@ a { color: inherit; }
   }
 
   .bar-mark { left: auto; }
+
+  .bar:has(.bar-copy) {
+    flex-wrap: nowrap;
+  }
 
   .map-entry {
     flex: 1 1 auto;

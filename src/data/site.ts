@@ -8,7 +8,7 @@ export const site = {
   x: "https://x.com/ZeAlenu",
   xHandle: "@ZeAlenu",
   host: "zan.org.il",
-  mapHref: "/map",
+  mapHref: "/redgreen",
   mapLiberty: "חירות",
   mapOther: "ברית אדומה-ירוקה",
   mapTitle: "חירות vs. ברית אדומה-ירוקה",
@@ -68,7 +68,7 @@ export const pages = {
     card: "contact",
   },
   map: {
-    path: "/map",
+    path: "/redgreen",
     title: `${site.mapTitle} — ${site.name}`,
     headline: site.mapTitle,
     description: site.mapLine,
