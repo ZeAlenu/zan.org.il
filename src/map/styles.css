@@ -2,6 +2,15 @@
   box-sizing: border-box;
 }
 
+html:has(.map-screen) {
+  height: 100dvh;
+}
+
+html:has(.map-screen) body {
+  height: 100%;
+  min-height: 0;
+}
+
 html,
 body,
 #root,

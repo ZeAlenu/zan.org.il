@@ -11,7 +11,7 @@ import {
   type Edge,
   type Node,
 } from "@xyflow/react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   EDGES,
   FRAMES,
@@ -38,6 +38,36 @@ import {
 import { nodeTypes } from "./nodes";
 import { openingViewport } from "./opening";
 import { palette, type Palette } from "./theme";
+
+type FlowCamera = {
+  setViewport: (viewport: { x: number; y: number; zoom: number }, options: { duration: number }) => void;
+};
+
+function visibleStage(): { width: number; height: number; offsetY: number } | null {
+  const stage = document.querySelector(".stage");
+  if (!(stage instanceof HTMLElement)) return null;
+  const rect = stage.getBoundingClientRect();
+  const view = window.visualViewport;
+  const viewTop = view?.offsetTop ?? 0;
+  const viewLeft = view?.offsetLeft ?? 0;
+  const viewHeight = view?.height ?? window.innerHeight;
+  const viewWidth = view?.width ?? window.innerWidth;
+  const top = Math.max(rect.top, viewTop);
+  const bottom = Math.min(rect.bottom, viewTop + viewHeight);
+  const left = Math.max(rect.left, viewLeft);
+  const right = Math.min(rect.right, viewLeft + viewWidth);
+  const width = right - left;
+  const height = bottom - top;
+  if (width < 1 || height < 1) return null;
+  return { width, height, offsetY: top - rect.top };
+}
+
+function placeOpening(camera: FlowCamera) {
+  const frame = visibleStage();
+  if (!frame) return;
+  const next = openingViewport(frame.width, frame.height);
+  camera.setViewport({ x: next.x, y: next.y + frame.offsetY, zoom: next.zoom }, { duration: 0 });
+}
 
 function strokeFor(kind: Kind): { width: number; opacity: number; dash?: string } {
   switch (kind) {
@@ -355,6 +385,36 @@ export default function App() {
   const lit = useMemo(() => ledTo(focusId), [focusId]);
   const nodes = useMemo(() => buildNodes(palette, lit, selectedId), [lit, selectedId]);
   const edges = useMemo(() => buildEdges(palette, lit), [lit]);
+  const camera = useRef<FlowCamera | null>(null);
+
+  useEffect(() => {
+    let frame = 0;
+    const apply = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const current = camera.current;
+        if (current) placeOpening(current);
+      });
+    };
+    let cancelled = false;
+    apply();
+    const stage = document.querySelector(".stage");
+    const observer = new ResizeObserver(apply);
+    if (stage) observer.observe(stage);
+    const view = window.visualViewport;
+    view?.addEventListener("resize", apply);
+    view?.addEventListener("scroll", apply);
+    document.fonts.ready.then(() => {
+      if (!cancelled) apply();
+    }).catch(() => undefined);
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      view?.removeEventListener("resize", apply);
+      view?.removeEventListener("scroll", apply);
+    };
+  }, []);
 
   return (
     <div className="app">
@@ -376,11 +436,8 @@ export default function App() {
           nodeTypes={nodeTypes}
           colorMode="light"
           onInit={(instance) => {
-            const stage = document.querySelector(".stage");
-            if (stage) {
-              const { width, height } = stage.getBoundingClientRect();
-              void instance.setViewport(openingViewport(width, height), { duration: 0 });
-            }
+            camera.current = instance;
+            placeOpening(instance);
           }}
           minZoom={0.15}
           maxZoom={2.5}
