@@ -202,7 +202,7 @@ export function Axis({ data, width, height }: NodeProps<AxisNode>) {
           <AxisLabels palette={palette} />
         </div>
       </div>
-      <div className="axis-col" style={{ width: AXIS_W, left: RIGHT_AXIS_X - AXIS_X }}>
+      <div className="axis-col axis-present" style={{ width: AXIS_W, left: RIGHT_AXIS_X - AXIS_X }}>
         <div className="axis-pair" style={{ top: ridgeTop }}>
           <AxisLabels palette={palette} />
         </div>

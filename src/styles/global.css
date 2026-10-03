@@ -130,6 +130,7 @@ a { color: inherit; }
 
 .bar-copy {
   display: flex;
+  flex: 1 1 0;
   flex-direction: column;
   justify-content: center;
   min-width: 0;
@@ -143,7 +144,11 @@ a { color: inherit; }
 }
 
 .bar-copy p:first-child {
-  font-weight: 700;
+  color: white;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.2rem, 4.4vw, 1.7rem);
+  line-height: 1.05;
 }
 
 .bar:has(.bar-copy) {
