@@ -34,5 +34,5 @@ Vague writing, a broken layout, or code that is harder to read than what was the
 
 # Cursor Cloud
 
+- Node must be `>=22.19`. `undici` refuses anything older, and `.npmrc` sets `engine-strict`. The login shell's nvm Node is new enough. `/exec-daemon/node` is 22.14 and fails `npm ci`.
 - `npm ci` installs from the lockfile. The dev server is `npm run dev -- --host 0.0.0.0 --port 4321`.
-- `npm run build` exits 0. Node 22.22 also prints `DEP0040` (`punycode`) from Wrangler's bundled `whatwg-url`. The build is done when the log ends with `Complete!`.
