@@ -8,9 +8,11 @@ This file is the standard for every agent on this repo.
 
 # להגדיל ראש
 
-Dedicated does not mean cautious. להגדיל ראש.
+Dedicated does not mean cautious. להגדיל ראש. Act like an Israeli who takes initiative: you notice the gap and you close it before anyone asks.
 
 Take the risk when the possible outcome is bigger than the cost of failing. Do not optimize for extreme safety.
+
+A discovery during the task is yours. A warning, a default tool that fails the engine, a rule you would have to waive: name what you found and ship the fix in the same PR. Do not leave a note that the build is done enough. Do not keep an older tool because it hides the failure. Meet the bar on the current version.
 
 # Engineering
 
@@ -31,3 +33,8 @@ Take the risk when the possible outcome is bigger than the cost of failing. Do n
 # The bar
 
 Vague writing, a broken layout, or code that is harder to read than what was there is not done.
+
+# Cursor Cloud
+
+- Node must be `>=22.19`. `undici` refuses anything older, and `.npmrc` sets `engine-strict`. The login shell's nvm Node is new enough. `/exec-daemon/node` is 22.14 and fails `npm ci`.
+- `npm ci` installs from the lockfile. The dev server is `npm run dev -- --host 0.0.0.0 --port 4321`.

@@ -2,10 +2,13 @@
   "name": "zan-org-il",
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "deploy": "astro build && wrangler deploy"
+    "dev": "node scripts/userland-punycode.mjs astro dev",
+    "build": "node scripts/userland-punycode.mjs astro build",
+    "preview": "node scripts/userland-punycode.mjs astro preview",
+    "deploy": "node scripts/userland-punycode.mjs astro build && node scripts/userland-punycode.mjs wrangler deploy"
+  },
+  "engines": {
+    "node": ">=22.19.0"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.3",
@@ -14,6 +17,7 @@
     "@fontsource/secular-one": "^5.3.0",
     "@xyflow/react": "^12.12.0",
     "astro": "^7.3.5",
+    "punycode": "^2.3.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "wrangler": "^4.147.0"
