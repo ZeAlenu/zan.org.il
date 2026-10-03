@@ -36,4 +36,4 @@ Vague writing, a broken layout, or code that is harder to read than what was the
 
 # Cursor Cloud
 
-- `npm ci` installs from the lockfile. The dev server is `npm run dev -- --host 0.0.0.0 --port 4321`.
+- `npm ci` installs from the lockfile. The dev server is `npm run dev`.
