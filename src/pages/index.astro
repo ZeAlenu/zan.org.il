@@ -1,13 +1,13 @@
 ---
 import Frame from "../layouts/Frame.astro";
-import { site } from "../data/site";
+import { pages, site } from "../data/site";
 ---
 
-<Frame title={`${site.name} — ${site.line}`} current="home">
+<Frame title={pages.home.title} current="home">
   <a slot="bar" class="map-entry" href={site.mapHref}>
-    <span class="side-liberty">חירות</span>
+    <span class="side-liberty">{site.mapLiberty}</span>
     <span class="side-vs" dir="ltr">vs.</span>
-    <span class="side-other">ברית אדומה-ירוקה</span>
+    <span class="side-other">{site.mapOther}</span>
   </a>
   <main class="case" aria-label="הבית">
     <a class="sheet about-sheet" href="/about">

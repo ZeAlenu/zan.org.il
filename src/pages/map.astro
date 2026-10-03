@@ -4,15 +4,15 @@ import Bar from "../components/Bar.astro";
 import "@xyflow/react/dist/style.css";
 import "../map/styles.css";
 import MapApp from "../map/App.tsx";
-import { site } from "../data/site";
+import { pages, site } from "../data/site";
 ---
 
-<Base title={`${site.mapTitle} — ${site.name}`} description="מפה של דתות ואיזמים כשושלות של דפוס מגדל בבל (קולקטיביזם) מול החירות.">
+<Base title={pages.map.title}>
   <div class="map-screen">
     <Bar>
       <div class="bar-copy">
-        <p>מלחמת התרבות בת 3800 השנים.</p>
-        <p>מפה של דתות ואיזמים כשושלות של דפוס מגדל בבל (קולקטיביזם) מול החירות.</p>
+        <p>{site.mapKicker}</p>
+        <p>{site.mapLine}</p>
       </div>
     </Bar>
     <div class="map-page" id="content">
