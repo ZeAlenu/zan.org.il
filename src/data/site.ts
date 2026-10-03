@@ -79,6 +79,6 @@ export const pages = {
 export type PageId = keyof typeof pages;
 
 export function pageForPath(pathname: string): (typeof pages)[PageId] | undefined {
-  const path = pathname.replace(/\/index\.html$/, "/").replace(/\.html$/, "").replace(/\/+$/, "") || "/";
+  const path = pathname.replace(/\/+$/, "") || "/";
   return Object.values(pages).find((page) => page.path === path);
 }
