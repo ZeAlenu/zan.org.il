@@ -7,6 +7,7 @@ colors:
   ink: "#0e1d55"
   glass: "#f4f6f8"
   sheet: "#ffffff"
+  bar-tint: "#ffe4d4"
 typography:
   display:
     fontFamily: "Secular One, Rubik, sans-serif"
@@ -70,7 +71,7 @@ components:
     padding: "0 14px"
     height: "40px"
   map-button-hover:
-    textColor: "#ffe4d4"
+    textColor: "{colors.bar-tint}"
   map-button-other-hover:
     textColor: "{colors.route-orange}"
   header:
@@ -79,8 +80,14 @@ components:
     rounded: "{rounded.sheet}"
     padding: "0 8px"
     height: "76px"
+  bar-sentence:
+    textColor: "{colors.bar-tint}"
+    fontFamily: "Rubik, Secular One, sans-serif"
+    fontSize: "1.02rem"
+    fontWeight: 400
+    lineHeight: 1.35
   header-link-hover:
-    textColor: "#ffe4d4"
+    textColor: "{colors.bar-tint}"
   rail:
     backgroundColor: "{colors.sheet}"
     textColor: "{colors.enamel}"
@@ -166,7 +173,8 @@ Daylight glass is the ground. Enamel and route orange are the two voices. Ink is
 
 - **Ink** (`#0e1d55`): Body text on paper, and the type on the orange join stop.
 - **Daylight Glass** (`#f4f6f8`): The page ground behind the floating frame.
-- **Sheet White** (`#ffffff`): Paper sheets, the logo card, the rail, the paper chip on the map entry, and type on enamel or route orange.
+- **Sheet White** (`#ffffff`): Paper sheets, the logo card, the rail, the paper chip on the map entry, and a link on enamel or route orange.
+- **Bar tint** (`#ffe4d4`): The quieter word on enamel. It colors vs. in the map entry, the hover of a bar link, and a sentence passed into the bar. That sentence is Rubik at 1.02rem, line-height 1.35. Its first line is 700 and the line after it is 400.
 
 ### Named Rules
 
@@ -185,7 +193,7 @@ Daylight glass is the ground. Enamel and route orange are the two voices. Ink is
 - **Headline** (400, `clamp(2.4rem, 3.6vw, 3.6rem)`, line-height 0.92): The about sheet title. Under 800px it is 2.2rem.
 - **Title** (400, `clamp(1.6rem, 2.2vw, 2.2rem)`, line-height 0.92): The logo line on its paper sheet.
 - **Body** (400, `clamp(1.25rem, 1.8vw, 1.7rem)`, line-height 1.45): Reading pages, held to about 28ch. The about sheet’s supporting sentence is `clamp(1rem, 1.25vw, 1.25rem)` and about 22ch. The root line-height is 1.45.
-- **Label** (700): Rail stops at 1.02rem, with rail line-height 1.2. The map entry’s paper chip is Rubik 700 at 1.02rem; חירות in that entry is Secular One. The action at 1.3rem. The join sheet’s supporting line is Rubik 700 at `clamp(1.2rem, 1.6vw, 1.7rem)`. Email and X sheets are Rubik 700 at `clamp(1.15rem, 1.5vw, 1.55rem)`.
+- **Label** (700): Rail stops at 1.02rem, with rail line-height 1.2. The map entry’s paper chip is Rubik 700 at 1.02rem; חירות in that entry is Secular One. A sentence in the bar is Rubik at 1.02rem in the bar tint, first line 700 and the next line 400. The action at 1.3rem. The join sheet’s supporting line is Rubik 700 at `clamp(1.2rem, 1.6vw, 1.7rem)`. Email and X sheets are Rubik 700 at `clamp(1.15rem, 1.5vw, 1.55rem)`.
 
 ### Named Rules
 
@@ -234,7 +242,7 @@ Surfaces are enamel or paper. Route orange is the chip on the join stop and the 
 - **Shape:** 14px radius. The action is Rubik 700 at 1.3rem, padding 0.85rem 1.3rem.
 - **Primary:** Route-orange fill, sheet-white type. Hover fills `#de4e08`.
 - **On the join reading page:** Sheet-white fill, route-orange type. Hover fills `#fff4ee`.
-- **Map entry:** The opposition, set in the enamel bar. חירות is Secular One in sheet white on the enamel. vs. is `#ffe4d4`. ברית אדומה-ירוקה is a paper chip, enamel type, 14px radius, 40px tall. Hover turns חירות to `#ffe4d4` and the chip’s type to route orange. The map page repeats the same split, larger, in its own enamel bar.
+- **Map entry:** Passed into the bar by the homepage. חירות is Secular One in sheet white on the enamel. vs. is the bar tint. ברית אדומה-ירוקה is a paper chip, enamel type, 14px radius, 40px tall. Hover turns חירות to the bar tint and the chip’s type to route orange. A sentence the page passes into the bar is the bar tint, Rubik at 1.02rem, first line 700 and the next line 400. The bar itself is the home mark plus what the page passes: a list of links, or one link with its description. On the vision page the field is already enamel, so only the home mark shows, in the same place.
 
 ### Chips
 

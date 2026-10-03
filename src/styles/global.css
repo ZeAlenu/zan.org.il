@@ -70,8 +70,7 @@ a { color: inherit; }
   box-shadow: var(--shadow);
 }
 
-.map-entry,
-.vs-line {
+.map-entry {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -112,6 +111,48 @@ a { color: inherit; }
 
 .map-entry:hover .side-other { color: var(--orange); }
 
+.bar-link,
+.bar-described {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.02rem;
+}
+
+.bar-note {
+  color: #ffe4d4;
+  font-weight: 400;
+}
+
+.bar-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  color: #ffe4d4;
+  font-size: 1.02rem;
+  line-height: 1.35;
+}
+
+.bar-copy p {
+  margin: 0;
+}
+
+.bar-copy p:first-child {
+  font-weight: 700;
+}
+
+.bar:has(.bar-copy) {
+  height: auto;
+  min-height: var(--bar-h);
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
 .logo-card {
   display: grid;
   place-items: center;
@@ -128,6 +169,19 @@ a { color: inherit; }
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.bar-mark {
+  left: auto;
+  width: max-content;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.bar-mark .logo-card {
+  pointer-events: auto;
+  box-shadow: var(--shadow);
 }
 
 .rail {
@@ -344,6 +398,8 @@ a { color: inherit; }
     gap: 8px;
     padding: 8px 10px;
   }
+
+  .bar-mark { left: auto; }
 
   .map-entry {
     flex: 1 1 auto;

@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import Bar from "../components/Bar.astro";
 import "@xyflow/react/dist/style.css";
 import "../map/styles.css";
 import MapApp from "../map/App.tsx";
@@ -7,7 +8,16 @@ import { site } from "../data/site";
 ---
 
 <Base title={`${site.mapTitle} — ${site.name}`} description="מפה של דתות ואיזמים כשושלות של דפוס מגדל בבל (קולקטיביזם) מול החירות.">
-  <div class="map-root" id="content">
-    <MapApp client:only="react" />
+  <Bar>
+    <div class="bar-copy">
+      <p>מלחמת התרבות בת 3800 השנים.</p>
+      <p>מפה של דתות ואיזמים כשושלות של דפוס מגדל בבל (קולקטיביזם) מול החירות.</p>
+    </div>
+  </Bar>
+  <div class="map-page" id="content">
+    <h1 class="map-title">{site.mapTitle}</h1>
+    <div class="map-root">
+      <MapApp client:only="react" />
+    </div>
   </div>
 </Base>

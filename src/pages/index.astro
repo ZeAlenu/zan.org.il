@@ -4,6 +4,11 @@ import { site } from "../data/site";
 ---
 
 <Frame title={`${site.name} — ${site.line}`} current="home">
+  <a slot="bar" class="map-entry" href={site.mapHref}>
+    <span class="side-liberty">חירות</span>
+    <span class="side-vs" dir="ltr">vs.</span>
+    <span class="side-other">ברית אדומה-ירוקה</span>
+  </a>
   <main class="case" aria-label="הבית">
     <a class="sheet about-sheet" href="/about">
       <p class="about-title">זה<br />עלינו</p>

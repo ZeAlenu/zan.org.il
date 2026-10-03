@@ -16,75 +16,44 @@ body,
   display: block;
 }
 
+.map-page {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  padding: calc(var(--pad) + var(--bar-h) + 12px) 12px 12px;
+}
+
+.map-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.map-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
+.map-root astro-island {
+  display: block;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
 .app {
   display: flex;
   flex-direction: column;
-  gap: 12px;
   height: 100%;
-  padding: 12px;
   background: var(--glass);
   color: var(--blue-ink);
-}
-
-.top {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 6px;
-  flex: none;
-  padding: 16px 18px 18px;
-  background: var(--blue);
-  color: white;
-  border-radius: 22px;
-  box-shadow: var(--shadow);
-}
-
-.top-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-}
-
-.map-home {
-  flex: none;
-  color: white;
-  font-weight: 700;
-  font-size: 1.15rem;
-  text-decoration: none;
-}
-
-.map-home:hover { color: #ffe4d4; }
-
-.top .vs-line {
-  margin-bottom: 8px;
-}
-
-.top .side-liberty {
-  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
-}
-
-.top .side-other {
-  height: 46px;
-  padding: 0 16px;
-  font-size: 1.02rem;
-}
-
-.top p {
-  margin: 0;
-  max-width: 62ch;
-  color: #ffe4d4;
-  font-size: 1.02rem;
-  line-height: 1.45;
-}
-
-.map-lead {
-  font-weight: 700;
-}
-
-.map-note {
-  margin-top: 2px;
-  font-weight: 400;
 }
 
 .map-key {
@@ -134,40 +103,17 @@ body,
   box-shadow: var(--shadow);
 }
 
+@media (max-width: 800px) {
+  .map-page {
+    gap: 8px;
+    padding: 128px 8px 8px;
+  }
+}
+
 @media (max-width: 699px) {
   .react-flow__minimap {
     display: none;
   }
-
-  .app {
-    padding: 8px;
-    gap: 8px;
-  }
-
-  .top {
-    gap: 8px;
-    padding: 14px;
-  }
-
-  .top-row {
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .top .vs-line {
-    white-space: normal;
-    flex-wrap: wrap;
-  }
-
-  .top .side-liberty { font-size: 1.7rem; }
-
-  .top .side-other {
-    height: auto;
-    min-height: 40px;
-    padding: 6px 12px;
-  }
-
-  .map-home { font-size: 1.02rem; }
 }
 
 .legend {

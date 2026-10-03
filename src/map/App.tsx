@@ -377,18 +377,6 @@ export default function App() {
 
   return (
     <div className="app">
-      <header className="top">
-        <div className="top-row">
-          <h1 className="vs-line">
-            <span className="side-liberty">חירות</span>
-            <span className="side-vs" dir="ltr">vs.</span>
-            <span className="side-other">ברית אדומה-ירוקה</span>
-          </h1>
-          <a className="map-home" href="/">הבית</a>
-        </div>
-        <p className="map-lead">מלחמת התרבות בת 3800 השנים.</p>
-        <p className="map-note">מפה של דתות ואיזמים כשושלות של דפוס מגדל בבל (קולקטיביזם) מול החירות.</p>
-      </header>
       <main className="stage">
         <details className="map-key" style={{ color: palette.text }}>
           <summary aria-label="מקרא">
