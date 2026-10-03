@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { constants } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -26,6 +27,15 @@ const child = spawn(process.execPath, [bin, ...args], {
   env: process.env,
 });
 
+for (const signal of ["SIGINT", "SIGTERM"]) {
+  process.on(signal, () => {
+    if (child.exitCode !== null || child.signalCode !== null) {
+      return;
+    }
+    child.kill(signal);
+  });
+}
+
 child.on("error", (error) => {
   console.error(error);
   process.exit(1);
@@ -33,8 +43,8 @@ child.on("error", (error) => {
 
 child.on("exit", (code, signal) => {
   if (signal) {
-    process.kill(process.pid, signal);
-    return;
+    const number = constants.signals[signal] ?? 1;
+    process.exit(128 + number);
   }
   process.exit(code ?? 1);
 });
