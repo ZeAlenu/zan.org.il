@@ -30,14 +30,13 @@ import {
   BAND_TOP,
   boundsOf,
   colX,
-  FRAME_PAD,
-  LAYER_COUNT,
   MAP_W,
   NODE_H,
   NODE_W,
   rowY,
 } from "./layout";
 import { nodeTypes } from "./nodes";
+import { openingViewport } from "./opening";
 import { palette, type Palette } from "./theme";
 
 function strokeFor(kind: Kind): { width: number; opacity: number; dash?: string } {
@@ -195,24 +194,6 @@ function buildEdges(palette: Palette, path: Set<string> | null): Edge[] {
       selectable: false,
     };
   });
-}
-
-const MOBILE_WIDTH = 700;
-const MINIMAP_STRIP = 250;
-const OPENING_TOP = -84;
-const OPENING_PAD = 16;
-
-function openingViewport(width: number, height: number): { x: number; y: number; zoom: number } {
-  const lastLayer = LAYER_COUNT - 1;
-  const right = MAP_W + 40 + AXIS_W;
-  const bottom = Math.max(...NODES.filter((node) => node.layer >= lastLayer - 2).map((node) => rowY(node.row))) + NODE_H + FRAME_PAD;
-  const zoom = Math.min(1.25, Math.max(0.7, (height - 2 * OPENING_PAD) / (bottom - OPENING_TOP)));
-  const y = OPENING_PAD - OPENING_TOP * zoom;
-  if (width < MOBILE_WIDTH) {
-    const liberty = boundsOf((FRAMES.find((frame) => frame.look === "liberty")?.members ?? []).map(nodeOf));
-    return { x: width / 2 - (liberty.x + liberty.w / 2) * zoom, y, zoom };
-  }
-  return { x: width - MINIMAP_STRIP - right * zoom, y, zoom };
 }
 
 function ChartMinimap({ path }: { path: Set<string> | null }) {

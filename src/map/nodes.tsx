@@ -94,17 +94,20 @@ function frameMarks(frame: Frame): string[] | null {
   }
 }
 
-export function FrameBox({ data, width, height }: NodeProps<FrameNode>) {
+const FRAME_LABEL_H = 36;
+
+export function FrameBox({ data, width, height, positionAbsoluteY }: NodeProps<FrameNode>) {
   const { frame, palette, dimmed, labelCenter } = data;
   const background = frameBackground(frame, palette);
   const marks = frameMarks(frame);
+  const labelTop = frame.look === "liberty" ? RIDGE_Y - positionAbsoluteY - FRAME_LABEL_H / 2 : undefined;
   return (
     <div
       className={`frame frame-${frame.look}${dimmed ? " is-dimmed" : ""}`}
       title={`${frame.label}. ${frame.tooltip}`}
       style={{ width, height, background }}
     >
-      <div className="frame-label" style={{ left: labelCenter }}>
+      <div className="frame-label" style={{ left: labelCenter, top: labelTop }}>
         {marks ? (
           <span className="frame-label-marks" aria-hidden="true">
             {marks.map((mark) => (
@@ -151,7 +154,7 @@ function ridgePieces(): Array<{ left: number; width: number }> {
   return pieces.flatMap((piece) => openForLibertyLabel(piece));
 }
 
-const LIBERTY_LABEL_HALF = 77;
+const LIBERTY_LABEL_HALF = 108;
 const LABEL_LINE_GAP = 2;
 
 function openForLibertyLabel(piece: { left: number; width: number }): Array<{ left: number; width: number }> {
