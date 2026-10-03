@@ -10,4 +10,7 @@ export default defineConfig({
   adapter: cloudflare({
     imageService: 'compile',
   }),
+  redirects: {
+    '/map': '/redgreen',
+  },
 });

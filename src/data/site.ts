@@ -7,7 +7,7 @@ export const site = {
   whatsapp: "https://chat.whatsapp.com/JiGaKG7q6gO9yF5q4Ut53b",
   x: "https://x.com/ZeAlenu",
   xHandle: "@ZeAlenu",
-  mapHref: "/map",
+  mapHref: "/redgreen",
   mapTitle: "חירות vs. ברית אדומה-ירוקה",
 } as const;
 

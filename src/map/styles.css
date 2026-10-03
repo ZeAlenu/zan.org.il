@@ -41,7 +41,12 @@ body,
   right: auto;
   left: auto;
   flex: none;
-  width: auto;
+  align-self: stretch;
+  width: 100%;
+  height: var(--bar-h);
+  min-height: var(--bar-h);
+  max-height: var(--bar-h);
+  overflow: hidden;
   margin: 0;
 }
 
@@ -140,6 +145,12 @@ body,
   .map-screen {
     gap: 8px;
     padding: 12px;
+  }
+
+  .map-screen > .bar {
+    height: auto;
+    max-height: none;
+    min-height: 0;
   }
 }
 
