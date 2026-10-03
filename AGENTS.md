@@ -22,7 +22,6 @@ A discovery during the task is yours. A warning, a default tool that fails the e
 - Hebrew is `lang="he"` and `dir="rtl"`. Latin strings (an email, @ZeAlenu, vs.) stay `dir="ltr"`.
 - Do not invent members, results, quotes, or research. If it is not in `site.ts` or the user's words, it does not go on the page.
 - Use the latest stable version of every package. Do not pin a dependency to an older release, and do not adopt a prerelease.
-- Node is `24.18.0`, the Cloudflare Workers Builds image default, recorded in `.nvmrc`. Keep that pin. Another value in `.nvmrc` overrides the image and installs that version instead.
 - `npm run build` finishes with no errors and no warnings. Treat a warning as a failed build and fix it before stopping.
 
 # Design
@@ -37,6 +36,4 @@ Vague writing, a broken layout, or code that is harder to read than what was the
 
 # Cursor Cloud
 
-- Node is `24.18.0`. `.nvmrc` and `engines` pin that version, and `.npmrc` sets `engine-strict`. `/exec-daemon/node` is 22.14 and fails `npm ci`. The login shell loads nvm; its default must be 24.18.0 (`nvm alias default 24.18.0`).
-- On 24.18.0, `astro build` does not print DEP0040. Wrangler still `require`s the builtin `punycode` from `node_modules`, and this Node does not warn for that. Do not add a preload to hide a warning this Node does not emit.
 - `npm ci` installs from the lockfile. The dev server is `npm run dev -- --host 0.0.0.0 --port 4321`.
