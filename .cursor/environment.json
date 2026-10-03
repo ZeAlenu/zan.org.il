@@ -1,6 +1,6 @@
 {
   "name": "zan.org.il",
   "install": "bash .cursor/install.sh",
-  "start": "exec npm run dev -- --host 0.0.0.0 --port 4321",
+  "start": "exec npm run dev",
   "ports": [{ "name": "web", "port": 4321 }]
 }
