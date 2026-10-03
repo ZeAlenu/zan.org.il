@@ -242,7 +242,7 @@ Surfaces are enamel or paper. Route orange is the chip on the join stop and the 
 - **Shape:** 14px radius. The action is Rubik 700 at 1.3rem, padding 0.85rem 1.3rem.
 - **Primary:** Route-orange fill, sheet-white type. Hover fills `#de4e08`.
 - **On the join reading page:** Sheet-white fill, route-orange type. Hover fills `#fff4ee`.
-- **Map entry:** Passed into the bar by the homepage. חירות is Secular One in sheet white on the enamel. vs. is the bar tint. ברית אדומה-ירוקה is a paper chip, enamel type, 14px radius, 40px tall. Hover turns חירות to the bar tint and the chip’s type to route orange. A sentence the page passes into the bar is the bar tint, Rubik at 1.02rem, first line 700 and the next line 400. The bar itself is the home mark plus what the page passes: a list of links, or one link with its description. On the vision page the field is already enamel, so only the home mark shows, in the same place.
+- **Map entry:** Passed into the bar by the homepage. חירות is Secular One in sheet white on the enamel. vs. is the bar tint. ברית אדומה-ירוקה is a paper chip, enamel type, 14px radius, 40px tall. Hover turns חירות to the bar tint and the chip’s type to route orange. A sentence the page passes into the bar is the bar tint, Rubik at 1.02rem, first line 700 and the next line 400. The bar itself is the home mark plus what the page passes: a list of links, or one link with its description. When that sentence makes the bar taller, the home mark stays at the start, in the same place as on the other pages. On the vision page the field is already enamel, so only the home mark shows, in the same place.
 
 ### Chips
 

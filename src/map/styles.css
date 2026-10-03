@@ -41,7 +41,8 @@ body,
   right: auto;
   left: auto;
   flex: none;
-  width: auto;
+  align-self: stretch;
+  width: 100%;
   margin: 0;
 }
 
