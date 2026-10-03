@@ -39,9 +39,20 @@ import { nodeTypes } from "./nodes";
 import { openingViewport } from "./opening";
 import { palette, type Palette } from "./theme";
 
+type Viewport = { x: number; y: number; zoom: number };
+
 type FlowCamera = {
-  setViewport: (viewport: { x: number; y: number; zoom: number }, options: { duration: number }) => void;
+  setViewport: (viewport: Viewport, options: { duration: number }) => void;
 };
+
+type OpeningSession = {
+  placing: { current: boolean };
+  placed: { current: Viewport | null };
+};
+
+function sameView(a: Viewport, b: Viewport): boolean {
+  return Math.abs(a.x - b.x) < 1 && Math.abs(a.y - b.y) < 1 && Math.abs(a.zoom - b.zoom) < 0.01;
+}
 
 function visibleStage(): { width: number; height: number; offsetY: number } | null {
   const stage = document.querySelector(".stage");
@@ -62,11 +73,15 @@ function visibleStage(): { width: number; height: number; offsetY: number } | nu
   return { width, height, offsetY: top - rect.top };
 }
 
-function placeOpening(camera: FlowCamera) {
+function placeOpening(camera: FlowCamera, session: OpeningSession) {
   const frame = visibleStage();
   if (!frame) return;
   const next = openingViewport(frame.width, frame.height, window.innerWidth);
-  camera.setViewport({ x: next.x, y: next.y + frame.offsetY, zoom: next.zoom }, { duration: 0 });
+  const viewport = { x: next.x, y: next.y + frame.offsetY, zoom: next.zoom };
+  session.placing.current = true;
+  camera.setViewport(viewport, { duration: 0 });
+  session.placing.current = false;
+  session.placed.current = viewport;
 }
 
 function strokeFor(kind: Kind): { width: number; opacity: number; dash?: string } {
@@ -387,6 +402,14 @@ export default function App() {
   const edges = useMemo(() => buildEdges(palette, lit), [lit]);
   const camera = useRef<FlowCamera | null>(null);
   const userMoved = useRef(false);
+  const placing = useRef(false);
+  const placed = useRef<Viewport | null>(null);
+  const session = { placing, placed };
+  const noteUserMove = (viewport: Viewport) => {
+    if (placing.current || userMoved.current) return;
+    const origin = placed.current;
+    if (origin && !sameView(origin, viewport)) userMoved.current = true;
+  };
 
   useEffect(() => {
     let frame = 0;
@@ -395,7 +418,7 @@ export default function App() {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         const current = camera.current;
-        if (current && !userMoved.current) placeOpening(current);
+        if (current && !userMoved.current) placeOpening(current, session);
       });
     };
     let cancelled = false;
@@ -439,11 +462,11 @@ export default function App() {
           colorMode="light"
           onInit={(instance) => {
             camera.current = instance;
-            if (!userMoved.current) placeOpening(instance);
+            if (!userMoved.current) placeOpening(instance, session);
           }}
-          onMoveStart={(event) => {
-            if (event) userMoved.current = true;
-          }}
+          onMoveStart={(_event, viewport) => noteUserMove(viewport)}
+          onMove={(_event, viewport) => noteUserMove(viewport)}
+          onMoveEnd={(_event, viewport) => noteUserMove(viewport)}
           minZoom={0.15}
           maxZoom={2.5}
           panOnScroll
