@@ -286,6 +286,10 @@ body,
   transform: translateY(-50%);
 }
 
+.axis-present .axis-pair {
+  transform: translate(-58px, -50%);
+}
+
 .axis-label {
   position: relative;
   isolation: isolate;

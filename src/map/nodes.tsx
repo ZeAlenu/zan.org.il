@@ -94,20 +94,17 @@ function frameMarks(frame: Frame): string[] | null {
   }
 }
 
-const FRAME_LABEL_H = 36;
-
-export function FrameBox({ data, width, height, positionAbsoluteY }: NodeProps<FrameNode>) {
+export function FrameBox({ data, width, height }: NodeProps<FrameNode>) {
   const { frame, palette, dimmed, labelCenter } = data;
   const background = frameBackground(frame, palette);
   const marks = frameMarks(frame);
-  const labelTop = frame.look === "liberty" ? RIDGE_Y - positionAbsoluteY - FRAME_LABEL_H / 2 : undefined;
   return (
     <div
       className={`frame frame-${frame.look}${dimmed ? " is-dimmed" : ""}`}
       title={`${frame.label}. ${frame.tooltip}`}
       style={{ width, height, background }}
     >
-      <div className="frame-label" style={{ left: labelCenter, top: labelTop }}>
+      <div className="frame-label" style={{ left: labelCenter }}>
         {marks ? (
           <span className="frame-label-marks" aria-hidden="true">
             {marks.map((mark) => (
@@ -154,7 +151,7 @@ function ridgePieces(): Array<{ left: number; width: number }> {
   return pieces.flatMap((piece) => openForLibertyLabel(piece));
 }
 
-const LIBERTY_LABEL_HALF = 108;
+const LIBERTY_LABEL_HALF = 77;
 const LABEL_LINE_GAP = 2;
 
 function openForLibertyLabel(piece: { left: number; width: number }): Array<{ left: number; width: number }> {
@@ -205,7 +202,7 @@ export function Axis({ data, width, height }: NodeProps<AxisNode>) {
           <AxisLabels palette={palette} />
         </div>
       </div>
-      <div className="axis-col" style={{ width: AXIS_W, left: RIGHT_AXIS_X - AXIS_X }}>
+      <div className="axis-col axis-present" style={{ width: AXIS_W, left: RIGHT_AXIS_X - AXIS_X }}>
         <div className="axis-pair" style={{ top: ridgeTop }}>
           <AxisLabels palette={palette} />
         </div>
