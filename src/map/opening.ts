@@ -1,8 +1,9 @@
 import { FRAMES, nodeOf } from "./chart";
 import { COL_GAP, NODE_W, boundsOf } from "./layout";
 
-const NARROW = 700;
 const MINIMAP_STRIP = 250;
+/** Matches the CSS breakpoint that hides `.react-flow__minimap`. */
+const MINIMAP_HIDDEN_AT = 699;
 const PAD = 16;
 const PHONE_TOP = 12;
 const PHONE_BOTTOM = 36;
@@ -31,7 +32,11 @@ function alliances(): { left: number; right: number; top: number; bottom: number
   };
 }
 
-export function openingViewport(width: number, height: number): { x: number; y: number; zoom: number } {
+export function openingViewport(
+  width: number,
+  height: number,
+  viewportWidth = width,
+): { x: number; y: number; zoom: number } {
   if (width < 1 || height < 1) {
     return { x: 0, y: 0, zoom: 1 };
   }
@@ -39,7 +44,7 @@ export function openingViewport(width: number, height: number): { x: number; y: 
   const span = Math.max(scene.bottom - scene.top, 1);
   const columnCenter = (scene.left + scene.right) / 2;
 
-  if (width >= NARROW) {
+  if (viewportWidth > MINIMAP_HIDDEN_AT) {
     let zoom = Math.min(1.35, Math.max(height - 2 * PAD, 1) / span);
     const focusWidth = scene.right - scene.left + DESK_LABEL;
     if (focusWidth * zoom > width - 2 * PAD) zoom = (width - 2 * PAD) / focusWidth;

@@ -65,7 +65,7 @@ function visibleStage(): { width: number; height: number; offsetY: number } | nu
 function placeOpening(camera: FlowCamera) {
   const frame = visibleStage();
   if (!frame) return;
-  const next = openingViewport(frame.width, frame.height);
+  const next = openingViewport(frame.width, frame.height, window.innerWidth);
   camera.setViewport({ x: next.x, y: next.y + frame.offsetY, zoom: next.zoom }, { duration: 0 });
 }
 
@@ -386,14 +386,16 @@ export default function App() {
   const nodes = useMemo(() => buildNodes(palette, lit, selectedId), [lit, selectedId]);
   const edges = useMemo(() => buildEdges(palette, lit), [lit]);
   const camera = useRef<FlowCamera | null>(null);
+  const userMoved = useRef(false);
 
   useEffect(() => {
     let frame = 0;
     const apply = () => {
+      if (userMoved.current) return;
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         const current = camera.current;
-        if (current) placeOpening(current);
+        if (current && !userMoved.current) placeOpening(current);
       });
     };
     let cancelled = false;
@@ -437,7 +439,10 @@ export default function App() {
           colorMode="light"
           onInit={(instance) => {
             camera.current = instance;
-            placeOpening(instance);
+            if (!userMoved.current) placeOpening(instance);
+          }}
+          onMoveStart={(event) => {
+            if (event) userMoved.current = true;
           }}
           minZoom={0.15}
           maxZoom={2.5}
