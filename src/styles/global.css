@@ -270,17 +270,18 @@ a { color: inherit; }
 .map-sheet {
   grid-column: 2;
   grid-row: 2;
-  padding: 0;
-  overflow: hidden;
-  background: var(--blue);
+  padding: 1.2rem;
+  background: white;
   min-height: 160px;
 }
 
 .map-sheet img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 14px;
 }
 
 .join-title,
