@@ -42,8 +42,33 @@ import { palette, type Palette } from "./theme";
 type Viewport = { x: number; y: number; zoom: number };
 
 type FlowCamera = {
-  setViewport: (viewport: Viewport, options: { duration: number }) => void;
+  getViewport: () => Viewport;
+  setViewport: (viewport: Viewport, options?: { duration: number }) => void;
 };
+
+const ARROW_PAN = 48;
+const ARROW_PAN_FAST = 144;
+
+function arrowPan(key: string): { dx: number; dy: number } | null {
+  switch (key) {
+    case "ArrowLeft":
+      return { dx: 1, dy: 0 };
+    case "ArrowRight":
+      return { dx: -1, dy: 0 };
+    case "ArrowUp":
+      return { dx: 0, dy: 1 };
+    case "ArrowDown":
+      return { dx: 0, dy: -1 };
+    default:
+      return null;
+  }
+}
+
+function typingInField(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) return false;
+  const tag = target.tagName;
+  return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || target.isContentEditable;
+}
 
 type OpeningSession = {
   placing: { current: boolean };
@@ -439,6 +464,29 @@ export default function App() {
       view?.removeEventListener("resize", apply);
       view?.removeEventListener("scroll", apply);
     };
+  }, []);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      if (typingInField(event.target)) return;
+      const direction = arrowPan(event.key);
+      if (!direction) return;
+      const current = camera.current;
+      if (!current) return;
+      event.preventDefault();
+      const step = event.shiftKey ? ARROW_PAN_FAST : ARROW_PAN;
+      const viewport = current.getViewport();
+      const next = {
+        x: viewport.x + direction.dx * step,
+        y: viewport.y + direction.dy * step,
+        zoom: viewport.zoom,
+      };
+      noteUserMove(next);
+      current.setViewport(next);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
   return (
