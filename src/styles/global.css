@@ -227,7 +227,8 @@ a { color: inherit; }
 .case {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.8fr);
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto;
+  align-content: start;
   gap: 16px;
   min-height: 100vh;
   padding:
@@ -273,14 +274,12 @@ a { color: inherit; }
   justify-content: flex-start;
   padding: 0.85rem;
   background: white;
-  min-height: 280px;
 }
 
 .map-sheet img {
   display: block;
   width: 100%;
   height: auto;
-  object-fit: contain;
   border-radius: 12px;
 }
 
