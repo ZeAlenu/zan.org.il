@@ -14,4 +14,9 @@ export default defineConfig({
   redirects: {
     '/map': '/redgreen',
   },
+  vite: {
+    optimizeDeps: {
+      include: ['@xyflow/react'],
+    },
+  },
 });
