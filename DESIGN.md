@@ -203,11 +203,11 @@ Daylight glass is the ground. Enamel and route orange are the two voices. Ink is
 
 The document is Hebrew, `lang="he"` and `dir="rtl"`. The station frame is inset by 20px. A 76px enamel header floats at that inset. Its box is forced left-to-right so the logo card stays on the physical right and the contact links stay on the physical left; the link row itself is right-to-left, with a gap of `clamp(22px, 2.6vw, 48px)`. The logo card is 168×104 and shares the rail’s 168px column. The white rail starts 164px from the top, directly under the logo.
 
-The home case is a grid with columns `minmax(0, 1.35fr)` and `minmax(0, 0.8fr)`, rows `1fr 1fr auto auto`, and a 16px gap. In the RTL grid the wide start column sits beside the rail: the orange join sheet, min-height 380px, spanning the first two rows. The narrow column is the enamel about sheet, min-height 340px. The X sheet sits under the join sheet; the email sheet sits under the about sheet; the logo-line sheet spans both. Content clears the frame with 164px top padding and a right inset of the rail plus 16px.
+The home case is a grid with columns `minmax(0, 1.35fr)` and `minmax(0, 0.8fr)`, rows `auto 1fr`, and a 16px gap. In the RTL grid the wide start column sits beside the rail: the orange join sheet, min-height 380px, spanning both rows. The narrow column stacks the enamel about sheet (row 1, min-height 200px) over the redgreen map sheet (row 2, min-height 280px). The map sheet is paper, and it holds a snapped picture of the map’s ברית אדומה-ירוקה alliance frame (`/brand/redgreen-frame.png`) inside the sheet with padding, linking to `/redgreen`. Content clears the frame with 164px top padding and a right inset of the rail plus 16px.
 
 Interior station pages (about, join, contact) replace the case with one reading sheet in the same insets, min-height `calc(100vh - 192px)`, text aligned to the start. The line page (vision) uses no header and no rail: a full-viewport enamel field, centered, padded `10vh 8vw`.
 
-Under 800px the inset tightens to 12px, the logo card becomes 116×64, the header wraps, and the rail becomes a horizontal strip. The home case stacks in a column with a 12px gap, and the join sheet leads.
+Under 800px the inset tightens to 12px, the logo card becomes 116×64, the header wraps, and the rail becomes a horizontal strip. The home case stacks in a column with a 12px gap, and the join sheet leads, then about, then the map sheet.
 
 ### Named Rules
 
@@ -253,7 +253,8 @@ Surfaces are enamel or paper. Route orange is the chip on the join stop and the 
 
 - **Corner Style:** 22px.
 - **Join sheet:** Route-orange fill, sheet-white type, centered, padding 1.4rem 1.5rem, min-height 380px (240px under 800px). Display title plus a Rubik 700 supporting line.
-- **Enamel sheet:** Enamel fill, sheet-white type, the same padding, min-height 340px (220px under 800px). Headline plus a short body, about 22ch.
+- **Enamel sheet:** Enamel fill, sheet-white type, the same padding, min-height 220px (220px under 800px). Headline plus a short body, about 22ch.
+- **Map sheet:** Paper fill, padding 0.85rem, min-height 280px. Holds a snap of the `/redgreen` map’s ברית אדומה-ירוקה alliance frame (`/brand/redgreen-frame.png`) — dashed pink/green fill, title pill with watermelon, four member nodes — inside the sheet. Links to `/redgreen`.
 - **Paper sheets:** Sheet-white fill, enamel type, min-height 96px. The logo line uses the title face. Email and X use Rubik 700.
 - **Reading sheet:** Sheet-white fill, ink type, padding `clamp(2.5rem, 5vw, 4.5rem)`, text at the start, display title in enamel. The join reading sheet is route orange with white type and a white action. The about reading sheet is enamel with white type and a route-orange action.
 - **Shadow Strategy:** The one sheet lift. Hover translates the home sheet up 2px.
