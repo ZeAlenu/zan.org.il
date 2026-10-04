@@ -1,0 +1,180 @@
+@font-face {
+  font-family: "Secular One";
+  src: url("SecularOne-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: block;
+}
+
+@font-face {
+  font-family: Rubik;
+  src: url("Rubik-Bold.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 1200px;
+  height: 630px;
+  overflow: hidden;
+  background: #f4f6f8;
+}
+
+body {
+  font-family: Rubik, "Secular One", sans-serif;
+  color: #003090;
+}
+
+img {
+  display: block;
+  max-width: none;
+}
+
+.logo-card,
+.sheet,
+.chip,
+.plate {
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(8, 23, 70, 0.1);
+}
+
+.logo-card,
+.plate {
+  border-radius: 18px;
+}
+
+.ticket {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+}
+
+.ticket .logo-card {
+  padding: 6px 8px 0;
+}
+
+.ticket .logo-card img {
+  height: 448px;
+  width: auto;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 72px;
+  margin: 0;
+  padding: 0 28px;
+  border-radius: 14px;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.chip .vs,
+.sheet .vs {
+  color: #0e1d55;
+  font-weight: 400;
+  font-size: 0.62em;
+}
+
+.letterhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 52px;
+  gap: 36px;
+}
+
+.letterhead .logo-card {
+  flex: none;
+  padding: 4px 6px 0;
+}
+
+.letterhead .logo-card img {
+  height: 520px;
+  width: auto;
+}
+
+.sheet {
+  flex: none;
+  width: 430px;
+  margin: 0;
+  padding: 32px 34px 36px;
+  border-radius: 22px;
+  text-align: right;
+}
+
+.sheet p {
+  margin: 0;
+}
+
+.sheet .liberty,
+.sheet .other {
+  font-family: "Secular One", Rubik, sans-serif;
+  font-weight: 400;
+  font-size: 54px;
+  line-height: 0.92;
+}
+
+.sheet .vs {
+  margin: 10px 0 12px;
+  font-size: 22px;
+}
+
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 48px 56px;
+  background: #003090;
+}
+
+.names {
+  flex: 1;
+  min-width: 0;
+  text-align: right;
+  color: #fff;
+}
+
+.names p {
+  margin: 0;
+}
+
+.names .liberty {
+  font-family: "Secular One", Rubik, sans-serif;
+  font-size: 108px;
+  line-height: 0.88;
+}
+
+.names .vs {
+  margin: 14px 0 16px;
+  color: #ffe4d4;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.names .other {
+  font-family: "Secular One", Rubik, sans-serif;
+  font-size: 52px;
+  line-height: 0.92;
+}
+
+.plate {
+  flex: none;
+  padding: 8px 10px 2px;
+}
+
+.plate img {
+  height: 470px;
+  width: auto;
+}

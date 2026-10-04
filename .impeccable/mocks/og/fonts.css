@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rubik/v31/iJWKBXyIfDnIV4nDp3uS0Q.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rubik/v31/iJWKBXyIfDnIV4nDp3uS0Q.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Secular One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/secularone/v14/8QINdiTajsj_87rMuMdKypDgMu97LQ.woff2) format('woff2');
+}
