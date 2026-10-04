@@ -294,6 +294,7 @@ a { color: inherit; }
     clamp(0.7rem, 1.6vw, 1rem);
   border: 1.5px dashed #7a808a;
   border-radius: 14px;
+  direction: rtl;
 }
 
 .alliance-redgreen {
@@ -323,6 +324,7 @@ a { color: inherit; }
   font-size: clamp(0.82rem, 1.5vw, 0.95rem);
   line-height: 1;
   white-space: nowrap;
+  direction: rtl;
   transform: translate(-50%, -50%);
 }
 
