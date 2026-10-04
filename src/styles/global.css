@@ -227,7 +227,7 @@ a { color: inherit; }
 .case {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.8fr);
-  grid-template-rows: 1fr 1fr auto auto;
+  grid-template-rows: auto 1fr;
   gap: 16px;
   min-height: 100vh;
   padding:
@@ -256,7 +256,7 @@ a { color: inherit; }
   grid-row: 1;
   background: var(--blue);
   color: white;
-  min-height: 220px;
+  min-height: 200px;
 }
 
 .join-sheet {
@@ -270,18 +270,18 @@ a { color: inherit; }
 .map-sheet {
   grid-column: 2;
   grid-row: 2;
-  padding: 1.2rem;
+  justify-content: flex-start;
+  padding: 0.85rem;
   background: white;
-  min-height: 160px;
+  min-height: 280px;
 }
 
 .map-sheet img {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 100%;
   object-fit: contain;
-  border-radius: 14px;
+  border-radius: 12px;
 }
 
 .join-title,
@@ -484,7 +484,7 @@ a { color: inherit; }
 
   .join-sheet { order: -1; min-height: 240px; }
   .about-sheet { min-height: 220px; }
-  .map-sheet { min-height: 120px; }
+  .map-sheet { min-height: 0; }
 
   .join-title { font-size: 2.8rem; }
   .about-title { font-size: 2.2rem; }
