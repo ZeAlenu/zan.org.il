@@ -13,9 +13,9 @@ type SmoothPanOptions = {
   onUserMove: (viewport: Viewport) => void;
 };
 
-const DEFAULT_GAIN = 0.85;
-const DEFAULT_SMOOTH_MS = 140;
-const STOP = 0.05;
+const DEFAULT_GAIN = 0.9;
+const DEFAULT_SMOOTH_MS = 280;
+const STOP = 0.08;
 
 function reduceMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -30,6 +30,7 @@ export function createSmoothPan(options: SmoothPanOptions) {
   const smoothMs = options.smoothMs ?? DEFAULT_SMOOTH_MS;
   let camera: Camera | null = null;
   let pane: HTMLElement | null = null;
+  let live: Viewport | null = null;
   let pendingX = 0;
   let pendingY = 0;
   let frame = 0;
@@ -40,9 +41,16 @@ export function createSmoothPan(options: SmoothPanOptions) {
     pane = host;
   }
 
+  function syncLive(): Viewport | null {
+    if (!camera) return null;
+    if (!live) live = camera.getViewport();
+    return live;
+  }
+
   function stop() {
     pendingX = 0;
     pendingY = 0;
+    live = null;
     lastTime = 0;
     if (frame) {
       cancelAnimationFrame(frame);
@@ -50,17 +58,20 @@ export function createSmoothPan(options: SmoothPanOptions) {
     }
   }
 
-  function apply(dx: number, dy: number) {
-    const current = camera;
-    if (!current || (dx === 0 && dy === 0)) return;
-    const viewport = current.getViewport();
-    const next = {
-      x: viewport.x + dx,
-      y: viewport.y + dy,
-      zoom: viewport.zoom,
-    };
+  function write(next: Viewport) {
+    live = next;
     options.onUserMove(next);
-    current.setViewport(next);
+    camera?.setViewport(next);
+  }
+
+  function apply(dx: number, dy: number) {
+    const base = syncLive();
+    if (!base || (dx === 0 && dy === 0)) return;
+    write({
+      x: base.x + dx,
+      y: base.y + dy,
+      zoom: base.zoom,
+    });
   }
 
   function tick(now: number) {
@@ -79,6 +90,7 @@ export function createSmoothPan(options: SmoothPanOptions) {
     } else {
       frame = 0;
       lastTime = 0;
+      live = null;
     }
   }
 
@@ -90,10 +102,14 @@ export function createSmoothPan(options: SmoothPanOptions) {
   }
 
   function nudge(dx: number, dy: number) {
+    if (!camera) return;
     if (reduceMotion()) {
+      live = null;
       apply(dx, dy);
+      live = null;
       return;
     }
+    syncLive();
     pendingX += dx;
     pendingY += dy;
     kick();
@@ -103,6 +119,7 @@ export function createSmoothPan(options: SmoothPanOptions) {
     const current = camera;
     const host = pane;
     if (!current || !host) return;
+    stop();
     const viewport = current.getViewport();
     const nextZoom = Math.min(options.maxZoom, Math.max(options.minZoom, viewport.zoom * factor));
     if (nextZoom === viewport.zoom) return;
@@ -111,13 +128,12 @@ export function createSmoothPan(options: SmoothPanOptions) {
     const pointY = clientY - rect.top;
     const flowX = (pointX - viewport.x) / viewport.zoom;
     const flowY = (pointY - viewport.y) / viewport.zoom;
-    const next = {
+    write({
       x: pointX - flowX * nextZoom,
       y: pointY - flowY * nextZoom,
       zoom: nextZoom,
-    };
-    options.onUserMove(next);
-    current.setViewport(next);
+    });
+    live = null;
   }
 
   function onWheel(event: WheelEvent) {
@@ -128,7 +144,6 @@ export function createSmoothPan(options: SmoothPanOptions) {
     // Trackpad pinch — keep zoom under the pointer.
     if (event.ctrlKey) {
       event.preventDefault();
-      stop();
       const factor = Math.pow(2, -event.deltaY * 0.01);
       zoomAt(event.clientX, event.clientY, factor);
       return;

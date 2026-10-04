@@ -531,7 +531,10 @@ export default function App() {
             if (!userMoved.current) placeOpening(instance, session);
           }}
           onMoveStart={(event, viewport) => {
-            if (event) smoothPan.stop();
+            const kind = event?.type;
+            if (kind === "mousedown" || kind === "touchstart" || kind === "pointerdown") {
+              smoothPan.stop();
+            }
             noteUserMove(viewport);
           }}
           onMove={(_event, viewport) => noteUserMove(viewport)}
