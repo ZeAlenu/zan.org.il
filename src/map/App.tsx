@@ -369,7 +369,7 @@ function Detail({ id, palette, onClose }: { id: string; palette: Palette; onClos
   const outgoing = EDGES.filter((edge) => edge.from === id);
   const stroke = node.ink ? palette[node.ink] : palette[node.attr];
   return (
-    <aside className="detail" style={{ background: palette.panel, borderColor: palette.line, color: palette.text }}>
+    <aside className="detail nowheel" style={{ background: palette.panel, borderColor: palette.line, color: palette.text }}>
       <div className="detail-top" style={{ borderColor: stroke }}>
         <div>
           <div className="detail-tag" style={{ color: stroke }}>
@@ -483,9 +483,9 @@ export default function App() {
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage) return;
-    stage.addEventListener("wheel", smoothPan.onWheel, { passive: false });
+    stage.addEventListener("wheel", smoothPan.onWheel, { passive: false, capture: true });
     return () => {
-      stage.removeEventListener("wheel", smoothPan.onWheel);
+      stage.removeEventListener("wheel", smoothPan.onWheel, true);
       smoothPan.stop();
     };
   }, [smoothPan]);

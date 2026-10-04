@@ -139,17 +139,18 @@ export function createSmoothPan(options: SmoothPanOptions) {
   function onWheel(event: WheelEvent) {
     if (!(event.target instanceof Element)) return;
     if (event.target.closest(".nowheel")) return;
-    if (!pane?.contains(event.target)) return;
 
     // Trackpad pinch — keep zoom under the pointer.
     if (event.ctrlKey) {
       event.preventDefault();
+      event.stopPropagation();
       const factor = Math.pow(2, -event.deltaY * 0.01);
       zoomAt(event.clientX, event.clientY, factor);
       return;
     }
 
     event.preventDefault();
+    event.stopPropagation();
     const normalize = wheelFactor(event);
     let deltaX = event.deltaX * normalize;
     let deltaY = event.deltaY * normalize;
