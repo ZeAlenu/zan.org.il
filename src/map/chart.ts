@@ -58,6 +58,7 @@ export type Frame = {
   members: string[];
   /** Centers the title over this member instead of the whole frame. */
   labelOver?: string;
+  marks?: string[];
   look: "redGreen" | "liberty" | "exile";
 };
 
@@ -83,6 +84,7 @@ export const FRAMES: Frame[] = [
     tooltip:
       "התכנסות טקטית של שמאל פרוגרסיבי, ווק, ואסלאמיזם פוליטי. הווק הוא הזרוע התרבותית של הצד האדום. הקפלניזם הוא הפנים הישראליות שלה.",
     members: ["pol_religion", "progressivism", "woke", "kaplanism"],
+    marks: ["🍉"],
     look: "redGreen",
   },
   {
@@ -90,6 +92,7 @@ export const FRAMES: Frame[] = [
     label: "ברית החירות",
     tooltip: "הציוויליזציה המתגוננת והציונות הלאומית שיוצאת מישראל. כחול כדגל ישראל, פסים כדגל ארצות הברית.",
     members: ["zionism_national", "liberty_remnant"],
+    marks: ["🇮🇱", "🇺🇸"],
     look: "liberty",
   },
 ];

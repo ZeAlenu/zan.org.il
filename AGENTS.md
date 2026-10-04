@@ -30,6 +30,15 @@ A discovery during the task is yours. A warning, a default tool that fails the e
 - Type, color, radius, and shadow come from the tokens in `global.css`. Do not add a new face or a new blue.
 - After a visual change, look at the page on a wide screen and a narrow one. Fix what the page shows.
 
+# Home sheets
+
+The homepage is a masonry of unequal sheets. More sheets will keep landing here. The standard for every home sheet:
+
+- Build the sheet as live HTML inside the case. Do not paste a screenshot, a cropped capture, or any fixed raster of another page into a home sheet.
+- The sheet is one unequal surface that grows and shrinks with its content, the same way join and about already do.
+- When a sheet opens another page, put a similar HTML appearance of that page’s subject inside the sheet — drawn with the site’s type and tokens, sized with `clamp` / fluid layout — not a picture of the page.
+- Facts on a sheet come from `site.ts` or the same source the target page uses. Do not invent members, labels, or research.
+
 # The bar
 
 Vague writing, a broken layout, or code that is harder to read than what was there is not done.

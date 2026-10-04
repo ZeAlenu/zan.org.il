@@ -79,25 +79,10 @@ function frameBackground(frame: Frame, palette: Palette): string | undefined {
   }
 }
 
-function frameMarks(frame: Frame): string[] | null {
-  switch (frame.look) {
-    case "liberty":
-      return ["🇮🇱", "🇺🇸"];
-    case "redGreen":
-      return ["🍉"];
-    case "exile":
-      return null;
-    default: {
-      const unreachable: never = frame.look;
-      return unreachable;
-    }
-  }
-}
-
 export function FrameBox({ data, width, height }: NodeProps<FrameNode>) {
   const { frame, palette, dimmed, labelCenter } = data;
   const background = frameBackground(frame, palette);
-  const marks = frameMarks(frame);
+  const marks = frame.marks ?? null;
   return (
     <div
       className={`frame frame-${frame.look}${dimmed ? " is-dimmed" : ""}`}

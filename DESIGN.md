@@ -203,7 +203,9 @@ Daylight glass is the ground. Enamel and route orange are the two voices. Ink is
 
 The document is Hebrew, `lang="he"` and `dir="rtl"`. The station frame is inset by 20px. A 76px enamel header floats at that inset. Its box is forced left-to-right so the logo card stays on the physical right and the contact links stay on the physical left; the link row itself is right-to-left, with a gap of `clamp(22px, 2.6vw, 48px)`. The logo card is 168×104 and shares the rail’s 168px column. The white rail starts 164px from the top, directly under the logo.
 
-The home case is a grid with columns `minmax(0, 1.35fr)` and `minmax(0, 0.8fr)`, rows `auto auto`, and a 16px gap. In the RTL grid the wide start column sits beside the rail: the orange join sheet, min-height 380px, spanning both rows and stretching with them. The narrow column stacks the enamel about sheet (row 1, min-height 200px) over the redgreen map sheet (row 2). The map sheet is paper, and it holds a snapped picture of the map’s ברית אדומה-ירוקה alliance frame (`/brand/redgreen-frame.png`) inside the sheet with padding, linking to `/redgreen`. The sheet grows with that portrait snap. Content clears the frame with 164px top padding and a right inset of the rail plus 16px.
+The home case is a grid with columns `minmax(0, 1.35fr)` and `minmax(0, 0.8fr)`, rows `auto auto`, and a 16px gap. In the RTL grid the wide start column sits beside the rail: the orange join sheet, min-height 380px, spanning both rows and stretching with them. The narrow column stacks the enamel about sheet (row 1, min-height 200px) over the redgreen map sheet (row 2, min-height 240px). The map sheet is paper. Inside it sits a live HTML alliance preview of ברית אדומה־ירוקה — dashed frame, red/green diagonal fill, title pill with watermelon, four member nodes from `FRAMES` — that grows and shrinks with the sheet. It links to `/redgreen`. Content clears the frame with 164px top padding and a right inset of the rail plus 16px.
+
+**The Home Sheet Rule.** Every home sheet is live HTML in the masonry case. Do not paste a screenshot or a fixed raster of another page into a home sheet. A sheet that opens another page carries a similar HTML appearance of that page’s subject, fluid with the sheet, using facts from `site.ts` or the same source the target page uses.
 
 Interior station pages (about, join, contact) replace the case with one reading sheet in the same insets, min-height `calc(100vh - 192px)`, text aligned to the start. The line page (vision) uses no header and no rail: a full-viewport enamel field, centered, padded `10vh 8vw`.
 
@@ -254,7 +256,7 @@ Surfaces are enamel or paper. Route orange is the chip on the join stop and the 
 - **Corner Style:** 22px.
 - **Join sheet:** Route-orange fill, sheet-white type, centered, padding 1.4rem 1.5rem, min-height 380px (240px under 800px). Display title plus a Rubik 700 supporting line.
 - **Enamel sheet:** Enamel fill, sheet-white type, the same padding, min-height 220px (220px under 800px). Headline plus a short body, about 22ch.
-- **Map sheet:** Paper fill, padding 0.85rem. Holds a snap of the `/redgreen` map’s ברית אדומה-ירוקה alliance frame (`/brand/redgreen-frame.png`) — dashed pink/green fill, title pill with watermelon, four member nodes — inside the sheet at full image height. Links to `/redgreen`.
+- **Map sheet:** Paper fill, the same sheet padding, min-height 240px. Holds a live HTML alliance preview of ברית אדומה־ירוקה (dashed frame, red/green diagonal fill from the map palette tokens, title pill, member nodes from `FRAMES`). The preview flexes with the sheet. Links to `/redgreen`.
 - **Paper sheets:** Sheet-white fill, enamel type, min-height 96px. The logo line uses the title face. Email and X use Rubik 700.
 - **Reading sheet:** Sheet-white fill, ink type, padding `clamp(2.5rem, 5vw, 4.5rem)`, text at the start, display title in enamel. The join reading sheet is route orange with white type and a white action. The about reading sheet is enamel with white type and a route-orange action.
 - **Shadow Strategy:** The one sheet lift. Hover translates the home sheet up 2px.
@@ -291,4 +293,5 @@ Full-viewport enamel, display at `clamp(3.4rem, 8vw, 7rem)`, line-height 0.9, wh
 - **Don't** lay sheets out as an equal-card grid.
 - **Don't** add a second shadow or a hard offset shadow.
 - **Don't** add glyph icons or a second mark.
-- **Don't** bring the map’s genealogy colors onto the station pages. On the map, those colors stay on the nodes and on the two alliance fills.
+- **Don't** paint station chrome with the map’s genealogy colors. Those colors stay on the map and inside a home-sheet HTML preview of map material — not on the header, rail, or reading sheets.
+- **Don't** paste a screenshot or a fixed raster into a home sheet. Home sheets are live HTML that grow and shrink with their content.

@@ -1,6 +1,15 @@
 ---
 import Frame from "../layouts/Frame.astro";
 import { pages, site } from "../data/site";
+import { FRAMES, nodeOf } from "../map/chart";
+
+const redGreen = FRAMES.find((frame) => frame.look === "redGreen");
+if (!redGreen) {
+  throw new Error("missing redGreen frame");
+}
+const redGreenNodes = redGreen.members
+  .map((id) => nodeOf(id))
+  .sort((a, b) => a.row - b.row);
 ---
 
 <Frame title={pages.home.title} current="home">
@@ -19,12 +28,30 @@ import { pages, site } from "../data/site";
       <p class="join-sub">קהילת הוואטסאפ</p>
     </a>
     <a class="sheet map-sheet" href={site.mapHref} aria-label={site.mapTitle}>
-      <img
-        src="/brand/redgreen-frame.png"
-        alt={site.mapOther}
-        width="682"
-        height="1034"
-      />
+      <div class="alliance-preview alliance-redgreen">
+        <p class="alliance-label">
+          {
+            redGreen.marks?.length ? (
+              <span class="alliance-marks" aria-hidden="true">
+                {redGreen.marks.map((mark) => (
+                  <span>{mark}</span>
+                ))}
+              </span>
+            ) : null
+          }
+          {redGreen.label}
+        </p>
+        <ul class="alliance-nodes">
+          {
+            redGreenNodes.map((node) => (
+              <li class:list={["alliance-node", node.ink === "ISL" ? "is-isl" : "is-col"]}>
+                <span class="alliance-short">{node.short}</span>
+                <span class="alliance-tag">{node.tag}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </a>
   </main>
 </Frame>
