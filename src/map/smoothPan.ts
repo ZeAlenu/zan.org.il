@@ -35,6 +35,8 @@ export function createSmoothPan(options: SmoothPanOptions) {
   let vy = 0;
   let frame = 0;
   let lastTime = 0;
+  let selfMove = 0;
+  let dragging = false;
 
   function bind(next: Camera, host: HTMLElement) {
     camera = next;
@@ -58,10 +60,25 @@ export function createSmoothPan(options: SmoothPanOptions) {
     }
   }
 
+  function noteForeignMove() {
+    if (selfMove > 0) return;
+    stop();
+  }
+
+  function setDragging(next: boolean) {
+    dragging = next;
+    if (next) stop();
+  }
+
   function write(next: Viewport) {
     live = next;
     options.onUserMove(next);
-    camera?.setViewport(next);
+    selfMove += 1;
+    Promise.resolve(camera?.setViewport(next)).finally(() => {
+      requestAnimationFrame(() => {
+        selfMove = Math.max(0, selfMove - 1);
+      });
+    });
   }
 
   function apply(dx: number, dy: number) {
@@ -151,6 +168,11 @@ export function createSmoothPan(options: SmoothPanOptions) {
   function onWheel(event: WheelEvent) {
     if (!(event.target instanceof Element)) return;
     if (event.target.closest(".nowheel")) return;
+    if (dragging) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
 
     // Trackpad pinch — keep zoom under the pointer.
     if (event.ctrlKey) {
@@ -173,5 +195,5 @@ export function createSmoothPan(options: SmoothPanOptions) {
     nudge(-deltaX * gain, -deltaY * gain);
   }
 
-  return { bind, stop, nudge, onWheel };
+  return { bind, stop, nudge, onWheel, noteForeignMove, setDragging };
 }

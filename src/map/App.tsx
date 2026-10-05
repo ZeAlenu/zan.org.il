@@ -533,12 +533,19 @@ export default function App() {
           onMoveStart={(event, viewport) => {
             const kind = event?.type;
             if (kind === "mousedown" || kind === "touchstart" || kind === "pointerdown") {
-              smoothPan.stop();
+              smoothPan.setDragging(true);
             }
+            smoothPan.noteForeignMove();
             noteUserMove(viewport);
           }}
           onMove={(_event, viewport) => noteUserMove(viewport)}
-          onMoveEnd={(_event, viewport) => noteUserMove(viewport)}
+          onMoveEnd={(event, viewport) => {
+            const kind = event?.type;
+            if (!event || kind === "mouseup" || kind === "touchend" || kind === "pointerup") {
+              smoothPan.setDragging(false);
+            }
+            noteUserMove(viewport);
+          }}
           minZoom={MIN_ZOOM}
           maxZoom={MAX_ZOOM}
           panOnScroll={false}
