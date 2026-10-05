@@ -6,14 +6,20 @@ import "@fontsource/rubik/hebrew-700.css";
 import "@fontsource/rubik/latin-400.css";
 import "@fontsource/rubik/latin-700.css";
 import "../styles/global.css";
-import { site } from "../data/site";
+import { pageForPath, site } from "../data/site";
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = site.sentence } = Astro.props;
+const page = pageForPath(Astro.url.pathname);
+const { title, description = page?.description ?? site.sentence } = Astro.props;
+const headline = page?.headline ?? title;
+const path = (page?.path ?? Astro.url.pathname).replace(/\/+$/, "") || "/";
+const canonical = new URL(path, Astro.site).href;
+const image = new URL(`/share/${page?.card ?? "home"}.png`, Astro.site).href;
+const imageAlt = `${headline} — ${site.name}`;
 ---
 
 <!doctype html>
@@ -21,8 +27,28 @@ const { title, description = site.sentence } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={headline} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="image_src" href={image} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="he_IL" />
+    <meta property="og:image:secure_url" content={image} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={site.xHandle} />
+    <meta name="twitter:title" content={headline} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={imageAlt} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=3" />

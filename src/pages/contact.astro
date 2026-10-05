@@ -1,11 +1,11 @@
 ---
 import Frame from "../layouts/Frame.astro";
-import { site } from "../data/site";
+import { pages, site } from "../data/site";
 ---
 
-<Frame title={`קשר — ${site.name}`} current="contact">
+<Frame title={pages.contact.title} current="contact">
   <main class="reading">
-    <h1>יצירת קשר</h1>
+    <h1>{site.contactTitle}</h1>
     <p>
       <a href={`mailto:${site.email}`} dir="ltr">{site.email}</a>
     </p>

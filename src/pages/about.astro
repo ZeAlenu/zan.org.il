@@ -1,13 +1,13 @@
 ---
 import Frame from "../layouts/Frame.astro";
-import { site } from "../data/site";
+import { pages, site } from "../data/site";
 ---
 
-<Frame title={`מי אנחנו — ${site.name}`} current="about">
+<Frame title={pages.about.title} current="about">
   <main class="reading reading-about">
-    <h1>זה עלינו</h1>
+    <h1>{site.name}</h1>
     <p>{site.sentence}</p>
     <p>{site.line}</p>
-    <a class="action" href="/join">הצטרפו לתנועה</a>
+    <a class="action" href="/join">{site.joinTitle}</a>
   </main>
 </Frame>

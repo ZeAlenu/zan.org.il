@@ -28,6 +28,7 @@
     "fsevents@2.3.3": true
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0"
   }

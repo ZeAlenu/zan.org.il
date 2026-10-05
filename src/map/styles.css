@@ -2,6 +2,15 @@
   box-sizing: border-box;
 }
 
+html:has(.map-screen) {
+  height: 100dvh;
+}
+
+html:has(.map-screen) body {
+  height: 100%;
+  min-height: 0;
+}
+
 html,
 body,
 #root,
@@ -21,6 +30,8 @@ body,
   flex-direction: column;
   gap: 12px;
   height: 100%;
+  min-width: 0;
+  overflow: hidden;
   padding: var(--pad);
 }
 
@@ -30,7 +41,12 @@ body,
   right: auto;
   left: auto;
   flex: none;
-  width: auto;
+  align-self: stretch;
+  width: 100%;
+  height: var(--bar-h);
+  min-height: var(--bar-h);
+  max-height: var(--bar-h);
+  overflow: hidden;
   margin: 0;
 }
 
@@ -38,6 +54,7 @@ body,
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-width: 0;
   min-height: 0;
   height: auto;
 }
@@ -55,6 +72,7 @@ body,
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-width: 0;
   min-height: 0;
   height: auto;
 }
@@ -62,6 +80,7 @@ body,
 .map-root astro-island {
   display: block;
   flex: 1;
+  min-width: 0;
   min-height: 0;
   height: 100%;
 }
@@ -70,6 +89,7 @@ body,
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-width: 0;
   background: var(--glass);
   color: var(--blue-ink);
 }
@@ -126,6 +146,12 @@ body,
     gap: 8px;
     padding: 12px;
   }
+
+  .map-screen > .bar {
+    height: auto;
+    max-height: none;
+    min-height: 0;
+  }
 }
 
 @media (max-width: 699px) {
@@ -165,7 +191,9 @@ body,
 .stage {
   position: relative;
   flex: 1;
+  min-width: 0;
   min-height: 0;
+  overflow: hidden;
 }
 
 .idea {
@@ -276,6 +304,10 @@ body,
   align-items: center;
   gap: 22px;
   transform: translateY(-50%);
+}
+
+.axis-present .axis-pair {
+  transform: translate(-58px, -50%);
 }
 
 .axis-label {

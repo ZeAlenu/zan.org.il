@@ -11,7 +11,7 @@ import {
   type Edge,
   type Node,
 } from "@xyflow/react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   EDGES,
   FRAMES,
@@ -30,15 +30,84 @@ import {
   BAND_TOP,
   boundsOf,
   colX,
-  FRAME_PAD,
-  LAYER_COUNT,
   MAP_W,
   NODE_H,
   NODE_W,
   rowY,
 } from "./layout";
 import { nodeTypes } from "./nodes";
+import { openingViewport } from "./opening";
 import { palette, type Palette } from "./theme";
+
+type Viewport = { x: number; y: number; zoom: number };
+
+type FlowCamera = {
+  getViewport: () => Viewport;
+  setViewport: (viewport: Viewport, options?: { duration: number }) => void;
+};
+
+const ARROW_PAN = 48;
+const ARROW_PAN_FAST = 144;
+
+function arrowPan(key: string): { dx: number; dy: number } | null {
+  switch (key) {
+    case "ArrowLeft":
+      return { dx: 1, dy: 0 };
+    case "ArrowRight":
+      return { dx: -1, dy: 0 };
+    case "ArrowUp":
+      return { dx: 0, dy: 1 };
+    case "ArrowDown":
+      return { dx: 0, dy: -1 };
+    default:
+      return null;
+  }
+}
+
+function typingInField(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) return false;
+  const tag = target.tagName;
+  return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || target.isContentEditable;
+}
+
+type OpeningSession = {
+  placing: { current: boolean };
+  placed: { current: Viewport | null };
+};
+
+function sameView(a: Viewport, b: Viewport): boolean {
+  return Math.abs(a.x - b.x) < 1 && Math.abs(a.y - b.y) < 1 && Math.abs(a.zoom - b.zoom) < 0.01;
+}
+
+function visibleStage(): { width: number; height: number; offsetY: number } | null {
+  const stage = document.querySelector(".stage");
+  if (!(stage instanceof HTMLElement)) return null;
+  const rect = stage.getBoundingClientRect();
+  const view = window.visualViewport;
+  const viewTop = view?.offsetTop ?? 0;
+  const viewLeft = view?.offsetLeft ?? 0;
+  const viewHeight = view?.height ?? window.innerHeight;
+  const viewWidth = view?.width ?? window.innerWidth;
+  const top = Math.max(rect.top, viewTop);
+  const bottom = Math.min(rect.bottom, viewTop + viewHeight);
+  const left = Math.max(rect.left, viewLeft);
+  const right = Math.min(rect.right, viewLeft + viewWidth);
+  const width = right - left;
+  const height = bottom - top;
+  if (width < 1 || height < 1) return null;
+  return { width, height, offsetY: top - rect.top };
+}
+
+function placeOpening(camera: FlowCamera, session: OpeningSession) {
+  const frame = visibleStage();
+  if (!frame) return;
+  const next = openingViewport(frame.width, frame.height, window.innerWidth);
+  const viewport = { x: next.x, y: next.y + frame.offsetY, zoom: next.zoom };
+  session.placing.current = true;
+  camera.setViewport(viewport, { duration: 0 });
+  session.placing.current = false;
+  session.placed.current = viewport;
+}
 
 function strokeFor(kind: Kind): { width: number; opacity: number; dash?: string } {
   switch (kind) {
@@ -195,24 +264,6 @@ function buildEdges(palette: Palette, path: Set<string> | null): Edge[] {
       selectable: false,
     };
   });
-}
-
-const MOBILE_WIDTH = 700;
-const MINIMAP_STRIP = 250;
-const OPENING_TOP = -84;
-const OPENING_PAD = 16;
-
-function openingViewport(width: number, height: number): { x: number; y: number; zoom: number } {
-  const lastLayer = LAYER_COUNT - 1;
-  const right = MAP_W + 40 + AXIS_W;
-  const bottom = Math.max(...NODES.filter((node) => node.layer >= lastLayer - 2).map((node) => rowY(node.row))) + NODE_H + FRAME_PAD;
-  const zoom = Math.min(1.25, Math.max(0.7, (height - 2 * OPENING_PAD) / (bottom - OPENING_TOP)));
-  const y = OPENING_PAD - OPENING_TOP * zoom;
-  if (width < MOBILE_WIDTH) {
-    const liberty = boundsOf((FRAMES.find((frame) => frame.look === "liberty")?.members ?? []).map(nodeOf));
-    return { x: width / 2 - (liberty.x + liberty.w / 2) * zoom, y, zoom };
-  }
-  return { x: width - MINIMAP_STRIP - right * zoom, y, zoom };
 }
 
 function ChartMinimap({ path }: { path: Set<string> | null }) {
@@ -374,6 +425,69 @@ export default function App() {
   const lit = useMemo(() => ledTo(focusId), [focusId]);
   const nodes = useMemo(() => buildNodes(palette, lit, selectedId), [lit, selectedId]);
   const edges = useMemo(() => buildEdges(palette, lit), [lit]);
+  const camera = useRef<FlowCamera | null>(null);
+  const userMoved = useRef(false);
+  const placing = useRef(false);
+  const placed = useRef<Viewport | null>(null);
+  const session = { placing, placed };
+  const noteUserMove = (viewport: Viewport) => {
+    if (placing.current || userMoved.current) return;
+    const origin = placed.current;
+    if (origin && !sameView(origin, viewport)) userMoved.current = true;
+  };
+
+  useEffect(() => {
+    let frame = 0;
+    const apply = () => {
+      if (userMoved.current) return;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const current = camera.current;
+        if (current && !userMoved.current) placeOpening(current, session);
+      });
+    };
+    let cancelled = false;
+    apply();
+    const stage = document.querySelector(".stage");
+    const observer = new ResizeObserver(apply);
+    if (stage) observer.observe(stage);
+    const view = window.visualViewport;
+    view?.addEventListener("resize", apply);
+    view?.addEventListener("scroll", apply);
+    document.fonts.ready.then(() => {
+      if (!cancelled) apply();
+    }).catch(() => undefined);
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      view?.removeEventListener("resize", apply);
+      view?.removeEventListener("scroll", apply);
+    };
+  }, []);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      if (typingInField(event.target)) return;
+      const direction = arrowPan(event.key);
+      if (!direction) return;
+      const current = camera.current;
+      if (!current) return;
+      event.preventDefault();
+      const step = event.shiftKey ? ARROW_PAN_FAST : ARROW_PAN;
+      const viewport = current.getViewport();
+      const next = {
+        x: viewport.x + direction.dx * step,
+        y: viewport.y + direction.dy * step,
+        zoom: viewport.zoom,
+      };
+      noteUserMove(next);
+      current.setViewport(next);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   return (
     <div className="app">
@@ -395,12 +509,12 @@ export default function App() {
           nodeTypes={nodeTypes}
           colorMode="light"
           onInit={(instance) => {
-            const stage = document.querySelector(".stage");
-            if (stage) {
-              const { width, height } = stage.getBoundingClientRect();
-              void instance.setViewport(openingViewport(width, height), { duration: 0 });
-            }
+            camera.current = instance;
+            if (!userMoved.current) placeOpening(instance, session);
           }}
+          onMoveStart={(_event, viewport) => noteUserMove(viewport)}
+          onMove={(_event, viewport) => noteUserMove(viewport)}
+          onMoveEnd={(_event, viewport) => noteUserMove(viewport)}
           minZoom={0.15}
           maxZoom={2.5}
           panOnScroll
