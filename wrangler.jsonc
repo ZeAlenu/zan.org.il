@@ -13,5 +13,12 @@
   "routes": [
     { "pattern": "zan.org.il", "custom_domain": true },
     { "pattern": "www.zan.org.il", "custom_domain": true }
-  ]
+  ],
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+      "persist": true
+    }
+  }
 }
