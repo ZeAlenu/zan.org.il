@@ -1,0 +1,45 @@
+{
+  "title": "How a shared link should look",
+  "question": "WhatsApp already prints the page title and the sentence under the picture. These three pictures use the full logo, and the words in them are the map link from your screenshot. Lock one. If you want the logo alone on every link, with no page name in the picture, steer that.",
+  "options": [
+    {
+      "id": "ticket",
+      "label": "Chip under the logo",
+      "kicker": "THE ROLL",
+      "thesis": "The full lockup is the picture. The page name sits in one paper chip under it.",
+      "palette": ["#f4f6f8", "#ffffff", "#003090", "#0e1d55"],
+      "materials": ["daylight glass", "paper chip", "the real lockup"],
+      "viewport": "Glass field, the lockup centered on a white card, and one white chip reading the map’s two sides.",
+      "risk": "The chip repeats the title the chat already prints, and a long name starts to look like a button.",
+      "comp": ".impeccable/mocks/decision/ticket.webp"
+    },
+    {
+      "id": "letterhead",
+      "label": "Sheet beside the logo",
+      "thesis": "The lockup keeps its card. A paper sheet beside it carries only the page name.",
+      "palette": ["#f4f6f8", "#ffffff", "#003090", "#0e1d55"],
+      "materials": ["daylight glass", "logo card", "paper sheet"],
+      "viewport": "The lockup on the right, a short white sheet on the left with the page name and no description.",
+      "risk": "A wide crop can cut the sheet or the logo, because the two objects share one frame.",
+      "comp": ".impeccable/mocks/decision/letterhead.webp"
+    },
+    {
+      "id": "masthead",
+      "label": "The name as the poster",
+      "thesis": "The page name is set like a poster. The full logo stays complete on a white plate.",
+      "palette": ["#003090", "#ffffff", "#ffe4d4", "#f05400"],
+      "materials": ["enamel field", "white logo plate", "display type"],
+      "viewport": "Enamel fills the card. The two names are large and white. The lockup sits on a plate at the other side.",
+      "risk": "It is the nearest of the three to the cropped page you rejected, and the title is said again under the picture.",
+      "comp": ".impeccable/mocks/decision/masthead.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "steer": true,
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  }
+}
