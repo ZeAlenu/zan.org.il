@@ -267,6 +267,20 @@ a { color: inherit; }
   min-height: 380px;
 }
 
+.redgreen-sheet {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  background: var(--blue);
+  min-height: 168px;
+  padding: 1.1rem 1.4rem;
+}
+
+.redgreen-chip {
+  display: block;
+  width: min(100%, 34rem);
+  height: auto;
+}
+
 .join-title,
 .about-title {
   font-family: var(--display);
@@ -458,7 +472,8 @@ a { color: inherit; }
   }
 
   .about-sheet,
-  .join-sheet {
+  .join-sheet,
+  .redgreen-sheet {
     grid-column: auto;
     grid-row: auto;
     min-height: 0;
@@ -466,6 +481,7 @@ a { color: inherit; }
 
   .join-sheet { order: -1; min-height: 240px; }
   .about-sheet { min-height: 220px; }
+  .redgreen-sheet { min-height: 140px; }
 
   .join-title { font-size: 2.8rem; }
   .about-title { font-size: 2.2rem; }
