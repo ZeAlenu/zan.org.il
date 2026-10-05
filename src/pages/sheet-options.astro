@@ -30,7 +30,7 @@ const titleWords = redGreen.label.split(/\s+/);
     <span class="side-other">{site.mapOther}</span>
   </a>
 
-  <div class="opt-index">
+  <div class="opt-index" dir="ltr">
     <p class="opt-index-kicker">Five independent sheets</p>
     <p class="opt-index-body">
       Each one sits in the real homepage case. Same facts. Different form. Pick a direction.
@@ -46,7 +46,7 @@ const titleWords = redGreen.label.split(/\s+/);
   </div>
 
   <section class="opt-block" id="cover">
-    <p class="opt-kicker"><span>1</span> Cover — {options[0].line}</p>
+    <p class="opt-kicker" dir="ltr"><span>1</span> Cover — {options[0].line}</p>
     <div class="case opt-case">
       <a class="sheet about-sheet" href="/about">
         <p class="about-title">זה<br />עלינו</p>
@@ -71,7 +71,7 @@ const titleWords = redGreen.label.split(/\s+/);
   </section>
 
   <section class="opt-block" id="versus">
-    <p class="opt-kicker"><span>2</span> Versus — {options[1].line}</p>
+    <p class="opt-kicker" dir="ltr"><span>2</span> Versus — {options[1].line}</p>
     <div class="case opt-case">
       <a class="sheet about-sheet" href="/about">
         <p class="about-title">זה<br />עלינו</p>
@@ -90,7 +90,7 @@ const titleWords = redGreen.label.split(/\s+/);
   </section>
 
   <section class="opt-block" id="fan">
-    <p class="opt-kicker"><span>3</span> Fan — {options[2].line}</p>
+    <p class="opt-kicker" dir="ltr"><span>3</span> Fan — {options[2].line}</p>
     <div class="case opt-case">
       <a class="sheet about-sheet" href="/about">
         <p class="about-title">זה<br />עלינו</p>
@@ -119,7 +119,7 @@ const titleWords = redGreen.label.split(/\s+/);
   </section>
 
   <section class="opt-block" id="ledger">
-    <p class="opt-kicker"><span>4</span> Ledger — {options[3].line}</p>
+    <p class="opt-kicker" dir="ltr"><span>4</span> Ledger — {options[3].line}</p>
     <div class="case opt-case">
       <a class="sheet about-sheet" href="/about">
         <p class="about-title">זה<br />עלינו</p>
@@ -151,7 +151,7 @@ const titleWords = redGreen.label.split(/\s+/);
   </section>
 
   <section class="opt-block" id="ticker">
-    <p class="opt-kicker"><span>5</span> Ticker — {options[4].line}</p>
+    <p class="opt-kicker" dir="ltr"><span>5</span> Ticker — {options[4].line}</p>
     <div class="case opt-case">
       <a class="sheet about-sheet" href="/about">
         <p class="about-title">זה<br />עלינו</p>
@@ -170,7 +170,7 @@ const titleWords = redGreen.label.split(/\s+/);
             </>
           ))}
         </p>
-        <div class="opt-ticker-mask">
+        <div class="opt-ticker-mask" dir="ltr">
           <div class="opt-ticker-track">
             {[0, 1].map(() =>
               names.map((node) => <span>{node.short}</span>),
