@@ -1,0 +1,183 @@
+---
+import Frame from "../layouts/Frame.astro";
+import { site } from "../data/site";
+import { FRAMES, nodeOf } from "../map/chart";
+import "../styles/sheet-options.css";
+
+const redGreen = FRAMES.find((frame) => frame.look === "redGreen");
+if (!redGreen) {
+  throw new Error("missing redGreen frame");
+}
+const names = redGreen.members
+  .map((id) => nodeOf(id))
+  .sort((a, b) => a.row - b.row);
+
+const options = [
+  { id: "cover", n: "1", name: "Cover", line: "Enamel poster. The alliance name is the sheet." },
+  { id: "versus", n: "2", name: "Versus", line: "The header fight, at sheet scale." },
+  { id: "fan", n: "3", name: "Fan", line: "Four paper tickets stacked on enamel." },
+  { id: "ledger", n: "4", name: "Ledger", line: "A numbered contents list on paper." },
+  { id: "ticker", n: "5", name: "Ticker", line: "A marquee of the four names under a title." },
+] as const;
+
+const titleWords = redGreen.label.split(/\s+/);
+---
+
+<Frame title={`אפשרויות גיליון — ${site.name}`} current="home">
+  <a slot="bar" class="map-entry" href={site.mapHref}>
+    <span class="side-liberty">{site.mapLiberty}</span>
+    <span class="side-vs" dir="ltr">vs.</span>
+    <span class="side-other">{site.mapOther}</span>
+  </a>
+
+  <div class="opt-index">
+    <p class="opt-index-kicker">Five independent sheets</p>
+    <p class="opt-index-body">
+      Each one sits in the real homepage case. Same facts. Different form. Pick a direction.
+    </p>
+    <nav class="opt-index-nav" aria-label="אפשרויות">
+      {options.map((option) => (
+        <a href={`#${option.id}`}>
+          <span>{option.n}</span>
+          {option.name}
+        </a>
+      ))}
+    </nav>
+  </div>
+
+  <section class="opt-block" id="cover">
+    <p class="opt-kicker"><span>1</span> Cover — {options[0].line}</p>
+    <div class="case opt-case">
+      <a class="sheet about-sheet" href="/about">
+        <p class="about-title">זה<br />עלינו</p>
+        <p class="about-body">{site.sentence}</p>
+      </a>
+      <a class="sheet join-sheet" href="/join">
+        <p class="join-title">הצטרפו<br />לתנועה</p>
+        <p class="join-sub">קהילת הוואטסאפ</p>
+      </a>
+      <a class="sheet opt-cover" href={site.mapHref} aria-label={site.mapTitle}>
+        <p class="opt-cover-title">
+          {titleWords.map((word, i) => (
+            <>
+              {i > 0 && <br />}
+              {word}
+            </>
+          ))}
+        </p>
+        <p class="opt-cover-names">{names.map((node) => node.short).join(" · ")}</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="opt-block" id="versus">
+    <p class="opt-kicker"><span>2</span> Versus — {options[1].line}</p>
+    <div class="case opt-case">
+      <a class="sheet about-sheet" href="/about">
+        <p class="about-title">זה<br />עלינו</p>
+        <p class="about-body">{site.sentence}</p>
+      </a>
+      <a class="sheet join-sheet" href="/join">
+        <p class="join-title">הצטרפו<br />לתנועה</p>
+        <p class="join-sub">קהילת הוואטסאפ</p>
+      </a>
+      <a class="sheet opt-versus" href={site.mapHref} aria-label={site.mapTitle}>
+        <p class="opt-versus-liberty">{site.mapLiberty}</p>
+        <p class="opt-versus-vs" dir="ltr">vs.</p>
+        <p class="opt-versus-other">{redGreen.label}</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="opt-block" id="fan">
+    <p class="opt-kicker"><span>3</span> Fan — {options[2].line}</p>
+    <div class="case opt-case">
+      <a class="sheet about-sheet" href="/about">
+        <p class="about-title">זה<br />עלינו</p>
+        <p class="about-body">{site.sentence}</p>
+      </a>
+      <a class="sheet join-sheet" href="/join">
+        <p class="join-title">הצטרפו<br />לתנועה</p>
+        <p class="join-sub">קהילת הוואטסאפ</p>
+      </a>
+      <a class="sheet opt-fan" href={site.mapHref} aria-label={site.mapTitle}>
+        <p class="opt-fan-title">
+          {titleWords.map((word, i) => (
+            <>
+              {i > 0 && <br />}
+              {word}
+            </>
+          ))}
+        </p>
+        <div class="opt-fan-stack">
+          {names.map((node) => (
+            <p class="opt-fan-ticket">{node.short}</p>
+          ))}
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="opt-block" id="ledger">
+    <p class="opt-kicker"><span>4</span> Ledger — {options[3].line}</p>
+    <div class="case opt-case">
+      <a class="sheet about-sheet" href="/about">
+        <p class="about-title">זה<br />עלינו</p>
+        <p class="about-body">{site.sentence}</p>
+      </a>
+      <a class="sheet join-sheet" href="/join">
+        <p class="join-title">הצטרפו<br />לתנועה</p>
+        <p class="join-sub">קהילת הוואטסאפ</p>
+      </a>
+      <a class="sheet opt-ledger" href={site.mapHref} aria-label={site.mapTitle}>
+        <p class="opt-ledger-title">
+          {titleWords.map((word, i) => (
+            <>
+              {i > 0 && <br />}
+              {word}
+            </>
+          ))}
+        </p>
+        <ol class="opt-ledger-list">
+          {names.map((node, i) => (
+            <li>
+              <span class="opt-ledger-num">{String(i + 1).padStart(2, "0")}</span>
+              <span class="opt-ledger-name">{node.short}</span>
+            </li>
+          ))}
+        </ol>
+      </a>
+    </div>
+  </section>
+
+  <section class="opt-block" id="ticker">
+    <p class="opt-kicker"><span>5</span> Ticker — {options[4].line}</p>
+    <div class="case opt-case">
+      <a class="sheet about-sheet" href="/about">
+        <p class="about-title">זה<br />עלינו</p>
+        <p class="about-body">{site.sentence}</p>
+      </a>
+      <a class="sheet join-sheet" href="/join">
+        <p class="join-title">הצטרפו<br />לתנועה</p>
+        <p class="join-sub">קהילת הוואטסאפ</p>
+      </a>
+      <a class="sheet opt-ticker" href={site.mapHref} aria-label={site.mapTitle}>
+        <p class="opt-ticker-title">
+          {titleWords.map((word, i) => (
+            <>
+              {i > 0 && <br />}
+              {word}
+            </>
+          ))}
+        </p>
+        <div class="opt-ticker-mask">
+          <div class="opt-ticker-track">
+            {[0, 1].map(() =>
+              names.map((node) => <span>{node.short}</span>),
+            )}
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+</Frame>

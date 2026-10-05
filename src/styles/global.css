@@ -492,7 +492,12 @@ a { color: inherit; }
 
   .about-sheet,
   .join-sheet,
-  .matter-sheet {
+  .matter-sheet,
+  .opt-cover,
+  .opt-versus,
+  .opt-fan,
+  .opt-ledger,
+  .opt-ticker {
     grid-column: auto;
     grid-row: auto;
     min-height: 0;
