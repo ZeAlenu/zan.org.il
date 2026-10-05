@@ -32,12 +32,13 @@ A discovery during the task is yours. A warning, a default tool that fails the e
 
 # Home sheets
 
-The homepage is a masonry of unequal sheets. More sheets will keep landing here. The standard for every home sheet:
+The homepage is a masonry of unequal sheets. More sheets will keep landing here. The format:
 
-- Build the sheet as live HTML inside the case. Do not paste a screenshot, a cropped capture, or any fixed raster of another page into a home sheet.
-- The sheet is one unequal surface that grows and shrinks with its content, the same way join and about already do.
-- When a sheet opens another page, put a similar HTML appearance of that page’s subject inside the sheet — drawn with the site’s type and tokens, sized with `clamp` / fluid layout — not a picture of the page.
-- Facts on a sheet come from `site.ts` or the same source the target page uses. Do not invent members, labels, or research.
+- One surface in the case — enamel, paper, or the join orange — with the same radius, padding, and lift as join and about.
+- Live HTML that grows and shrinks with the case. Never a screenshot, and never a nested replica of the destination page (no map frames, dashed boxes, node pills, genealogy colors, or emoji marks).
+- Station type: Secular One for the sheet title, Rubik for the names or supporting line. Size with `clamp`.
+- A sheet that opens another page names its subject in display type, then lists that page’s public facts as type. Same family as about’s sentence and join’s call.
+- Facts come from `site.ts` or the same source the target page uses. Do not invent members, labels, or research.
 
 # The bar
 

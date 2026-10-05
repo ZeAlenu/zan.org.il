@@ -18,6 +18,6 @@ FIRST VIEWPORT: Floating blue header with the logo on the right and דוא״ל, 
 
 FORM: The station case, third on the grounded list, seed 7efe08d8. The locked arrangement is join-first.
 
-SIGNATURE: Sheets settle by their own height into the case. Opening a context page keeps the frame. Opening the vision lifts the frame off. A home sheet is live HTML that grows and shrinks with its content — never a pasted screenshot of another page.
+SIGNATURE: Sheets settle by their own height into the case. Opening a context page keeps the frame. Opening the vision lifts the frame off. A home sheet is one station surface of live HTML — display title, then the page’s facts as type — never a pasted screenshot or a nested replica of another page.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.

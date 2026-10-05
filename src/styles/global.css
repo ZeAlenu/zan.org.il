@@ -4,8 +4,6 @@
   --blue-ink: #0e1d55;
   --orange: #f05400;
   --sheet: #ffffff;
-  --map-col: #c63a4a;
-  --map-isl: #0f7d52;
   --display: "Secular One", "Rubik", sans-serif;
   --text: "Rubik", "Secular One", sans-serif;
   --shadow: 0 8px 18px rgba(8, 23, 70, 0.1);
@@ -270,111 +268,35 @@ a { color: inherit; }
   min-height: 380px;
 }
 
-.map-sheet {
+.matter-sheet {
   grid-column: 2;
   grid-row: 2;
-  justify-content: flex-start;
-  align-items: stretch;
-  padding: 1.4rem 1.5rem;
+  gap: 0.7rem;
   background: white;
+  color: var(--blue);
   min-height: 240px;
 }
 
-.alliance-preview {
-  position: relative;
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100%;
-  margin-top: 1.1rem;
-  padding:
-    clamp(1.6rem, 3.2vw, 2.2rem)
-    clamp(0.7rem, 1.6vw, 1rem)
-    clamp(0.7rem, 1.6vw, 1rem);
-  border: 1.5px dashed #7a808a;
-  border-radius: 14px;
-  direction: rtl;
-}
-
-.alliance-redgreen {
-  background: linear-gradient(
-    to top right,
-    color-mix(in srgb, var(--map-col) 22%, transparent) 50%,
-    color-mix(in srgb, var(--map-isl) 22%, transparent) 50%
-  );
-}
-
-.alliance-label {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-  height: clamp(1.8rem, 3.6vw, 2.25rem);
+.matter-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+  line-height: 0.92;
+  max-width: 8ch;
   margin: 0;
-  padding: 0 clamp(0.7rem, 1.5vw, 0.9rem);
-  border-radius: 14px;
-  background: white;
-  color: var(--blue);
-  box-shadow: var(--shadow);
-  font-weight: 700;
-  font-size: clamp(0.82rem, 1.5vw, 0.95rem);
-  line-height: 1;
-  white-space: nowrap;
-  direction: rtl;
-  transform: translate(-50%, -50%);
 }
 
-.alliance-marks {
-  display: inline-flex;
-  gap: 0.15em;
-  font-size: 1.05em;
-  line-height: 1;
-}
-
-.alliance-nodes {
+.matter-list {
   display: flex;
-  flex: 1 1 auto;
   flex-direction: column;
-  justify-content: space-evenly;
-  gap: clamp(0.45rem, 1.2vw, 0.7rem);
+  gap: 0.22em;
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.alliance-node {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.15em;
-  min-height: clamp(2.6rem, 5.5vw, 3.4rem);
-  padding: 0.35em 0.7em;
-  border: 1.5px solid;
-  border-radius: 12px;
-  background: white;
   color: var(--blue-ink);
-  text-align: center;
-}
-
-.alliance-node.is-col { border-color: var(--map-col); }
-
-.alliance-node.is-isl { border-color: var(--map-isl); }
-
-.alliance-short {
-  font-size: clamp(0.78rem, 1.45vw, 0.95rem);
   font-weight: 500;
-  line-height: 1.2;
-}
-
-.alliance-tag {
-  font-size: clamp(0.65rem, 1.15vw, 0.78rem);
-  line-height: 1.2;
-  color: #24356f;
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.25;
 }
 
 .join-title,
@@ -569,7 +491,7 @@ a { color: inherit; }
 
   .about-sheet,
   .join-sheet,
-  .map-sheet {
+  .matter-sheet {
     grid-column: auto;
     grid-row: auto;
     min-height: 0;
@@ -577,10 +499,11 @@ a { color: inherit; }
 
   .join-sheet { order: -1; min-height: 240px; }
   .about-sheet { min-height: 220px; }
-  .map-sheet { min-height: 0; }
+  .matter-sheet { min-height: 0; }
 
   .join-title { font-size: 2.8rem; }
   .about-title { font-size: 2.2rem; }
+  .matter-title { font-size: 2rem; }
 
   .reading {
     margin: 144px 12px 40px;

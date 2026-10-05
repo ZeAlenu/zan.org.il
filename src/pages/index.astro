@@ -27,31 +27,11 @@ const redGreenNodes = redGreen.members
       <h1 class="join-title">הצטרפו<br />לתנועה</h1>
       <p class="join-sub">קהילת הוואטסאפ</p>
     </a>
-    <a class="sheet map-sheet" href={site.mapHref} aria-label={site.mapTitle}>
-      <div class="alliance-preview alliance-redgreen">
-        <p class="alliance-label">
-          {
-            redGreen.marks?.length ? (
-              <span class="alliance-marks" aria-hidden="true">
-                {redGreen.marks.map((mark) => (
-                  <span>{mark}</span>
-                ))}
-              </span>
-            ) : null
-          }
-          {redGreen.label}
-        </p>
-        <ul class="alliance-nodes">
-          {
-            redGreenNodes.map((node) => (
-              <li class:list={["alliance-node", node.ink === "ISL" ? "is-isl" : "is-col"]}>
-                <span class="alliance-short">{node.short}</span>
-                <span class="alliance-tag">{node.tag}</span>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+    <a class="sheet matter-sheet" href={site.mapHref} aria-label={site.mapTitle}>
+      <p class="matter-title">{redGreen.label}</p>
+      <ul class="matter-list">
+        {redGreenNodes.map((node) => <li>{node.short}</li>)}
+      </ul>
     </a>
   </main>
 </Frame>
