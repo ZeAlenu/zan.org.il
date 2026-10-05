@@ -4,7 +4,6 @@ import {
   Controls,
   MarkerType,
   MiniMap,
-  PanOnScrollMode,
   ReactFlow,
   useStore,
   useViewport,
@@ -37,7 +36,11 @@ import {
 } from "./layout";
 import { nodeTypes } from "./nodes";
 import { openingViewport } from "./opening";
+import { createSmoothPan } from "./smoothPan";
 import { palette, type Palette } from "./theme";
+
+const MIN_ZOOM = 0.15;
+const MAX_ZOOM = 2.5;
 
 type Viewport = { x: number; y: number; zoom: number };
 
@@ -46,8 +49,8 @@ type FlowCamera = {
   setViewport: (viewport: Viewport, options?: { duration: number }) => void;
 };
 
-const ARROW_PAN = 48;
-const ARROW_PAN_FAST = 144;
+const ARROW_PAN = 72;
+const ARROW_PAN_FAST = 220;
 
 function arrowPan(key: string): { dx: number; dy: number } | null {
   switch (key) {
@@ -289,6 +292,7 @@ function ChartMinimap({ path }: { path: Set<string> | null }) {
 
   return (
     <MiniMap
+      className="nowheel"
       position="bottom-right"
       pannable
       zoomable
@@ -365,7 +369,7 @@ function Detail({ id, palette, onClose }: { id: string; palette: Palette; onClos
   const outgoing = EDGES.filter((edge) => edge.from === id);
   const stroke = node.ink ? palette[node.ink] : palette[node.attr];
   return (
-    <aside className="detail" style={{ background: palette.panel, borderColor: palette.line, color: palette.text }}>
+    <aside className="detail nowheel" style={{ background: palette.panel, borderColor: palette.line, color: palette.text }}>
       <div className="detail-top" style={{ borderColor: stroke }}>
         <div>
           <div className="detail-tag" style={{ color: stroke }}>
@@ -426,6 +430,7 @@ export default function App() {
   const nodes = useMemo(() => buildNodes(palette, lit, selectedId), [lit, selectedId]);
   const edges = useMemo(() => buildEdges(palette, lit), [lit]);
   const camera = useRef<FlowCamera | null>(null);
+  const stageRef = useRef<HTMLElement | null>(null);
   const userMoved = useRef(false);
   const placing = useRef(false);
   const placed = useRef<Viewport | null>(null);
@@ -435,6 +440,15 @@ export default function App() {
     const origin = placed.current;
     if (origin && !sameView(origin, viewport)) userMoved.current = true;
   };
+  const smoothPan = useMemo(
+    () =>
+      createSmoothPan({
+        minZoom: MIN_ZOOM,
+        maxZoom: MAX_ZOOM,
+        onUserMove: noteUserMove,
+      }),
+    [],
+  );
 
   useEffect(() => {
     let frame = 0;
@@ -448,7 +462,7 @@ export default function App() {
     };
     let cancelled = false;
     apply();
-    const stage = document.querySelector(".stage");
+    const stage = stageRef.current;
     const observer = new ResizeObserver(apply);
     if (stage) observer.observe(stage);
     const view = window.visualViewport;
@@ -467,31 +481,33 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    stage.addEventListener("wheel", smoothPan.onWheel, { passive: false, capture: true });
+    return () => {
+      stage.removeEventListener("wheel", smoothPan.onWheel, true);
+      smoothPan.stop();
+    };
+  }, [smoothPan]);
+
+  useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.altKey || event.ctrlKey || event.metaKey) return;
       if (typingInField(event.target)) return;
       const direction = arrowPan(event.key);
       if (!direction) return;
-      const current = camera.current;
-      if (!current) return;
+      if (!camera.current) return;
       event.preventDefault();
       const step = event.shiftKey ? ARROW_PAN_FAST : ARROW_PAN;
-      const viewport = current.getViewport();
-      const next = {
-        x: viewport.x + direction.dx * step,
-        y: viewport.y + direction.dy * step,
-        zoom: viewport.zoom,
-      };
-      noteUserMove(next);
-      current.setViewport(next);
+      smoothPan.nudge(direction.dx * step, direction.dy * step);
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [smoothPan]);
 
   return (
     <div className="app">
-      <main className="stage">
+      <main className="stage" ref={stageRef}>
         <details className="map-key" style={{ color: palette.text }}>
           <summary aria-label="מקרא">
             <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
@@ -510,15 +526,29 @@ export default function App() {
           colorMode="light"
           onInit={(instance) => {
             camera.current = instance;
+            const host = stageRef.current?.querySelector(".react-flow") ?? stageRef.current;
+            if (host instanceof HTMLElement) smoothPan.bind(instance, host);
             if (!userMoved.current) placeOpening(instance, session);
           }}
-          onMoveStart={(_event, viewport) => noteUserMove(viewport)}
+          onMoveStart={(event, viewport) => {
+            const kind = event?.type;
+            if (kind === "mousedown" || kind === "touchstart" || kind === "pointerdown") {
+              smoothPan.setDragging(true);
+            }
+            smoothPan.noteForeignMove();
+            noteUserMove(viewport);
+          }}
           onMove={(_event, viewport) => noteUserMove(viewport)}
-          onMoveEnd={(_event, viewport) => noteUserMove(viewport)}
-          minZoom={0.15}
-          maxZoom={2.5}
-          panOnScroll
-          panOnScrollMode={PanOnScrollMode.Free}
+          onMoveEnd={(event, viewport) => {
+            const kind = event?.type;
+            if (!event || kind === "mouseup" || kind === "touchend" || kind === "pointerup") {
+              smoothPan.setDragging(false);
+            }
+            noteUserMove(viewport);
+          }}
+          minZoom={MIN_ZOOM}
+          maxZoom={MAX_ZOOM}
+          panOnScroll={false}
           zoomOnScroll={false}
           zoomOnPinch
           zoomOnDoubleClick={false}
@@ -537,7 +567,7 @@ export default function App() {
           onPaneClick={() => setSelectedId(null)}
         >
           <Background variant={BackgroundVariant.Dots} gap={24} size={1.15} color="#c5d0e4" />
-          <Controls showInteractive={false} position="bottom-left" />
+          <Controls className="nowheel nopan" showInteractive={false} position="bottom-left" />
           <ChartMinimap path={lit} />
         </ReactFlow>
         {selectedId ? <Detail id={selectedId} palette={palette} onClose={() => setSelectedId(null)} /> : null}
