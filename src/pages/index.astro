@@ -28,7 +28,16 @@ const redGreenNodes = redGreen.members
       <p class="join-sub">קהילת הוואטסאפ</p>
     </a>
     <a class="sheet matter-sheet" href={site.mapHref} aria-label={site.mapTitle}>
-      <p class="matter-title">{redGreen.label}</p>
+      <p class="matter-title">
+        {
+          redGreen.label.split(/\s+/).map((word, i) => (
+            <>
+              {i > 0 && <br />}
+              {word}
+            </>
+          ))
+        }
+      </p>
       <ul class="matter-list">
         {redGreenNodes.map((node) => <li>{node.short}</li>)}
       </ul>

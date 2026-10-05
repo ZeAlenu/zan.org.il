@@ -282,8 +282,9 @@ a { color: inherit; }
   font-weight: 400;
   font-size: clamp(1.8rem, 2.8vw, 2.6rem);
   line-height: 0.92;
-  max-width: 8ch;
   margin: 0;
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
 
 .matter-list {

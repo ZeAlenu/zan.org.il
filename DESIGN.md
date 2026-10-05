@@ -262,7 +262,7 @@ Surfaces are enamel or paper. Route orange is the chip on the join stop and the 
 - **Corner Style:** 22px.
 - **Join sheet:** Route-orange fill, sheet-white type, centered, padding 1.4rem 1.5rem, min-height 380px (240px under 800px). Display title plus a Rubik 700 supporting line.
 - **Enamel sheet:** Enamel fill, sheet-white type, the same padding, min-height 220px (220px under 800px). Headline plus a short body, about 22ch.
-- **Matter sheet:** Paper fill, enamel title, the same padding, min-height 240px. Secular One at `clamp(1.8rem, 2.8vw, 2.6rem)` (2rem under 800px), max-width about 8ch so a Hebrew title stacks. Public names from the destination sit under it as Rubik 500, `clamp(1rem, 1.35vw, 1.2rem)`. No inner frame, no nested cards. The redgreen sheet is this format, linking to `/redgreen`.
+- **Matter sheet:** Paper fill, enamel title, the same padding, min-height 240px. Secular One at `clamp(1.8rem, 2.8vw, 2.6rem)` (2rem under 800px). A Hebrew title stacks on its spaces. Public names from the destination sit under it as Rubik 500, `clamp(1rem, 1.35vw, 1.2rem)`. No inner frame, no nested cards. The redgreen sheet is this format, linking to `/redgreen`.
 - **Paper sheets:** Sheet-white fill, enamel type, min-height 96px. The logo line uses the title face. Email and X use Rubik 700.
 - **Reading sheet:** Sheet-white fill, ink type, padding `clamp(2.5rem, 5vw, 4.5rem)`, text at the start, display title in enamel. The join reading sheet is route orange with white type and a white action. The about reading sheet is enamel with white type and a route-orange action.
 - **Shadow Strategy:** The one sheet lift. Hover translates the home sheet up 2px.
