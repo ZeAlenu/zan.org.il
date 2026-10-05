@@ -7,15 +7,16 @@ type Camera = {
 
 type SmoothPanOptions = {
   gain?: number;
-  smoothMs?: number;
   minZoom: number;
   maxZoom: number;
   onUserMove: (viewport: Viewport) => void;
 };
 
-const DEFAULT_GAIN = 0.9;
-const DEFAULT_SMOOTH_MS = 280;
-const STOP = 0.08;
+const DEFAULT_GAIN = 1.2;
+const MAX_SPEED = 5200;
+const IMPULSE = 1000 / 48;
+const FRICTION_MS = 240;
+const STOP_SPEED = 12;
 
 function reduceMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -27,12 +28,11 @@ function wheelFactor(event: WheelEvent): number {
 
 export function createSmoothPan(options: SmoothPanOptions) {
   const gain = options.gain ?? DEFAULT_GAIN;
-  const smoothMs = options.smoothMs ?? DEFAULT_SMOOTH_MS;
   let camera: Camera | null = null;
   let pane: HTMLElement | null = null;
   let live: Viewport | null = null;
-  let pendingX = 0;
-  let pendingY = 0;
+  let vx = 0;
+  let vy = 0;
   let frame = 0;
   let lastTime = 0;
 
@@ -48,8 +48,8 @@ export function createSmoothPan(options: SmoothPanOptions) {
   }
 
   function stop() {
-    pendingX = 0;
-    pendingY = 0;
+    vx = 0;
+    vy = 0;
     live = null;
     lastTime = 0;
     if (frame) {
@@ -74,24 +74,35 @@ export function createSmoothPan(options: SmoothPanOptions) {
     });
   }
 
+  function capSpeed() {
+    const speed = Math.hypot(vx, vy);
+    if (speed <= MAX_SPEED) return;
+    const scale = MAX_SPEED / speed;
+    vx *= scale;
+    vy *= scale;
+  }
+
   function tick(now: number) {
     const dt = lastTime ? Math.min(64, now - lastTime) : 16;
     lastTime = now;
-    const alpha = reduceMotion() ? 1 : 1 - Math.exp(-dt / smoothMs);
-    const stepX = pendingX * alpha;
-    const stepY = pendingY * alpha;
-    pendingX -= stepX;
-    pendingY -= stepY;
-    if (Math.abs(pendingX) < STOP) pendingX = 0;
-    if (Math.abs(pendingY) < STOP) pendingY = 0;
-    apply(stepX, stepY);
-    if (pendingX !== 0 || pendingY !== 0) {
-      frame = requestAnimationFrame(tick);
-    } else {
+    if (reduceMotion()) {
+      apply((vx * dt) / 1000, (vy * dt) / 1000);
+      stop();
+      return;
+    }
+    apply((vx * dt) / 1000, (vy * dt) / 1000);
+    const decay = Math.exp(-dt / FRICTION_MS);
+    vx *= decay;
+    vy *= decay;
+    if (Math.hypot(vx, vy) < STOP_SPEED) {
       frame = 0;
       lastTime = 0;
       live = null;
+      vx = 0;
+      vy = 0;
+      return;
     }
+    frame = requestAnimationFrame(tick);
   }
 
   function kick() {
@@ -110,8 +121,9 @@ export function createSmoothPan(options: SmoothPanOptions) {
       return;
     }
     syncLive();
-    pendingX += dx;
-    pendingY += dy;
+    vx += dx * IMPULSE;
+    vy += dy * IMPULSE;
+    capSpeed();
     kick();
   }
 

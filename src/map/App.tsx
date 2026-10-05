@@ -49,8 +49,8 @@ type FlowCamera = {
   setViewport: (viewport: Viewport, options?: { duration: number }) => void;
 };
 
-const ARROW_PAN = 48;
-const ARROW_PAN_FAST = 144;
+const ARROW_PAN = 72;
+const ARROW_PAN_FAST = 220;
 
 function arrowPan(key: string): { dx: number; dy: number } | null {
   switch (key) {
