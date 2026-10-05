@@ -18,7 +18,7 @@ const { title, description = page?.description ?? site.sentence } = Astro.props;
 const headline = page?.headline ?? title;
 const path = (page?.path ?? Astro.url.pathname).replace(/\/+$/, "") || "/";
 const canonical = new URL(path, Astro.site).href;
-const image = new URL(`/share/${page?.card ?? "home"}.png`, Astro.site).href;
+const image = new URL(`/share/${page?.card ?? "home"}.png?v=2`, Astro.site).href;
 const imageAlt = `${headline} — ${site.name}`;
 ---
 
