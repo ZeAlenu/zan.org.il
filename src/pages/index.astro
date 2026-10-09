@@ -10,6 +10,7 @@ if (!redGreen) {
 const redGreenNodes = redGreen.members
   .map((id) => nodeOf(id))
   .sort((a, b) => a.row - b.row);
+const titleWords = redGreen.label.split(/\s+/);
 ---
 
 <Frame title={pages.home.title} current="home">
@@ -27,10 +28,10 @@ const redGreenNodes = redGreen.members
       <h1 class="join-title">הצטרפו<br />לתנועה</h1>
       <p class="join-sub">קהילת הוואטסאפ</p>
     </a>
-    <a class="sheet matter-sheet" href={site.mapHref} aria-label={site.mapTitle}>
-      <p class="matter-title">
+    <a class="sheet fan-sheet" href={site.mapHref} aria-label={site.mapTitle}>
+      <p class="fan-title">
         {
-          redGreen.label.split(/\s+/).map((word, i) => (
+          titleWords.map((word, i) => (
             <>
               {i > 0 && <br />}
               {word}
@@ -38,9 +39,11 @@ const redGreenNodes = redGreen.members
           ))
         }
       </p>
-      <ul class="matter-list">
-        {redGreenNodes.map((node) => <li>{node.short}</li>)}
-      </ul>
+      <div class="fan-stack">
+        {redGreenNodes.map((node) => (
+          <p class="fan-ticket">{node.short}</p>
+        ))}
+      </div>
     </a>
   </main>
 </Frame>

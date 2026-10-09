@@ -124,12 +124,12 @@ components:
     typography: "{typography.title}"
     rounded: "{rounded.sheet}"
     padding: "1.4rem 1.5rem"
-  sheet-matter:
-    backgroundColor: "{colors.sheet}"
-    textColor: "{colors.enamel}"
+  sheet-fan:
+    backgroundColor: "{colors.enamel}"
+    textColor: "{colors.sheet}"
     typography: "{typography.title}"
     rounded: "{rounded.sheet}"
-    padding: "1.4rem 1.5rem"
+    padding: "1.25rem 1.15rem 1.45rem"
   logo-card:
     backgroundColor: "{colors.sheet}"
     rounded: "{rounded.logo}"
@@ -209,7 +209,7 @@ Daylight glass is the ground. Enamel and route orange are the two voices. Ink is
 
 The document is Hebrew, `lang="he"` and `dir="rtl"`. The station frame is inset by 20px. A 76px enamel header floats at that inset. Its box is forced left-to-right so the logo card stays on the physical right and the contact links stay on the physical left; the link row itself is right-to-left, with a gap of `clamp(22px, 2.6vw, 48px)`. The logo card is 168×104 and shares the rail’s 168px column. The white rail starts 164px from the top, directly under the logo.
 
-The home case is a grid with columns `minmax(0, 1.35fr)` and `minmax(0, 0.8fr)`, rows `auto auto`, and a 16px gap. In the RTL grid the wide start column sits beside the rail: the orange join sheet, min-height 380px, spanning both rows and stretching with them. The narrow column stacks the enamel about sheet (row 1, min-height 200px) over a paper matter sheet (row 2, min-height 240px). The matter sheet is the home format for a page that is not join or about: Secular One title, then that page’s public names as Rubik type. The redgreen sheet uses that format — title ברית אדומה־ירוקה, members from `FRAMES` — and links to `/redgreen`. Content clears the frame with 164px top padding and a right inset of the rail plus 16px.
+The home case is a grid with columns `minmax(0, 1.35fr)` and `minmax(0, 0.8fr)`, rows `auto auto`, and a 16px gap. In the RTL grid the wide start column sits beside the rail: the orange join sheet, min-height 380px, spanning both rows and stretching with them. The narrow column stacks the enamel about sheet (row 1, min-height 200px) over the enamel fan sheet (row 2, min-height 300px). The fan sheet is the home format for the redgreen stop: Secular One title on enamel, then that page’s public names as stacked paper tickets. Title ברית אדומה־ירוקה, members from `FRAMES`, linking to `/redgreen`. Content clears the frame with 164px top padding and a right inset of the rail plus 16px.
 
 **The Home Sheet Rule.** Every home sheet is one station surface of live HTML. Do not paste a screenshot. Do not nest the destination page’s chrome (map frames, dashed boxes, node pills, genealogy colors, emoji marks). Name the subject in Secular One; list the page’s facts as type; grow and shrink with the case. Facts come from `site.ts` or the same source the target page uses.
 
@@ -262,7 +262,7 @@ Surfaces are enamel or paper. Route orange is the chip on the join stop and the 
 - **Corner Style:** 22px.
 - **Join sheet:** Route-orange fill, sheet-white type, centered, padding 1.4rem 1.5rem, min-height 380px (240px under 800px). Display title plus a Rubik 700 supporting line.
 - **Enamel sheet:** Enamel fill, sheet-white type, the same padding, min-height 220px (220px under 800px). Headline plus a short body, about 22ch.
-- **Matter sheet:** Paper fill, enamel title, the same padding, min-height 240px. Secular One at `clamp(1.8rem, 2.8vw, 2.6rem)` (2rem under 800px). A Hebrew title stacks on its spaces. Public names from the destination sit under it as Rubik 500, `clamp(1rem, 1.35vw, 1.2rem)`. No inner frame, no nested cards. The redgreen sheet is this format, linking to `/redgreen`.
+- **Fan sheet:** Enamel fill, sheet-white title, padding `1.25rem 1.15rem 1.45rem`, min-height 300px (280px under 800px). Secular One at `clamp(1.55rem, 2.5vw, 2.15rem)` (1.7rem under 800px). A Hebrew title stacks on its spaces. Public names from the destination sit under it as paper tickets — white fill, enamel type, Rubik 700, 14px radius, the one sheet lift — stepped and slightly rotated so every name stays readable. Hover fans the tickets a little farther; `prefers-reduced-motion` keeps the rest pose. No map chrome. The redgreen sheet is this format, linking to `/redgreen`.
 - **Paper sheets:** Sheet-white fill, enamel type, min-height 96px. The logo line uses the title face. Email and X use Rubik 700.
 - **Reading sheet:** Sheet-white fill, ink type, padding `clamp(2.5rem, 5vw, 4.5rem)`, text at the start, display title in enamel. The join reading sheet is route orange with white type and a white action. The about reading sheet is enamel with white type and a route-orange action.
 - **Shadow Strategy:** The one sheet lift. Hover translates the home sheet up 2px.

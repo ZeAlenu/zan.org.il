@@ -37,7 +37,7 @@ The homepage is a masonry of unequal sheets. More sheets will keep landing here.
 - One surface in the case — enamel, paper, or the join orange — with the same radius, padding, and lift as join and about.
 - Live HTML that grows and shrinks with the case. Never a screenshot, and never a nested replica of the destination page (no map frames, dashed boxes, node pills, genealogy colors, or emoji marks).
 - Station type: Secular One for the sheet title, Rubik for the names or supporting line. Size with `clamp`.
-- A sheet that opens another page names its subject in display type, then lists that page’s public facts as type. Same family as about’s sentence and join’s call.
+- A sheet that opens another page names its subject in display type, then lists that page’s public facts as type. Same family as about’s sentence and join’s call. The redgreen home sheet is the fan: enamel ground, Hebrew title stacked on its spaces, members as paper tickets.
 - Facts come from `site.ts` or the same source the target page uses. Do not invent members, labels, or research.
 
 # The bar

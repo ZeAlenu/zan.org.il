@@ -15,7 +15,7 @@ const names = redGreen.members
 const options = [
   { id: "cover", n: "1", name: "Cover", line: "Enamel poster. The alliance name is the sheet." },
   { id: "versus", n: "2", name: "Versus", line: "The header fight, at sheet scale." },
-  { id: "fan", n: "3", name: "Fan", line: "Four paper tickets stacked on enamel." },
+  { id: "fan", n: "3", name: "Fan", line: "Enamel sheet. Four paper tickets in a readable stack." },
   { id: "ledger", n: "4", name: "Ledger", line: "A numbered contents list on paper." },
   { id: "ticker", n: "5", name: "Ticker", line: "A marquee of the four names under a title." },
 ] as const;
@@ -100,8 +100,8 @@ const titleWords = redGreen.label.split(/\s+/);
         <p class="join-title">הצטרפו<br />לתנועה</p>
         <p class="join-sub">קהילת הוואטסאפ</p>
       </a>
-      <a class="sheet opt-fan" href={site.mapHref} aria-label={site.mapTitle}>
-        <p class="opt-fan-title">
+      <a class="sheet fan-sheet" href={site.mapHref} aria-label={site.mapTitle}>
+        <p class="fan-title">
           {titleWords.map((word, i) => (
             <>
               {i > 0 && <br />}
@@ -109,9 +109,9 @@ const titleWords = redGreen.label.split(/\s+/);
             </>
           ))}
         </p>
-        <div class="opt-fan-stack">
+        <div class="fan-stack">
           {names.map((node) => (
-            <p class="opt-fan-ticket">{node.short}</p>
+            <p class="fan-ticket">{node.short}</p>
           ))}
         </div>
       </a>
