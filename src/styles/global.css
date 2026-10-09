@@ -271,13 +271,14 @@ a { color: inherit; }
 .fan-sheet {
   --fan-step: clamp(1.9rem, 3.8vw, 2.4rem);
   --fan-ticket-h: clamp(2.4rem, 4.2vw, 2.85rem);
+  --fan-slack: 0.85rem;
   grid-column: 2;
   grid-row: 2;
   justify-content: flex-start;
   overflow: hidden;
-  gap: 0.55rem;
+  gap: 0.7rem;
   min-height: 300px;
-  padding: 1.25rem 1.15rem 1.45rem;
+  padding: 1.25rem 1.15rem 1.6rem;
   background: var(--blue);
   color: white;
 }
@@ -295,8 +296,9 @@ a { color: inherit; }
 .fan-stack {
   position: relative;
   width: min(100%, 16rem);
-  height: calc(var(--fan-ticket-h) + 3 * var(--fan-step));
+  height: calc(var(--fan-ticket-h) + 3 * var(--fan-step) + var(--fan-slack));
   margin-inline: auto;
+  margin-block-end: 0.15rem;
 }
 
 .fan-ticket {
@@ -581,9 +583,11 @@ a { color: inherit; }
   .join-sheet { order: -1; min-height: 240px; }
   .about-sheet { min-height: 220px; }
   .fan-sheet {
-    --fan-step: 1.75rem;
-    --fan-ticket-h: 2.35rem;
-    min-height: 280px;
+    --fan-step: 1.65rem;
+    --fan-ticket-h: 2.3rem;
+    --fan-slack: 0.95rem;
+    min-height: 320px;
+    padding-block-end: 1.75rem;
   }
 
   .join-title { font-size: 2.8rem; }
