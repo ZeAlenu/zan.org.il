@@ -1,0 +1,81 @@
+---
+import { hackathonImage, type HackathonWork } from "../data/hackathon";
+import { statementIsLong, withLtr } from "../lib/withLtr";
+
+interface Props {
+  work: HackathonWork;
+}
+
+const { work } = Astro.props;
+const image =
+  work.image && work.imageWidth && work.imageHeight
+    ? { src: hackathonImage(work.image), width: work.imageWidth, height: work.imageHeight }
+    : null;
+const long = work.statement ? statementIsLong(work.statement) : false;
+---
+
+<article class="work" id={`work-${work.order}`}>
+  {
+    image && (
+      <img
+        src={image.src}
+        width={image.width}
+        height={image.height}
+        alt={`${work.title} — ${work.artist}`}
+        loading="lazy"
+        decoding="async"
+      />
+    )
+  }
+  <div class="work-copy">
+    {work.outOfCompetition && <p class="work-aside">מחוץ לתחרות</p>}
+    <h2 class="work-title" set:html={withLtr(work.title)} />
+    <p class="work-artist" set:html={withLtr(work.artist)} />
+    <p class="work-medium" set:html={withLtr(work.medium)} />
+    {
+      work.statement && (
+        <div class="work-read" data-statement>
+          <p class:list={["work-statement", { "is-clamped": long }]} id={`statement-${work.order}`} set:html={withLtr(work.statement)} />
+          <button class="work-more" type="button" hidden aria-expanded="false" aria-controls={`statement-${work.order}`}>
+            קרא עוד
+          </button>
+        </div>
+      )
+    }
+    {
+      work.video && (
+        <p class="work-video">
+          <a href={work.video} dir="ltr" rel="noopener">
+            {work.video}
+          </a>
+        </p>
+      )
+    }
+  </div>
+</article>
+
+<script>
+  document.querySelectorAll("[data-statement]").forEach((block) => {
+    const text = block.querySelector(".work-statement");
+    const button = block.querySelector(".work-more");
+    if (!(text instanceof HTMLElement) || !(button instanceof HTMLButtonElement)) return;
+
+    const overflows = () => {
+      text.classList.add("is-clamped");
+      return text.scrollHeight > text.clientHeight + 1;
+    };
+
+    if (!overflows()) {
+      text.classList.remove("is-clamped");
+      button.remove();
+      return;
+    }
+
+    button.hidden = false;
+    button.addEventListener("click", () => {
+      const clamped = text.classList.toggle("is-clamped");
+      button.textContent = clamped ? "קרא עוד" : "הסתר";
+      button.setAttribute("aria-expanded", String(!clamped));
+    });
+  });
+</script>

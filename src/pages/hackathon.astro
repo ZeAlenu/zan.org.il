@@ -1,0 +1,38 @@
+---
+import Frame from "../layouts/Frame.astro";
+import HackathonWork from "../components/HackathonWork.astro";
+import { hackathon } from "../data/hackathon";
+import { pages } from "../data/site";
+---
+
+<Frame title={pages.hackathon.title} description={pages.hackathon.description} current="hackathon">
+  <main class="catalog">
+    <header class="catalog-intro">
+      <h1>{hackathon.event}</h1>
+      <p>היצירות שהוגשו.</p>
+      <p>
+        כל היצירות מתפרסמות תחת רישיון
+        <a href={hackathon.license.url} dir="ltr" rel="noopener">{hackathon.license.name}</a>.
+      </p>
+    </header>
+    <div class="catalog-works">
+      {hackathon.works.map((work) => <HackathonWork work={work} />)}
+    </div>
+    <footer class="catalog-intro catalog-end">
+      <p>
+        כל היצירות מתפרסמות תחת רישיון
+        <a href={hackathon.license.url} dir="ltr" rel="noopener">{hackathon.license.name}</a>.
+      </p>
+    </footer>
+  </main>
+  <noscript>
+    <style>
+      .work-statement.is-clamped {
+        display: block;
+        -webkit-line-clamp: unset;
+        overflow: visible;
+      }
+      .work-more { display: none !important; }
+    </style>
+  </noscript>
+</Frame>

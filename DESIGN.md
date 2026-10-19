@@ -262,7 +262,7 @@ Surfaces are enamel or paper. Route orange is the chip on the join stop and the 
 
 ### Navigation
 
-The enamel header carries the map entry toward the logo: חירות in white on the enamel, ברית אדומה-ירוקה on a paper chip. The rail is the route: home, about, vision, join, contact. The logo image is the home mark; the header does not repeat a wordmark.
+The enamel header carries the map entry toward the logo: חירות in white on the enamel, ברית אדומה-ירוקה on a paper chip. The rail is the route: home, about, vision, hackathon, join, contact. The logo image is the home mark; the header does not repeat a wordmark.
 
 ### Line page
 
