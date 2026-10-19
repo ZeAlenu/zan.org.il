@@ -169,7 +169,8 @@
       "image": "images/16-hetz-kaplan.webp",
       "imageWidth": 1200,
       "imageHeight": 670,
-      "license": "CC BY-SA 4.0"
+      "license": "CC BY-SA 4.0",
+      "hidden": true
     },
     {
       "order": 17,
