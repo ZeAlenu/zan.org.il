@@ -177,6 +177,10 @@ function linesFor(card: Card): Line[] {
     ];
   }
 
+  if (card === "hackathon") {
+    return [{ text: pages.hackathon.headline, size: 52, leading: 1.08, gap: 8 }];
+  }
+
   if (card === "join") {
     return [
       ...site.joinTitle.split(" ").map((text, index, all) => ({

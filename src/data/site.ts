@@ -1,3 +1,5 @@
+import { hackathon } from "./hackathon";
+
 export const site = {
   name: "זה עלינו",
   line: "בונים תקומה ציונית",
@@ -25,6 +27,7 @@ export const stops = [
   { href: "/", id: "home", label: "הבית" },
   { href: "/about", id: "about", label: "מי אנחנו" },
   { href: "/vision", id: "vision", label: "החזון" },
+  { href: "/hackathon", id: "hackathon", label: "האקתון" },
   { href: "/join", id: "join", label: "הצטרפות" },
   { href: "/contact", id: "contact", label: "קשר" },
 ] as const;
@@ -52,6 +55,13 @@ export const pages = {
     headline: site.line,
     description: site.sentence,
     card: "vision",
+  },
+  hackathon: {
+    path: "/hackathon",
+    title: `${hackathon.event} — ${site.name}`,
+    headline: hackathon.event,
+    description: `היצירות שהוגשו ל${hackathon.event}.`,
+    card: "hackathon",
   },
   join: {
     path: "/join",
