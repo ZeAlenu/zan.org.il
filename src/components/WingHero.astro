@@ -1,0 +1,14 @@
+---
+import type { Wing } from "../data/catalog";
+
+interface Props {
+  wing: Wing;
+}
+
+const { wing } = Astro.props;
+---
+
+<header class:list={["wing-hero", `wing-${wing.id}`]}>
+  <h1>{wing.name}</h1>
+  <p>{wing.blurb}</p>
+</header>

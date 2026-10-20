@@ -1,0 +1,94 @@
+---
+import { projectUrl, projectsLink, visibleProjects, wingPath, type Wing } from "../../data/catalog";
+import { loadSite } from "../../data/load";
+import { site } from "../../data/site";
+import Frame from "../../layouts/Frame.astro";
+
+const { wings, projects, byId, menu } = await loadSite();
+const published = visibleProjects(projects, import.meta.env.PROD).sort((a, b) =>
+  a.title.localeCompare(b.title, "he"),
+);
+const heading = projectsLink();
+
+function ownersOf(ids: string[]): Wing[] {
+  return ids.flatMap((id) => {
+    const wing = wings.find((item) => item.id === id);
+    return wing ? [wing] : [];
+  });
+}
+---
+
+<Frame title={`${heading.label} — ${site.name}`}>
+  <main class="sheet-page">
+    <h1>{heading.label}</h1>
+    <form class="project-filter" data-project-filter action="/projects">
+      <label for="wing">סינון</label>
+      <select id="wing" name="wing">
+        <option value="">הכל</option>
+        {
+          menu.map((group) => (
+            <optgroup label={group.label}>
+              {group.wings.map((wing) => (
+                <option value={wing.id}>{wing.name}</option>
+              ))}
+            </optgroup>
+          ))
+        }
+      </select>
+      <button type="submit">סינון</button>
+    </form>
+    <p data-project-empty hidden={published.length > 0}>אין פרויקטים.</p>
+    <ul class="project-index">
+      {
+        published.map((project) => (
+          <li data-owners={project.owners.join(" ")}>
+            <a href={projectUrl(project, byId)}>{project.title}</a>
+            <p>{project.summary}</p>
+            <p class="byline">
+              {ownersOf(project.owners).map((owner) => (
+                <span class={`wing-${owner.id}`}>
+                  <span class="accent-rule" aria-hidden="true"></span>
+                  <a href={wingPath(owner)}>{owner.name}</a>
+                </span>
+              ))}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Frame>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-project-filter]");
+  const select = form?.querySelector<HTMLSelectElement>("select[name='wing']");
+  const empty = document.querySelector<HTMLElement>("[data-project-empty]");
+
+  function apply(id: string) {
+    let visible = 0;
+    for (const item of document.querySelectorAll<HTMLElement>("[data-owners]")) {
+      const owners = (item.dataset.owners ?? "").split(" ").filter(Boolean);
+      const show = !id || owners.includes(id);
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible > 0;
+  }
+
+  const initial = new URLSearchParams(location.search).get("wing") ?? "";
+  if (select) {
+    const known = [...select.options].some((option) => option.value === initial);
+    select.value = known ? initial : "";
+  }
+  apply(select?.value ?? "");
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const id = select?.value ?? "";
+    const url = new URL(location.href);
+    if (id) url.searchParams.set("wing", id);
+    else url.searchParams.delete("wing");
+    history.replaceState(null, "", url);
+    apply(id);
+  });
+</script>

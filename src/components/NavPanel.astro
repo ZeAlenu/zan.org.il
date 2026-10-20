@@ -1,0 +1,22 @@
+---
+import WingColumn from "./WingColumn.astro";
+import type { MenuGroup } from "../data/catalog";
+
+interface Props {
+  group: MenuGroup;
+  id: string;
+  pathname: string;
+}
+
+const { group, id, pathname } = Astro.props;
+---
+
+<div class="panel" id={id} hidden>
+  <div class="panel-head">
+    <h2>{group.label}</h2>
+    <p>{group.sentence}</p>
+  </div>
+  <div class="panel-grid">
+    {group.wings.map((wing) => <WingColumn wing={wing} pathname={pathname} />)}
+  </div>
+</div>

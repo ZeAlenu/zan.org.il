@@ -1,42 +1,38 @@
 ---
+import { normalizePath, utilityLinks } from "../data/catalog";
+import { loadSite } from "../data/load";
 import { site } from "../data/site";
-
-export interface BarLink {
-  href: string;
-  label: string;
-}
+import MobileNav from "./MobileNav.astro";
+import SiteNav from "./SiteNav.astro";
 
 interface Props {
   mark?: boolean;
-  links?: BarLink[];
-  link?: BarLink;
-  description?: string;
 }
 
-const { mark = false, links = [], link, description } = Astro.props;
-const described = link && description ? { link, description } : null;
+const { mark = false } = Astro.props;
+const pathname = normalizePath(Astro.url.pathname);
+const menu = mark ? null : (await loadSite()).menu;
 ---
 
-<header class:list={["bar", { "bar-mark": mark }]}>
+<header class:list={["bar", { "bar-mark": mark }]} data-inert-with-menu>
   <a class="logo-card" href="/" aria-label={site.name}>
     <img src="/brand/logo-star.svg" alt="" />
   </a>
   {
-    mark ? null : (
+    menu && (
       <>
-        {links.map((item) => (
-          <a class="bar-link" href={item.href}>
-            {item.label}
-          </a>
-        ))}
-        {described && (
-          <a class="bar-described" href={described.link.href}>
-            <span>{described.link.label}</span>
-            <span class="bar-note">{described.description}</span>
-          </a>
-        )}
-        <slot />
+        <SiteNav groups={menu} utility={utilityLinks()} pathname={pathname} />
+        <button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="mnav">
+          תפריט
+        </button>
       </>
     )
   }
 </header>
+{menu && <MobileNav groups={menu} utility={utilityLinks()} pathname={pathname} />}
+
+<script>
+  import { setupNav } from "./nav";
+
+  setupNav();
+</script>

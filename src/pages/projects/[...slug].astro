@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import { projectUrl, visibleProjects } from "../../data/catalog";
+import { loadSite } from "../../data/load";
+import ProjectLayout from "../../layouts/ProjectLayout.astro";
+
+export async function getStaticPaths() {
+  const { projects, byId } = await loadSite();
+  return visibleProjects(projects, import.meta.env.PROD).map((project) => ({
+    params: { slug: projectUrl(project, byId).slice("/projects/".length) },
+    props: { id: project.id },
+  }));
+}
+
+const { id } = Astro.props;
+const data = await loadSite();
+const project = data.projects.find((item) => item.id === id);
+if (!project) throw new Error(`missing project ${String(id)}`);
+const entry = (await getCollection("projects")).find((item) => item.id === id);
+---
+
+<ProjectLayout
+  project={project}
+  wings={data.wings}
+  projects={visibleProjects(data.projects, import.meta.env.PROD)}
+  byId={data.byId}
+  image={entry?.data.image}
+  imageAlt={entry?.data.imageAlt}
+/>

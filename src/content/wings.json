@@ -1,0 +1,58 @@
+[
+  {
+    "id": "horim",
+    "name": "הורים למען ישראל",
+    "type": "movement",
+    "order": 1,
+    "blurb": "TODO"
+  },
+  {
+    "id": "judges",
+    "name": "השיבה שופטינו",
+    "type": "movement",
+    "order": 2,
+    "blurb": "TODO"
+  },
+  {
+    "id": "artists",
+    "name": "אמני זה עלינו",
+    "type": "arm",
+    "order": 1,
+    "blurb": "TODO"
+  },
+  {
+    "id": "tech",
+    "name": "טק:ציון",
+    "type": "arm",
+    "order": 2,
+    "blurb": "TODO"
+  },
+  {
+    "id": "research",
+    "name": "מכון מחקר",
+    "type": "arm",
+    "order": 3,
+    "blurb": "TODO"
+  },
+  {
+    "id": "logistics",
+    "name": "שטח לוגיסטי",
+    "type": "arm",
+    "order": 4,
+    "blurb": "TODO"
+  },
+  {
+    "id": "burning",
+    "name": "שטח בוער",
+    "type": "arm",
+    "order": 5,
+    "blurb": "TODO"
+  },
+  {
+    "id": "forum",
+    "name": "פורום ייעוץ",
+    "type": "forum",
+    "order": 1,
+    "blurb": "TODO"
+  }
+]

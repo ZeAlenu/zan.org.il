@@ -21,15 +21,20 @@ export const site = {
   contactTitle: "יצירת קשר",
 } as const;
 
-export const stops = [
-  { href: "/", id: "home", label: "הבית" },
-  { href: "/about", id: "about", label: "מי אנחנו" },
-  { href: "/vision", id: "vision", label: "החזון" },
-  { href: "/join", id: "join", label: "הצטרפות" },
-  { href: "/contact", id: "contact", label: "קשר" },
-] as const;
+/** Pending Maxim: arm is קהילות or זרועות. Every menu, crumb, and heading reads this. */
+export const GROUP_LABELS = {
+  movement: "תנועות",
+  arm: "קהילות", // PENDING Maxim: קהילות | זרועות
+  forum: "פורום ייעוץ",
+} as const;
 
-export type StopId = (typeof stops)[number]["id"];
+export const GROUP_BLURBS = {
+  movement: "TODO",
+  arm: "TODO",
+  forum: "TODO",
+} as const;
+
+export type GroupType = keyof typeof GROUP_LABELS;
 
 export const pages = {
   home: {

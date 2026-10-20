@@ -1,22 +1,27 @@
 ---
-import Frame from "../layouts/Frame.astro";
+import JoinLine from "../components/JoinLine.astro";
+import WingsIndex from "../components/WingsIndex.astro";
+import { loadSite } from "../data/load";
 import { pages, site } from "../data/site";
+import Frame from "../layouts/Frame.astro";
+
+const { menu } = await loadSite();
 ---
 
-<Frame title={pages.home.title} current="home">
-  <a slot="bar" class="map-entry" href={site.mapHref}>
-    <span class="side-liberty">{site.mapLiberty}</span>
-    <span class="side-vs" dir="ltr">vs.</span>
-    <span class="side-other">{site.mapOther}</span>
-  </a>
-  <main class="case" aria-label="הבית">
-    <a class="sheet about-sheet" href="/about">
-      <p class="about-title">זה<br />עלינו</p>
-      <p class="about-body">{site.sentence}</p>
-    </a>
-    <a class="sheet join-sheet" href="/join">
-      <h1 class="join-title">הצטרפו<br />לתנועה</h1>
-      <p class="join-sub">קהילת הוואטסאפ</p>
-    </a>
+<Frame title={pages.home.title}>
+  <main class="home">
+    <section class="wall" id="wall" aria-label="הקיר">
+      <a class="sheet about-sheet" href="/about">
+        <h1 class="about-title">זה<br />עלינו</h1>
+        <p class="about-body">{site.sentence}</p>
+      </a>
+    </section>
+    <JoinLine />
+    <WingsIndex groups={menu} />
+    <footer class="home-footer">
+      <a href={`mailto:${site.email}`} dir="ltr">{site.email}</a>
+      <a href={site.x} rel="noopener" dir="ltr">{site.xHandle}</a>
+      <a href={site.whatsapp} rel="noopener">{site.joinCall}</a>
+    </footer>
   </main>
 </Frame>

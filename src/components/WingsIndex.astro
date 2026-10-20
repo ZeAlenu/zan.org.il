@@ -1,0 +1,34 @@
+---
+import { projectsLink, wingPath, type MenuGroup } from "../data/catalog";
+
+interface Props {
+  groups: MenuGroup[];
+}
+
+const { groups } = Astro.props;
+const projects = projectsLink();
+---
+
+<section class="wings-index" id="wings" aria-labelledby="wings-heading">
+  <h2 id="wings-heading">האגפים</h2>
+  <div class="wings-index-grid">
+    {
+      groups.map((group) => (
+        <div>
+          <p class="wings-index-label">{group.label}</p>
+          <ul>
+            {group.wings.map((wing) => (
+              <li class={`wing-${wing.id}`}>
+                <a href={wingPath(wing)}>
+                  <span class="accent-rule" aria-hidden="true"></span>
+                  {wing.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+  <p class="wings-index-more"><a href={projects.href}>{projects.label}</a></p>
+</section>
