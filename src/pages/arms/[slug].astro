@@ -1,0 +1,14 @@
+---
+import WingView from "../../components/WingView.astro";
+import { loadSite } from "../../data/load";
+
+export async function getStaticPaths() {
+  const { wings } = await loadSite();
+  return wings.filter((wing) => wing.type === "arm").map((wing) => ({ params: { slug: wing.id } }));
+}
+
+const { slug } = Astro.params;
+if (!slug) throw new Error("missing arm");
+---
+
+<WingView wingId={slug} />

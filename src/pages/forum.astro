@@ -1,0 +1,9 @@
+---
+import WingView from "../components/WingView.astro";
+import { loadSite } from "../data/load";
+
+const forum = (await loadSite()).wings.find((wing) => wing.type === "forum");
+if (!forum) throw new Error("missing forum wing");
+---
+
+<WingView wingId={forum.id} />

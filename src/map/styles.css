@@ -37,18 +37,29 @@ body,
 
 .map-screen > .bar {
   position: relative;
+  z-index: 8;
   top: auto;
   right: auto;
   left: auto;
   flex: none;
   align-self: stretch;
   width: 100%;
-  height: var(--bar-h);
+  height: auto;
   min-height: var(--bar-h);
-  max-height: var(--bar-h);
-  overflow: hidden;
+  max-height: none;
+  overflow: visible;
   margin: 0;
 }
+
+.map-lead,
+.map-lead-line {
+  margin: 0;
+  color: var(--blue-ink);
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.map-lead { font-weight: 700; }
 
 .map-page {
   display: flex;
@@ -145,12 +156,6 @@ body,
   .map-screen {
     gap: 8px;
     padding: 12px;
-  }
-
-  .map-screen > .bar {
-    height: auto;
-    max-height: none;
-    min-height: 0;
   }
 }
 

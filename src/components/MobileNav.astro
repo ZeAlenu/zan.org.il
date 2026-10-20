@@ -1,0 +1,84 @@
+---
+import { joinLink, projectsLink, type MenuGroup, type MenuLink } from "../data/catalog";
+
+interface Props {
+  groups: MenuGroup[];
+  utility: MenuLink[];
+  pathname: string;
+}
+
+const { groups, utility, pathname } = Astro.props;
+const join = joinLink();
+const projects = projectsLink();
+const links = [{ href: "/", label: "הבית" }, projects, ...utility];
+---
+
+<div id="mnav" class="mobile-nav" role="dialog" aria-modal="true" aria-label="תפריט האתר" hidden>
+  <button type="button" class="menu-close" data-menu-close>סגירה</button>
+  <div class="mobile-groups">
+    {
+      groups.map((group) => (
+        <div class="mobile-group">
+          <button
+            type="button"
+            class="mobile-group-button"
+            data-group-button
+            aria-expanded="false"
+            aria-controls={`m-${group.type}`}
+          >
+            <span>{group.label}</span>
+            <span class="mobile-count">{group.count}</span>
+            <span class="caret" aria-hidden="true"></span>
+          </button>
+          <div class="mobile-panel" id={`m-${group.type}`} hidden>
+            <ul>
+              {group.wings.map((wing) => (
+                <li class:list={["mobile-wing", `wing-${wing.id}`]}>
+                  <a href={wing.href} aria-current={pathname === wing.href ? "page" : undefined}>
+                    <span class="accent-rule" aria-hidden="true"></span>
+                    דף {wing.name}
+                  </a>
+                  {wing.projects.length > 0 && (
+                    <ul>
+                      {wing.projects.map((project) => (
+                        <li>
+                          <a
+                            href={project.href}
+                            aria-current={pathname === project.href ? "page" : undefined}
+                          >
+                            {project.title}
+                            {project.also && <span class="also"> ({project.also})</span>}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <ul class="mobile-utility">
+    {
+      links.map((link) => (
+        <li>
+          <a href={link.href} aria-current={pathname === link.href ? "page" : undefined}>
+            {link.label}
+          </a>
+        </li>
+      ))
+    }
+    <li>
+      <a
+        class="mobile-join"
+        href={join.href}
+        aria-current={pathname === join.href ? "page" : undefined}
+      >
+        {join.label}
+      </a>
+    </li>
+  </ul>
+</div>

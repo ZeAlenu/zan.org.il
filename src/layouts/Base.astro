@@ -25,6 +25,9 @@ const imageAlt = `${headline} — ${site.name}`;
 <!doctype html>
 <html lang="he" dir="rtl">
   <head>
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:type" content="website" />
@@ -56,7 +59,7 @@ const imageAlt = `${headline} — ${site.name}`;
     <meta name="theme-color" content="#003090" />
   </head>
   <body>
-    <a class="skip" href="#content">לתוכן</a>
+    <a class="skip" href="#content" data-inert-with-menu>לתוכן</a>
     <slot />
   </body>
 </html>

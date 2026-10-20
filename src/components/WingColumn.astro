@@ -1,0 +1,39 @@
+---
+interface ProjectLink {
+  title: string;
+  href: string;
+  also?: string;
+}
+
+interface Wing {
+  id: string;
+  name: string;
+  href: string;
+  projects: ProjectLink[];
+}
+
+interface Props {
+  wing: Wing;
+  pathname: string;
+}
+
+const { wing, pathname } = Astro.props;
+---
+
+<div class:list={["panel-wing", `wing-${wing.id}`]}>
+  <a href={wing.href} aria-current={pathname === wing.href ? "page" : undefined}>{wing.name}</a>
+  {
+    wing.projects.length > 0 && (
+      <ul>
+        {wing.projects.map((project) => (
+          <li>
+            <a href={project.href} aria-current={pathname === project.href ? "page" : undefined}>
+              {project.title}
+              {project.also && <span class="also"> ({project.also})</span>}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</div>

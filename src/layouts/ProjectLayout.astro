@@ -1,0 +1,90 @@
+---
+import { Image } from "astro:assets";
+import Byline from "../components/Byline.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { projectUrl, wingPath, type Project, type Wing } from "../data/catalog";
+import { GROUP_LABELS, site } from "../data/site";
+import Frame from "./Frame.astro";
+
+interface Props {
+  project: Project;
+  wings: Wing[];
+  projects: Project[];
+  byId: Map<string, Project>;
+  image?: { src: string; width: number; height: number; format: string };
+  imageAlt?: string;
+}
+
+const { project, wings, projects, byId, image, imageAlt = "" } = Astro.props;
+const owners = project.owners
+  .map((id) => wings.find((wing) => wing.id === id))
+  .filter((wing): wing is Wing => Boolean(wing));
+const primary = owners[0];
+if (!primary) throw new Error(`project ${project.id} has no owner`);
+
+const trail: Project[] = [];
+const seen = new Set<string>();
+let cursor: Project | undefined = project;
+while (cursor) {
+  if (seen.has(cursor.id)) break;
+  seen.add(cursor.id);
+  trail.unshift(cursor);
+  cursor = cursor.parent ? byId.get(cursor.parent) : undefined;
+}
+
+const crumbs = [
+  { label: "הבית", href: "/" },
+  { label: GROUP_LABELS[primary.type], href: "/#wings" },
+  { label: primary.name, href: wingPath(primary) },
+  ...trail.slice(0, -1).map((item) => ({ label: item.title, href: projectUrl(item, byId) })),
+  { label: project.title },
+];
+
+const children = projects.filter((item) => item.parent === project.id && !item.placeholder);
+const more = projects.filter(
+  (item) =>
+    item.id !== project.id && !item.placeholder && item.owners[0] === primary.id && item.parent !== project.id,
+);
+---
+
+<Frame title={`${project.title} — ${site.name}`} description={project.summary}>
+  <article class:list={["sheet-page", "project-page", `wing-${primary.id}`]}>
+    <Breadcrumbs items={crumbs} />
+    <header class="project-hero">
+      <h1>{project.title}</h1>
+      <p>{project.summary}</p>
+      <Byline owners={owners} />
+    </header>
+    {image && <Image class="project-figure" src={image} alt={imageAlt} widths={[800, 1200, 1600]} sizes="(max-width: 900px) 100vw, 960px" />}
+    {
+      (children.length > 0 || more.length > 0) && (
+        <div class="project-aside">
+          {children.length > 0 && (
+            <section aria-labelledby="project-children">
+              <h2 id="project-children">בפרויקט</h2>
+              <ul class="link-list">
+                {children.map((item) => (
+                  <li>
+                    <a href={projectUrl(item, byId)}>{item.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+          {more.length > 0 && (
+            <section aria-labelledby="project-more">
+              <h2 id="project-more">עוד ב{primary.name}</h2>
+              <ul class="link-list">
+                {more.map((item) => (
+                  <li>
+                    <a href={projectUrl(item, byId)}>{item.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+      )
+    }
+  </article>
+</Frame>

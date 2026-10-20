@@ -1,0 +1,69 @@
+---
+import { normalizePath, siblingHeading, visibleProjects, wingPath, projectUrl } from "../data/catalog";
+import { loadSite } from "../data/load";
+import { GROUP_LABELS, site } from "../data/site";
+import Frame from "../layouts/Frame.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
+import WingHero from "./WingHero.astro";
+
+interface Props {
+  wingId: string;
+}
+
+const { wingId } = Astro.props;
+const { wings, projects, byId } = await loadSite();
+const wing = wings.find((item) => item.id === wingId);
+if (!wing) throw new Error(`missing wing ${wingId}`);
+const owned = visibleProjects(projects, import.meta.env.PROD).filter((project) =>
+  project.owners.includes(wing.id),
+);
+const siblings = wings.filter((item) => item.type === wing.type && item.id !== wing.id);
+const pathname = normalizePath(Astro.url.pathname);
+---
+
+<Frame title={`${wing.name} — ${site.name}`}>
+  <article class="sheet-page">
+    <Breadcrumbs
+      items={[
+        { label: "הבית", href: "/" },
+        { label: GROUP_LABELS[wing.type], href: "/#wings" },
+        { label: wing.name },
+      ]}
+    />
+    <WingHero wing={wing} />
+    <p class="wing-join"><a href="/join">הצטרפות</a></p>
+    {
+      owned.length > 0 && (
+        <section class="wing-block" aria-labelledby="wing-projects">
+          <h2 id="wing-projects">פרויקטים</h2>
+          <ul class="link-list">
+            {owned.map((project) => (
+              <li>
+                <a href={projectUrl(project, byId)} aria-current={pathname === projectUrl(project, byId) ? "page" : undefined}>
+                  {project.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+    {
+      siblings.length > 0 && (
+        <section class="wing-block" aria-labelledby="wing-siblings">
+          <h2 id="wing-siblings">{siblingHeading(wing.type)}</h2>
+          <ul class="link-list">
+            {siblings.map((item) => (
+              <li class={`wing-${item.id}`}>
+                <a href={wingPath(item)}>
+                  <span class="accent-rule" aria-hidden="true"></span>
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </article>
+</Frame>

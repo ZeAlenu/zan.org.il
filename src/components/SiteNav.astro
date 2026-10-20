@@ -1,0 +1,81 @@
+---
+import NavPanel from "./NavPanel.astro";
+import { joinLink, projectsLink, type MenuGroup, type MenuLink } from "../data/catalog";
+
+interface Props {
+  groups: MenuGroup[];
+  utility: MenuLink[];
+  pathname: string;
+}
+
+const { groups, utility, pathname } = Astro.props;
+const join = joinLink();
+const projects = projectsLink();
+const leading = groups.filter((group) => group.type !== "forum");
+const trailing = groups.filter((group) => group.type === "forum");
+
+function groupCurrent(group: MenuGroup): boolean {
+  return group.wings.some(
+    (wing) => wing.href === pathname || wing.projects.some((project) => project.href === pathname),
+  );
+}
+---
+
+<nav class="site-nav" data-site-nav aria-label="ראשי">
+  <ul class="site-nav-list">
+    {leading.map((group) => (
+      <li>
+        <button
+          type="button"
+          class:list={["nav-top", { "is-current": groupCurrent(group) }]}
+          aria-expanded="false"
+          aria-controls={`p-${group.type}`}
+        >
+          {group.label}
+          <span class="caret" aria-hidden="true"></span>
+        </button>
+        <NavPanel group={group} id={`p-${group.type}`} pathname={pathname} />
+      </li>
+    ))}
+    <li>
+      <a class="nav-top" href={projects.href} aria-current={pathname === projects.href ? "page" : undefined}>
+        {projects.label}
+      </a>
+    </li>
+    {
+      trailing.map((group) => (
+        <li>
+          <button
+            type="button"
+            class:list={["nav-top", { "is-current": groupCurrent(group) }]}
+            aria-expanded="false"
+            aria-controls={`p-${group.type}`}
+          >
+            {group.label}
+            <span class="caret" aria-hidden="true"></span>
+          </button>
+          <NavPanel group={group} id={`p-${group.type}`} pathname={pathname} />
+        </li>
+      ))
+    }
+    <li class="nav-divider" aria-hidden="true"></li>
+    {
+      utility.map((link) => (
+        <li>
+          <a class="nav-top" href={link.href} aria-current={pathname === link.href ? "page" : undefined}>
+            {link.label}
+          </a>
+        </li>
+      ))
+    }
+    <li class="nav-join">
+      <a
+        class="nav-top nav-join-link"
+        href={join.href}
+        aria-current={pathname === join.href ? "page" : undefined}
+      >
+        {join.label}
+      </a>
+    </li>
+  </ul>
+</nav>
