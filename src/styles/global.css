@@ -326,7 +326,8 @@ html.nav-lock body { overflow: hidden; }
 .site-nav-list {
   display: flex;
   align-items: center;
-  gap: 2px 8px;
+  gap: 2px 4px;
+  width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -349,15 +350,28 @@ html.nav-lock body { overflow: hidden; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex: none;
   min-height: 44px;
-  padding: 0 8px;
+  padding: 0 6px;
   border: 0;
   border-radius: var(--r-stop);
   background: transparent;
   color: white;
-  font: 700 1.02rem/1.2 var(--text);
+  font: 700 0.95rem/1.2 var(--text);
   text-decoration: none;
   cursor: pointer;
+  white-space: nowrap;
+}
+
+.nav-map {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 16rem;
+}
+
+.nav-map-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 

@@ -48,7 +48,7 @@ const more = projects.filter(
 ---
 
 <Frame title={`${project.title} — ${site.name}`} description={project.summary}>
-  <article class:list={["sheet-page", "project-page", `wing-${primary.id}`]}>
+  <main class:list={["sheet-page", "project-page", `wing-${primary.id}`]}>
     <Breadcrumbs items={crumbs} />
     <header class="project-hero">
       <h1>{project.title}</h1>
@@ -86,5 +86,5 @@ const more = projects.filter(
         </div>
       )
     }
-  </article>
+  </main>
 </Frame>

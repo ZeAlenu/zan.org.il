@@ -11,9 +11,11 @@ import { pages, site } from "../data/site";
   <div class="map-screen">
     <Bar />
     <div class="map-page" id="content" data-inert-with-menu>
-      <h1 class="map-title">{site.mapTitle}</h1>
-      <p class="map-lead">{site.mapKicker}</p>
-      <p class="map-lead-line">{site.mapLine}</p>
+      <section class="map-head" aria-label={site.mapTitle}>
+        <h1 class="map-title">{site.mapTitle}</h1>
+        <p class="map-lead">{site.mapKicker}</p>
+        <p class="map-lead-line">{site.mapLine}</p>
+      </section>
       <div class="map-root">
         <MapApp client:only="react" />
       </div>

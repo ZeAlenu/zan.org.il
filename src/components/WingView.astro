@@ -22,7 +22,7 @@ const pathname = normalizePath(Astro.url.pathname);
 ---
 
 <Frame title={`${wing.name} — ${site.name}`}>
-  <article class="sheet-page">
+  <main class="sheet-page">
     <Breadcrumbs
       items={[
         { label: "הבית", href: "/" },
@@ -65,5 +65,5 @@ const pathname = normalizePath(Astro.url.pathname);
         </section>
       )
     }
-  </article>
+  </main>
 </Frame>

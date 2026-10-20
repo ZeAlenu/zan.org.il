@@ -1,6 +1,7 @@
 ---
 import NavPanel from "./NavPanel.astro";
 import { joinLink, projectsLink, type MenuGroup, type MenuLink } from "../data/catalog";
+import { site } from "../data/site";
 
 interface Props {
   groups: MenuGroup[];
@@ -62,8 +63,12 @@ function groupCurrent(group: MenuGroup): boolean {
     {
       utility.map((link) => (
         <li>
-          <a class="nav-top" href={link.href} aria-current={pathname === link.href ? "page" : undefined}>
-            {link.label}
+          <a
+            class:list={["nav-top", { "nav-map": link.href === site.mapHref }]}
+            href={link.href}
+            aria-current={pathname === link.href ? "page" : undefined}
+          >
+            {link.href === site.mapHref ? <span class="nav-map-label">{link.label}</span> : link.label}
           </a>
         </li>
       ))
