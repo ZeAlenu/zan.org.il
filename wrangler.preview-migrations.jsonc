@@ -7,7 +7,7 @@
     {
       "binding": "JOIN_DB",
       "database_name": "zan-org-il-join-preview",
-      "database_id": "REPLACE_WITH_PREVIEW_DATABASE_ID",
+      "database_id": "a62aacf0-baa5-42d9-944b-00f7f453187d",
       "migrations_dir": "migrations"
     }
   ]

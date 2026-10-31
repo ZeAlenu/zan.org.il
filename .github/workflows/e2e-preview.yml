@@ -1,0 +1,47 @@
+name: E2E on PR preview
+
+# Runs Playwright against the per-PR Workers Builds preview once its check finishes.
+# check_run workflows only fire from the default branch copy of this file.
+#
+# The check is named "Workers Builds: zan-org-il". Its output summary only links to
+# the Cloudflare dashboard, and output.text is empty, including on a successful
+# preview. The workers.dev host is in the cloudflare-workers-and-pages comment on
+# the pull request, which lands a few seconds after the check completes.
+on:
+  check_run:
+    types: [completed]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+jobs:
+  e2e-preview:
+    if: >-
+      github.event.check_run.conclusion == 'success' &&
+      github.event.check_run.name == 'Workers Builds: zan-org-il' &&
+      github.event.check_run.head_branch != 'main' &&
+      github.event.check_run.pull_requests[0].number
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.check_run.head_sha }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - id: url
+        env:
+          PR_NUMBER: ${{ github.event.check_run.pull_requests[0].number }}
+          HEAD_SHA: ${{ github.event.check_run.head_sha }}
+        run: node --experimental-strip-types e2e/preview-url.ts
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+        env:
+          CI: "true"
+          E2E_BASE_URL: ${{ steps.url.outputs.url }}
+          E2E_START_SERVER: "0"
