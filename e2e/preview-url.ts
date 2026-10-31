@@ -102,11 +102,18 @@ async function main(): Promise<void> {
   const sha = process.env.HEAD_SHA ?? "";
   const repo = process.env.GITHUB_REPOSITORY ?? "";
   const token = process.env.GITHUB_TOKEN ?? "";
-  const output = process.env.GITHUB_OUTPUT;
-  if (!pr || !sha || !repo || !token || !output) {
-    throw new Error(
-      "PR_NUMBER, HEAD_SHA, GITHUB_REPOSITORY, GITHUB_TOKEN, and GITHUB_OUTPUT are required",
-    );
+  const output = process.env.GITHUB_OUTPUT ?? "";
+  const missing = [
+    ["PR_NUMBER", pr],
+    ["HEAD_SHA", sha],
+    ["GITHUB_REPOSITORY", repo],
+    ["GITHUB_TOKEN", token],
+    ["GITHUB_OUTPUT", output],
+  ]
+    .filter(([, value]) => !value)
+    .map(([name]) => name);
+  if (missing.length) {
+    throw new Error(`Missing ${missing.join(", ")}`);
   }
   const url = await resolvePreviewUrl(sha, () => githubComments(repo, pr, token));
   appendFileSync(output, `url=${url}\n`);

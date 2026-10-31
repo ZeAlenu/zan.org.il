@@ -33,6 +33,7 @@ jobs:
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: node --experimental-strip-types e2e/preview-url.ts
       - run: npm ci
       - run: npx playwright install --with-deps chromium

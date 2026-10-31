@@ -18,6 +18,7 @@ describe("e2e preview workflow", () => {
       "github.event.pull_request.head.repo.full_name == github.repository",
     );
     expect(workflow).toContain("github.event.pull_request.head.sha");
+    expect(workflow).toContain("GITHUB_TOKEN: ${{ github.token }}");
     expect(workflow).toContain('E2E_START_SERVER: "0"');
     expect(workflow).toContain("E2E_BASE_URL: ${{ steps.url.outputs.url }}");
   });
