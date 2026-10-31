@@ -5,6 +5,7 @@ Cloudflare Worker `zan-org-il` (account `77f0c1c932cf504cebd401ad4f204943`), sta
 ## Rules
 - Production deploys happen **only** from GitHub Actions (`.github/workflows/deploy.yml`) on merge to `main`. No `wrangler deploy` / `npm run deploy` from laptops.
 - Every same-repo PR builds, runs an offline link check on the built site, and uploads a Worker **version** (`wrangler versions upload --preview-alias pr-<N>`, never deploy). The preview URL is posted as a sticky PR comment. Fork PRs skip the upload (no secrets).
+- This repository only allows actions owned by ZeAlenu, created by GitHub, or verified in the Marketplace. The link check installs lychee `v0.24.2` in the job, and the preview comment is posted with `gh`. `lycheeverse/lychee-action` and `marocchino/sticky-pull-request-comment` are not allowed and fail the workflow before any job starts.
 - After deploy, a smoke test checks https://zan.org.il/ and https://www.zan.org.il/ return 200 and contain the built `<title>`. Canary only: no auto-rollback.
 
 ## Secrets (repo → Settings → Secrets → Actions)
