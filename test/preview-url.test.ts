@@ -1,6 +1,8 @@
 import { describe, expect, test } from "vitest";
 import { assertE2EBaseUrl } from "../e2e/base-url";
 import {
+  previewPollAttempts,
+  previewPollIntervalMs,
   previewUrlFromComment,
   previewUrlFromComments,
   resolvePreviewUrl,
@@ -89,5 +91,9 @@ describe("Cloudflare preview URL", () => {
     );
     expect(url).toBe("https://d81703a4-zan-org-il.zealenu.workers.dev");
     expect(calls).toBe(3);
+  });
+
+  test("the default poll covers ten minutes", () => {
+    expect((previewPollAttempts - 1) * previewPollIntervalMs).toBe(10 * 60 * 1000);
   });
 });

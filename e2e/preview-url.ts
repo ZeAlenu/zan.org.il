@@ -4,6 +4,10 @@ import { pathToFileURL } from "node:url";
 
 const botLogin = "cloudflare-workers-and-pages[bot]";
 
+/** First look is immediate. The remaining attempts cover ten minutes. */
+export const previewPollIntervalMs = 10_000;
+export const previewPollAttempts = 61;
+
 export type PullComment = {
   user?: { login?: string | null } | null;
   body?: string | null;
@@ -38,12 +42,12 @@ export async function resolvePreviewUrl(
   headSha: string,
   loadComments: () => Promise<PullComment[]>,
   wait: (ms: number) => Promise<void> = (ms) => new Promise((resolveWait) => setTimeout(resolveWait, ms)),
-  attempts = 30,
+  attempts = previewPollAttempts,
 ): Promise<string> {
   for (let attempt = 0; attempt < attempts; attempt++) {
     const url = previewUrlFromComments(await loadComments(), headSha);
     if (url) return url;
-    if (attempt < attempts - 1) await wait(4_000);
+    if (attempt < attempts - 1) await wait(previewPollIntervalMs);
   }
   throw new Error(
     `No preview URL for ${headSha.slice(0, 7)} in the Cloudflare pull request comment`,

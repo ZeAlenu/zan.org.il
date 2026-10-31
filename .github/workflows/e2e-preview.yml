@@ -1,42 +1,38 @@
 name: E2E on PR preview
 
-# Runs Playwright against the per-PR Workers Builds preview once its check finishes.
-# check_run workflows only fire from the default branch copy of this file.
-#
-# The check is named "Workers Builds: zan-org-il". Its output summary only links to
-# the Cloudflare dashboard, and output.text is empty, including on a successful
-# preview. The workers.dev host is in the cloudflare-workers-and-pages comment on
-# the pull request, which lands a few seconds after the check completes.
+# pull_request runs this file from the head branch, including on the pull request
+# that adds it. The workers.dev host is not in the Workers Builds check. It is the
+# deployment URL on the cloudflare-workers-and-pages comment row for the head SHA.
+# e2e/preview-url.ts polls that comment for about ten minutes.
 on:
-  check_run:
-    types: [completed]
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 permissions:
   contents: read
-  issues: read
   pull-requests: read
+
+concurrency:
+  group: e2e-preview-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   e2e-preview:
-    if: >-
-      github.event.check_run.conclusion == 'success' &&
-      github.event.check_run.name == 'Workers Builds: zan-org-il' &&
-      github.event.check_run.head_branch != 'main' &&
-      github.event.check_run.pull_requests[0].number
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.check_run.head_sha }}
+          ref: ${{ github.event.pull_request.head.sha }}
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: npm
       - id: url
         env:
-          PR_NUMBER: ${{ github.event.check_run.pull_requests[0].number }}
-          HEAD_SHA: ${{ github.event.check_run.head_sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: node --experimental-strip-types e2e/preview-url.ts
       - run: npm ci
       - run: npx playwright install --with-deps chromium
