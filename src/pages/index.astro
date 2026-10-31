@@ -1,22 +1,56 @@
 ---
-import Frame from "../layouts/Frame.astro";
-import { pages, site } from "../data/site";
+import Site from "../layouts/Site.astro";
+import { pages } from "../data/site";
+import { loadWorks } from "../data/works";
+
+const works = loadWorks().length;
 ---
 
-<Frame title={pages.home.title} current="home">
-  <a slot="bar" class="map-entry" href={site.mapHref}>
-    <span class="side-liberty">{site.mapLiberty}</span>
-    <span class="side-vs" dir="ltr">vs.</span>
-    <span class="side-other">{site.mapOther}</span>
-  </a>
-  <main class="case" aria-label="הבית">
-    <a class="sheet about-sheet" href="/about">
-      <p class="about-title">זה<br />עלינו</p>
-      <p class="about-body">{site.sentence}</p>
-    </a>
-    <a class="sheet join-sheet" href="/join">
-      <h1 class="join-title">הצטרפו<br />לתנועה</h1>
-      <p class="join-sub">קהילת הוואטסאפ</p>
-    </a>
+<Site title={pages.home.title} description={pages.home.description} cta={false}>
+  <main id="main">
+    <section class="hero" aria-labelledby="h1">
+      <div class="hero-text">
+        <h1 id="h1" class="display">בונים תקומה ציונית<em aria-hidden="true">.</em></h1>
+        <p class="lede"><span>מאזרח צופה לאזרח שותף</span><em aria-hidden="true">.</em></p>
+        <a class="cta" href="/join">אני רוצה לקחת חלק</a>
+      </div>
+      <article>
+        <a class="mission" href="/missions">
+          <span class="kicker">משימה פתוחה · תוכן ותודעה</span>
+          <h2>כתבו הסבר קצר על סוגיה אחת</h2>
+          <span class="meta"><span>10 דק׳</span><span>אונליין</span></span>
+          <span class="ph">משימה לדוגמה. התוכן יוחלף במשימה אמיתית</span>
+        </a>
+      </article>
+    </section>
+    <h2 class="h2 sect" style="display:block;border:0;padding-bottom:var(--s5)">מה כבר נבנה</h2>
+    <div class="wall">
+      <a class="t m-full d5x4" href="https://edu.zan.org.il">
+        <img src="/img/duo/edu1-b.jpg" alt="ילדה מניפה דגל ישראל מול הים" loading="lazy" />
+        <div class="cap">
+          <span class="w">הורים למען ישראל</span>
+          <b>פדגוגיה ביקורתית מרעילה</b>
+          <span>קמפיין לחינוך ציוני</span>
+        </div>
+      </a>
+      <a class="t type num m-half d3x4" href="/hashiva-shoftenu">
+        <span class="w">השיבה שופטינו כבראשונה</span>
+        <strong>{works}</strong>
+        <span>עבודות בהאקתון אמנות</span>
+      </a>
+      <a class="t type verse m-half d4x4" href="/hashiva-shoftenu">
+        <span class="w">ארכיון העבודות</span>
+        <blockquote>מחאה שהפכה לחזון</blockquote>
+        <span>השיבה שופטינו כבראשונה</span>
+      </a>
+      <a class="t m-full d12x3" href="/redgreen">
+        <img src="/img/duo/redgreen-ink.jpg" alt="מפת קשרים בין דתות ואיזמים" loading="lazy" />
+        <div class="cap">
+          <span class="w">מפה</span>
+          <b>מלחמת התרבות בת 3800 השנים</b>
+          <span>חירות מול ברית אדומה־ירוקה</span>
+        </div>
+      </a>
+    </div>
   </main>
-</Frame>
+</Site>

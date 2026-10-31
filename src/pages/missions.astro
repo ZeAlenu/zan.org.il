@@ -1,0 +1,35 @@
+---
+import Site from "../layouts/Site.astro";
+import { missionsArePublished, missions } from "../data/missions";
+
+const published = missionsArePublished(missions);
+---
+
+<Site title="משימות — זה עלינו" current="/missions" cta={published}>
+  <main id="main">
+    <section class="page-head">
+      <h1 class="h1">משימות פתוחות<em aria-hidden="true">.</em></h1>
+      <p class="lede">משימות קטנות עם זמן ברור. כל אחת שייכת לצוות.</p>
+    </section>
+    {
+      published ? (
+        <ul class="cards">
+          {missions.map((mission) => (
+            <li class="card">
+              <span class="ph-flag">משימה לדוגמה</span>
+              <h2 class="h3">{mission.title}</h2>
+              <p class="meta">
+                <span>{mission.minutes} דק׳</span>
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <section class="empty">
+          <p class="h2">אין כרגע משימות פתוחות באזור שלך. השאירו פרטים ונשבץ אתכם</p>
+          <a class="cta" href="/join">השארת פרטים</a>
+        </section>
+      )
+    }
+  </main>
+</Site>

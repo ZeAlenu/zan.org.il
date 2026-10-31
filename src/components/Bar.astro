@@ -1,42 +1,37 @@
 ---
-import { site } from "../data/site";
-
-export interface BarLink {
-  href: string;
-  label: string;
-}
+const items = [
+  { href: "/about", label: "מי אנחנו" },
+  { href: "/vision", label: "החזון" },
+  { href: "/missions", label: "משימות" },
+  { href: "/coalition", label: "הקואליציה" },
+  { href: "/contact", label: "קשר" },
+  { href: "/join", label: "הצטרפות", join: true },
+] as const;
 
 interface Props {
-  mark?: boolean;
-  links?: BarLink[];
-  link?: BarLink;
-  description?: string;
+  current?: string;
 }
 
-const { mark = false, links = [], link, description } = Astro.props;
-const described = link && description ? { link, description } : null;
+const { current } = Astro.props;
+const path = current ?? (Astro.url.pathname.replace(/\/+$/, "") || "/");
 ---
 
-<header class:list={["bar", { "bar-mark": mark }]}>
-  <a class="logo-card" href="/" aria-label={site.name}>
-    <img src="/brand/logo-star.svg" alt="" />
-  </a>
-  {
-    mark ? null : (
-      <>
-        {links.map((item) => (
-          <a class="bar-link" href={item.href}>
-            {item.label}
-          </a>
-        ))}
-        {described && (
-          <a class="bar-described" href={described.link.href}>
-            <span>{described.link.label}</span>
-            <span class="bar-note">{described.description}</span>
-          </a>
-        )}
-        <slot />
-      </>
-    )
-  }
+<header class="bar">
+  <div class="bar-in">
+    <a class="logo" href="/" aria-label="זה עלינו, דף הבית"><img src="/img/logo.png" alt="" /></a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav"><i aria-hidden="true"></i>תפריט</button>
+    <nav class="nav" id="nav" aria-label="ראשי" data-open="false">
+      <ul>
+        {
+          items.map((item) => (
+            <li class={"join" in item && item.join ? "nav-join" : undefined}>
+              <a href={item.href} aria-current={item.href === path ? "page" : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
 </header>

@@ -1,12 +1,46 @@
 ---
-import Frame from "../layouts/Frame.astro";
-import { pages, site } from "../data/site";
+export const prerender = false;
+
+import { env } from "cloudflare:workers";
+import JoinForm from "../components/JoinForm.astro";
+import Site from "../layouts/Site.astro";
+import { site } from "../data/site";
+import { pages } from "../data/site";
+
+const sitekey = (env as { TURNSTILE_SITEKEY?: string }).TURNSTILE_SITEKEY ?? "";
 ---
 
-<Frame title={pages.join.title} current="join">
-  <main class="reading reading-join">
-    <h1>{site.joinTitle}</h1>
-    <p>{site.joinLine}</p>
-    <a class="action" href={site.whatsapp} rel="noopener">{site.joinCall}</a>
+<Site title={pages.join.title} description={pages.join.description} current="/join" cta={false}>
+  <main id="main">
+    <section class="page-head" id="join-intro">
+      <h1 class="h1">אני רוצה לקחת חלק<em aria-hidden="true">.</em></h1>
+      <p class="lede">ארבע שאלות. אחר כך נשבץ אותך לצוות עם משימה.</p>
+    </section>
+    <div id="join-success" hidden>
+      <section class="page-head">
+        <h1 class="h1"><span>קיבלנו. נחזור אליך עם צוות ומשימה</span><em aria-hidden="true">.</em></h1>
+      </section>
+      <section class="sect">
+        <h2 class="h2">מה קורה עכשיו</h2>
+        <div class="done">
+          <ol class="steps">
+            <li><span class="n" aria-hidden="true">1</span><div><b>היום</b><span>אישור בהודעה למספר או למייל שהשארת.</span></div></li>
+            <li><span class="n" aria-hidden="true">2</span><div><b>תוך 48 שעות</b><span>ראש צוות מהאזור שלך יוצר קשר ומציע משימה ראשונה.</span></div></li>
+            <li><span class="n" aria-hidden="true">3</span><div><b>בשבוע הראשון</b><span>משימה ראשונה עם הצוות, ומשוב על מה שעשית.</span></div></li>
+          </ol>
+          <p><a class="link" href={site.whatsapp} rel="noopener">בינתיים, קהילת הוואטסאפ</a></p>
+        </div>
+      </section>
+    </div>
+    <section class="sect" id="join-form">
+      <h2 class="h2">הפרטים</h2>
+      <div>
+        <JoinForm sitekey={sitekey} />
+      </div>
+    </section>
   </main>
-</Frame>
+  {sitekey ? <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script> : null}
+  <script>
+    import "../scripts/join.ts";
+  </script>
+</Site>

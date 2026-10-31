@@ -1,12 +1,13 @@
 ---
-import Frame from "../layouts/Frame.astro";
+import Site from "../layouts/Site.astro";
 import { site } from "../data/site";
 ---
 
-<Frame title={`העמוד לא נמצא — ${site.name}`} current="home">
-  <main class="reading">
-    <h1>העמוד לא נמצא</h1>
-    <p>הכתובת הזו אינה חלק מן הארגון.</p>
-    <a class="action" href="/">הבית</a>
+<Site title={`העמוד לא נמצא — ${site.name}`}>
+  <main id="main">
+    <section class="empty">
+      <h1 class="h1">העמוד לא נמצא<em aria-hidden="true">.</em></h1>
+      <p><a class="link" href="/">חזרה לדף הבית</a></p>
+    </section>
   </main>
-</Frame>
+</Site>

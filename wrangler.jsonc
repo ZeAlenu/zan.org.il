@@ -13,5 +13,34 @@
   "routes": [
     { "pattern": "zan.org.il", "custom_domain": true },
     { "pattern": "www.zan.org.il", "custom_domain": true }
-  ]
+  ],
+  // Production: JOIN_DB -> zan-org-il-join; the real TURNSTILE_SECRET is set with
+  // `wrangler secret put TURNSTILE_SECRET` (never committed).
+  "vars": {
+    "TURNSTILE_SITEKEY": "0x4AAAAAAFuDMkUEYipIaHGB"
+  },
+  "d1_databases": [
+    {
+      "binding": "JOIN_DB",
+      "database_name": "zan-org-il-join",
+      "database_id": "03937687-965f-4ccf-9a83-96fda3578416",
+      "migrations_dir": "migrations"
+    }
+  ],
+  // Previews use a separate database (zan-org-il-join-preview) and Cloudflare's
+  // published Turnstile test keys.
+  "previews": {
+    "vars": {
+      "TURNSTILE_SITEKEY": "1x00000000000000000000AA",
+      "TURNSTILE_SECRET": "1x0000000000000000000000000000000AA"
+    },
+    "d1_databases": [
+      {
+        "binding": "JOIN_DB",
+        "database_name": "zan-org-il-join-preview",
+        "database_id": "a62aacf0-baa5-42d9-944b-00f7f453187d",
+        "migrations_dir": "migrations"
+      }
+    ]
+  }
 }

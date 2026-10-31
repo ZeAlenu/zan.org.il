@@ -1,18 +1,19 @@
 ---
-import Base from "../layouts/Base.astro";
-import Bar from "../components/Bar.astro";
+import Site from "../layouts/Site.astro";
 import { pages, site } from "../data/site";
 ---
 
-<Base title={pages.vision.title}>
-  <Bar mark />
-  <main class="experience" id="content">
-    <div>
-      <h1>{site.line}</h1>
-      <p>{site.sentence}</p>
-      <nav aria-label="יציאה מן העמוד">
-        <a class="action" href="/join">{site.joinTitle}</a>
-      </nav>
-    </div>
+<Site title={pages.vision.title} description={pages.vision.description} current="/vision">
+  <main id="main">
+    <section class="page-head">
+      <span class="kicker">החזון</span>
+      <h1 class="display">{site.line}<em aria-hidden="true">.</em></h1>
+    </section>
+    <section class="sect">
+      <h2 class="h2">החזון</h2>
+      <div class="prose">
+        <p>{site.sentence}</p>
+      </div>
+    </section>
   </main>
-</Base>
+</Site>

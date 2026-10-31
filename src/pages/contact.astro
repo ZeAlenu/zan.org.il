@@ -1,19 +1,26 @@
 ---
-import Frame from "../layouts/Frame.astro";
+import Site from "../layouts/Site.astro";
 import { pages, site } from "../data/site";
 ---
 
-<Frame title={pages.contact.title} current="contact">
-  <main class="reading">
-    <h1>{site.contactTitle}</h1>
-    <p>
-      <a href={`mailto:${site.email}`} dir="ltr">{site.email}</a>
-    </p>
-    <p>
-      <a href={site.whatsapp} rel="noopener">קבוצת הוואטסאפ</a>
-    </p>
-    <p>
-      <a href={site.x} rel="noopener" dir="ltr">{site.xHandle}</a>
-    </p>
+<Site title={pages.contact.title} description={pages.contact.description} current="/contact">
+  <main id="main">
+    <section class="page-head">
+      <h1 class="h1">{site.contactTitle}<em aria-hidden="true">.</em></h1>
+    </section>
+    <section class="sect">
+      <h2 class="h2">איפה אנחנו</h2>
+      <ul class="contacts">
+        <li>
+          <a href={`mailto:${site.email}`}><b>מייל</b><span dir="ltr">{site.email}</span></a>
+        </li>
+        <li>
+          <a href={site.whatsapp} rel="noopener"><b>וואטסאפ</b><span>קבוצת הוואטסאפ</span></a>
+        </li>
+        <li>
+          <a href={site.x} rel="noopener"><b>X</b><span dir="ltr">{site.xHandle}</span></a>
+        </li>
+      </ul>
+    </section>
   </main>
-</Frame>
+</Site>

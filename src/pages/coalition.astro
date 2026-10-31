@@ -1,0 +1,60 @@
+---
+import Site from "../layouts/Site.astro";
+import { coalitionSections, hashivaArchive, orgKind, orgsInSection } from "../data/coalition";
+import { loadWorks } from "../data/works";
+
+const count = loadWorks().length;
+---
+
+<Site title="הקואליציה — זה עלינו" current="/coalition">
+  <main id="main">
+    <section class="page-head">
+      <h1 class="h1">הקואליציה<em aria-hidden="true">.</em></h1>
+      <p class="lede">ארגונים שעובדים יחד. כל ארגון מחוץ לזה עלינו מופיע בשמו ובמותג שלו.</p>
+    </section>
+    {
+      coalitionSections.map((section, index) => {
+        const orgs = orgsInSection(section);
+        return (
+          <section class="ring" aria-labelledby={`r${index}`}>
+            <h2 id={`r${index}`} class="h2">
+              {section}
+            </h2>
+            {section === "ארגוני ברית" ? (
+              <p>ארגונים עם מנהיגות ומותג משלהם, בברית עם זה עלינו.</p>
+            ) : null}
+            {section === "שותפים" ? (
+              <p>ארגונים עצמאיים. מתאמים קמפיינים ומגבירים זה את זה, בלי היררכיה.</p>
+            ) : null}
+            {orgs.length > 0 ? (
+              <ul class="orgs">
+                {orgs.map((org) => (
+                  <li class:list={["org", orgKind(org.ring)]}>
+                    <span class="kicker">{org.kicker}</span>
+                    <h3>
+                      <a class="name" href={org.href}>
+                        {org.name}
+                      </a>
+                    </h3>
+                    <p>
+                      {org.ring === 2
+                        ? `${org.line} ${count} עבודות בארכיון.`
+                        : org.line}
+                    </p>
+                    {org.href === hashivaArchive.href ? (
+                      <a class="link" href={org.href}>
+                        לארכיון העבודות
+                      </a>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p class="note">הרשימה תתפרסם עם אישור הארגונים.</p>
+            )}
+          </section>
+        );
+      })
+    }
+  </main>
+</Site>

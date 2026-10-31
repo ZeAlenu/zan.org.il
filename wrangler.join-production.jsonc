@@ -1,0 +1,14 @@
+// Migrations for the production join database. Do not deploy this file.
+// database_id must match wrangler.jsonc d1_databases.
+{
+  "name": "zan-org-il-join",
+  "compatibility_date": "2026-10-02",
+  "d1_databases": [
+    {
+      "binding": "JOIN_DB",
+      "database_name": "zan-org-il-join",
+      "database_id": "03937687-965f-4ccf-9a83-96fda3578416",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

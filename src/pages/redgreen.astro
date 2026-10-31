@@ -1,6 +1,5 @@
 ---
 import Base from "../layouts/Base.astro";
-import Bar from "../components/Bar.astro";
 import "@xyflow/react/dist/style.css";
 import "../map/styles.css";
 import MapApp from "../map/App.tsx";
@@ -8,13 +7,16 @@ import { pages, site } from "../data/site";
 ---
 
 <Base title={pages.map.title}>
-  <div class="map-screen">
-    <Bar>
+  <div class="map-screen" id="main">
+    <header class="map-bar">
+      <a class="logo-card" href="/" aria-label={site.name}>
+        <img src="/brand/logo-star.svg" alt="" />
+      </a>
       <div class="bar-copy">
         <p>{site.mapKicker}</p>
         <p>{site.mapLine}</p>
       </div>
-    </Bar>
+    </header>
     <div class="map-page" id="content">
       <h1 class="map-title">{site.mapTitle}</h1>
       <div class="map-root">
