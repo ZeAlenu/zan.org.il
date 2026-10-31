@@ -1,0 +1,29 @@
+---
+import Base from "../layouts/Base.astro";
+import { coalitionSections, hashivaArchive, orgsInSection } from "../data/coalition";
+import { site } from "../data/site";
+---
+
+<Base title={`ברית — ${site.name}`}>
+  <main id="content">
+    <h1>ברית</h1>
+    {
+      coalitionSections.map((section, index) => (
+        <section aria-labelledby={`coalition-${index}`}>
+          <h2 id={`coalition-${index}`}>{section}</h2>
+          <ul>
+            {orgsInSection(section).map((org) => (
+              <li>
+                <h3>{org.name}</h3>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+    <p>
+      <a href={hashivaArchive.href}>{hashivaArchive.title}</a>
+    </p>
+    <p><a href="/">הבית</a></p>
+  </main>
+</Base>

@@ -1,0 +1,14 @@
+// Migrations for the shared preview join database. Do not deploy this file.
+// database_id must match wrangler.jsonc previews.d1_databases.
+{
+  "name": "zan-org-il-join-preview",
+  "compatibility_date": "2026-10-02",
+  "d1_databases": [
+    {
+      "binding": "JOIN_DB",
+      "database_name": "zan-org-il-join-preview",
+      "database_id": "REPLACE_WITH_PREVIEW_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+// Migrations for the production join database. Do not deploy this file.
+// DevOps creates zan-org-il-join, replaces database_id, applies migrations,
+// then copies the binding into wrangler.jsonc before the next production deploy.
+{
+  "name": "zan-org-il-join",
+  "compatibility_date": "2026-10-02",
+  "d1_databases": [
+    {
+      "binding": "JOIN_DB",
+      "database_name": "zan-org-il-join",
+      "database_id": "REPLACE_WITH_PRODUCTION_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

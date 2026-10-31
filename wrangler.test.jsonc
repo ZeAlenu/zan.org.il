@@ -1,0 +1,13 @@
+{
+  "name": "zan-org-il-join-test",
+  "compatibility_date": "2026-10-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "JOIN_DB",
+      "database_name": "zan-org-il-join-test",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+---
+import Base from "../layouts/Base.astro";
+import { hashivaArchive } from "../data/coalition";
+import { site } from "../data/site";
+import { loadWorks } from "../data/works";
+
+const works = loadWorks();
+---
+
+<Base title={`${hashivaArchive.title} — ${site.name}`}>
+  <main id="content">
+    <h1>{hashivaArchive.title}</h1>
+    <ul>
+      {
+        works.map((work) => (
+          <li>
+            <a href={`/works/${work.slug}`}>{work.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+    <p><a href="/">הבית</a></p>
+  </main>
+</Base>

@@ -1,0 +1,32 @@
+---
+import Base from "../../layouts/Base.astro";
+import type { Work } from "../../data/work-record";
+import { site } from "../../data/site";
+import { loadWorks } from "../../data/works";
+import { hashivaArchive } from "../../data/coalition";
+
+export function getStaticPaths() {
+  return loadWorks().map((work) => ({
+    params: { slug: work.slug },
+    props: { work },
+  }));
+}
+
+interface Props {
+  work: Work;
+}
+
+const { work } = Astro.props;
+---
+
+<Base title={`${work.title} — ${site.name}`}>
+  <main id="content">
+    <h1>{work.title}</h1>
+    <p>{work.artist}</p>
+    <p>{work.medium}</p>
+    <p>{work.description}</p>
+    <p><a href={work.mediaUrl}>{work.mediaUrl}</a></p>
+    <p><a href={hashivaArchive.href}>{hashivaArchive.title}</a></p>
+    <p><a href="/">הבית</a></p>
+  </main>
+</Base>

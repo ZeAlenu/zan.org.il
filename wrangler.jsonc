@@ -13,5 +13,21 @@
   "routes": [
     { "pattern": "zan.org.il", "custom_domain": true },
     { "pattern": "www.zan.org.il", "custom_domain": true }
-  ]
+  ],
+  // Production JOIN_DB is omitted until DevOps creates zan-org-il-join.
+  // Previews use a different database. Replace database_id before wrangler preview.
+  "previews": {
+    "vars": {
+      "TURNSTILE_SITEKEY": "1x00000000000000000000AA",
+      "TURNSTILE_SECRET": "1x0000000000000000000000000000000AA"
+    },
+    "d1_databases": [
+      {
+        "binding": "JOIN_DB",
+        "database_name": "zan-org-il-join-preview",
+        "database_id": "REPLACE_WITH_PREVIEW_DATABASE_ID",
+        "migrations_dir": "migrations"
+      }
+    ]
+  }
 }

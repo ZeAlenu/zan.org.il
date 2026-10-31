@@ -1,0 +1,26 @@
+---
+import Base from "../layouts/Base.astro";
+import { missionsArePublished, missions } from "../data/missions";
+import { site } from "../data/site";
+
+const published = missionsArePublished(missions);
+---
+
+<Base title={`משימות — ${site.name}`}>
+  <main id="content">
+    <h1>משימות</h1>
+    {
+      published ? (
+        <ul>
+          {missions.map((mission) => (
+            <li>
+              {mission.title}
+              <span>{mission.minutes}</span>
+            </li>
+          ))}
+        </ul>
+      ) : null
+    }
+    <p><a href="/">הבית</a></p>
+  </main>
+</Base>
