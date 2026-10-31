@@ -1,0 +1,11 @@
+[
+  {
+    "title": "כותרת",
+    "artist": "אמן לדוגמה",
+    "medium": "נייר",
+    "description": "פנו אל secret@example.com או אל 0501234567.",
+    "mediaUrl": "/fixtures/works/work-1.svg",
+    "place": null,
+    "email": "secret@example.com"
+  }
+]
