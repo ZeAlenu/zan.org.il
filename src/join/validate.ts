@@ -41,6 +41,15 @@ function cleanText(value: unknown, max: number): string | null {
   return text;
 }
 
+function optionalText(value: unknown, max: number): string | null {
+  if (value == null) return "";
+  if (typeof value !== "string") return null;
+  const text = value.trim();
+  if (!text) return "";
+  if (text.length > max || /[\u0000-\u001F]/.test(text)) return null;
+  return text;
+}
+
 export function validateJoin(body: Record<string, unknown>): JoinFieldError | JoinSubmission {
   const name = cleanText(body.name, 80);
   if (!name) return { error: "required", field: "name" };
@@ -50,8 +59,8 @@ export function validateJoin(body: Record<string, unknown>): JoinFieldError | Jo
     return { error: "required", field: "time" };
   }
 
-  const profession = cleanText(body.profession, 120);
-  if (!profession) return { error: "required", field: "profession" };
+  const profession = optionalText(body.profession, 120);
+  if (profession === null) return { error: "required", field: "profession" };
 
   const area = cleanText(body.area, 120);
   if (!area) return { error: "required", field: "area" };

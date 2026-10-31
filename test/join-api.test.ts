@@ -100,7 +100,6 @@ describe("POST /api/join", () => {
       { body: signup({ name: "  " }), error: "required", message: joinMessages.required },
       { body: signup({ phone: "", email: "" }), error: "required", message: joinMessages.required },
       { body: signup({ time: "מחר" }), error: "required", message: joinMessages.required },
-      { body: signup({ profession: "" }), error: "required", message: joinMessages.required },
       { body: signup({ area: "" }), error: "required", message: joinMessages.required },
       { body: signup({ phone: "12345" }), error: "phone", message: joinMessages.phone },
       { body: signup({ phone: "", email: "not-an-email" }), error: "email", message: joinMessages.email },
@@ -118,6 +117,20 @@ describe("POST /api/join", () => {
       expect(payload).toMatchObject({ ok: false, error: item.error, message: item.message, fallback: false });
     }
     expect(await countRows()).toBe(0);
+  });
+
+  test("an empty profession returns 200 and stores one row", async () => {
+    const response = await submitJoin({
+      request: post(signup({ profession: "" })),
+      db,
+      turnstileSecret: turnstileTest.secret,
+      verifyTurnstile: verify,
+    });
+    expect(response.status).toBe(200);
+    expect(await response.json()).toEqual({ ok: true });
+    expect(await countRows()).toBe(1);
+    const row = await db.prepare("SELECT profession FROM join_submissions").first<{ profession: string }>();
+    expect(row?.profession).toBe("");
   });
 
   test("a honeypot submission stores nothing", async () => {
