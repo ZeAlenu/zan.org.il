@@ -1,32 +1,70 @@
 ---
-import Base from "../../layouts/Base.astro";
-import type { Work } from "../../data/work-record";
-import { site } from "../../data/site";
-import { loadWorks } from "../../data/works";
-import { hashivaArchive } from "../../data/coalition";
+export const prerender = false;
 
-export function getStaticPaths() {
-  return loadWorks().map((work) => ({
-    params: { slug: work.slug },
-    props: { work },
-  }));
-}
+import Archive from "../../layouts/Archive.astro";
+import { workBySlug } from "../../data/works";
 
-interface Props {
-  work: Work;
-}
-
-const { work } = Astro.props;
+const slug = Astro.params.slug ?? "";
+const work = workBySlug(slug);
+if (!work) Astro.response.status = 404;
 ---
 
-<Base title={`${work.title} — ${site.name}`}>
-  <main id="content">
-    <h1>{work.title}</h1>
-    <p>{work.artist}</p>
-    <p>{work.medium}</p>
-    <p>{work.description}</p>
-    <p><a href={work.mediaUrl}>{work.mediaUrl}</a></p>
-    <p><a href={hashivaArchive.href}>{hashivaArchive.title}</a></p>
-    <p><a href="/">הבית</a></p>
+<Archive title={work ? `${work.title} — השיבה שופטינו כבראשונה` : "העבודה לא נמצאה"}>
+  <main id="main">
+    {
+      work ? (
+        <div class="work">
+          <div>
+            <figure class="media">
+              <a href={work.mediaUrl}>
+                <img
+                  data-media
+                  src={work.mediaUrl}
+                  alt={`${work.title}, ${work.artist}`}
+                  onerror="this.closest('figure').classList.add('failed')"
+                />
+              </a>
+              <figcaption>יצירה לדוגמה</figcaption>
+              <div class="fail">
+                <p>לא ניתן להציג את היצירה כאן</p>
+                <a href={work.mediaUrl}>למקור היצירה</a>
+              </div>
+            </figure>
+          </div>
+          <div style="display:grid;gap:var(--s4)">
+            <a class="back" href="/hashiva-shoftenu">חזרה לכל העבודות</a>
+            <h1>
+              {work.title}
+              <span class="sample">יצירה לדוגמה</span>
+            </h1>
+            <dl>
+              <dt>אמן</dt>
+              <dd>{work.artist}</dd>
+              <dt>מדיום</dt>
+              <dd>{work.medium}</dd>
+              <dt>רישיון</dt>
+              <dd>
+                <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.he">רישיון: CC BY-SA 4.0</a>
+              </dd>
+            </dl>
+            <div class="desc">
+              <p>{work.description}</p>
+            </div>
+            <div class="credit">
+              <p id="cr">{work.title} / {work.artist}, השיבה שופטינו כבראשונה, <span class="keep">CC BY-SA 4.0</span></p>
+              <button class="btn2" type="button" data-copy="cr">העתקת קרדיט</button>
+              <p class="status" id="copy-status" role="status"></p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <section class="a-head">
+          <h1>העבודה לא נמצאה</h1>
+          <p>
+            <a class="back" href="/hashiva-shoftenu">חזרה לכל העבודות</a>
+          </p>
+        </section>
+      )
+    }
   </main>
-</Base>
+</Archive>

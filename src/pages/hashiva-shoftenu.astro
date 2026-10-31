@@ -1,24 +1,67 @@
 ---
-import Base from "../layouts/Base.astro";
+import Archive from "../layouts/Archive.astro";
 import { hashivaArchive } from "../data/coalition";
-import { site } from "../data/site";
 import { loadWorks } from "../data/works";
 
 const works = loadWorks();
+const winners = works
+  .filter((work) => work.place !== null)
+  .sort((a, b) => (a.place ?? 0) - (b.place ?? 0));
 ---
 
-<Base title={`${hashivaArchive.title} — ${site.name}`}>
-  <main id="content">
-    <h1>{hashivaArchive.title}</h1>
-    <ul>
+<Archive title={hashivaArchive.title}>
+  <main id="main">
+    <section class="a-head">
+      <h1>{hashivaArchive.title}</h1>
+      <p class="sub">האקתון אמנות — מחאה וחזון בנושא בג״ץ</p>
+      <p class="when">11–20 באוקטובר 2026 · בית אורי צבי, ירושלים</p>
+      <span class="badge">ההאקתון הסתיים</span>
+    </section>
+    <section class="a-sect" aria-labelledby="win">
+      <h2 id="win">הזוכים</h2>
+      <ol class="winners">
+        {
+          winners.map((work) => (
+            <li>
+              <span class="place" aria-label={`מקום ${work.place}`}>
+                {work.place}
+              </span>
+              <div>
+                <a href={`/works/${work.slug}`}>{work.title}</a>
+                <span class="sample">יצירה לדוגמה</span>
+                <br />
+                <span>{work.artist}</span>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+    <section class="a-sect" aria-labelledby="all">
+      <h2 id="all">כל העבודות</h2>
       {
-        works.map((work) => (
-          <li>
-            <a href={`/works/${work.slug}`}>{work.title}</a>
-          </li>
-        ))
+        works.length === 0 ? (
+          <p class="a-empty">העבודות יעלו בקרוב</p>
+        ) : (
+          <ul class="grid">
+            {works.map((work) => (
+              <li>
+                <a href={`/works/${work.slug}`}>
+                  <span class="frame">
+                    <img src={work.mediaUrl} alt="" />
+                    <i>
+                      תמונה לדוגמה · {work.medium}
+                    </i>
+                  </span>
+                  <b>{work.title}</b>
+                  <span class="sample">יצירה לדוגמה</span>
+                  <span>{work.artist}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
       }
-    </ul>
-    <p><a href="/">הבית</a></p>
+    </section>
   </main>
-</Base>
+</Archive>

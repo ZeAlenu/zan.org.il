@@ -32,3 +32,23 @@ jobs:
           E2E_BASE_URL: http://127.0.0.1:4321
           E2E_START_SERVER: "1"
           WRANGLER_SEND_METRICS: "false"
+
+  namecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - name: namecheck
+        env:
+          ZAN_REALNAMES: ${{ secrets.ZAN_REALNAMES }}
+        run: |
+          set -euo pipefail
+          if [ -z "${ZAN_REALNAMES}" ]; then
+            echo "namecheck: name list missing" >&2
+            exit 1
+          fi
+          umask 077
+          list=$(mktemp)
+          trap 'rm -f "$list"' EXIT
+          printf '%s\n' "$ZAN_REALNAMES" > "$list"
+          python3 namecheck.py "$list"

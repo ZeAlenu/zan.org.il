@@ -1,0 +1,54 @@
+/* השיבה שופטינו כבראשונה: placeholder sub-identity. Quiet, grey, typographic. Pending [מאשר]. */
+body.archive{background:var(--a-paper);color:var(--a-ink)}
+.archive :focus-visible{outline:3px solid var(--a-ink);outline-offset:2px}
+.archive .skip{background:var(--a-ink);color:var(--a-paper)}
+.ph-banner{background:var(--a-ph-bg);color:var(--a-ph-ink);font:500 .85rem/1.4 var(--f-text);padding:.55rem var(--pad);border-bottom:1px solid #E5D48A}
+.a-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.75rem var(--pad);min-height:60px;border-bottom:1px solid var(--a-rule)}
+.a-mark{font:700 1.15rem/1.3 'Frank Ruhl Libre',serif;text-decoration:none;display:flex;align-items:center;min-height:44px}
+.a-bar .via{font-size:.8rem;color:var(--a-grey)}
+.a-head{padding:var(--s6) var(--pad);border-bottom:1px solid var(--a-rule);display:grid;gap:var(--s3)}
+.a-head h1{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:2.6rem;line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
+.a-head .sub{font:400 var(--t-lede)/1.4 var(--f-display)}
+.a-head .when{color:var(--a-grey)}
+.badge{justify-self:start;font:500 .85rem var(--f-text);border:1px solid var(--a-ink);padding:.2rem .6rem}
+.a-sect{padding:var(--s6) var(--pad);border-bottom:1px solid var(--a-rule);display:grid;gap:var(--s4)}
+.a-sect h2{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.8rem;line-height:1.1}
+.winners{list-style:none;padding:0;display:grid;gap:1px;background:var(--a-rule);border:1px solid var(--a-rule)}
+.winners li{background:var(--a-paper);display:grid;grid-template-columns:3rem 1fr;gap:var(--s3);padding:var(--s4)}
+.winners .place{font:700 2.4rem/1 var(--f-display)}
+.winners a{font:700 1.3rem/1.3 var(--f-display);text-decoration:none;display:inline-flex;min-height:44px;align-items:center}
+.winners a:hover,.grid a:hover b{text-decoration:underline}
+.winners span,.grid span{color:var(--a-grey);font-size:var(--t-small)}
+.sample{display:inline-block;font:500 .75rem var(--f-text);background:var(--a-ph-bg);color:var(--a-ph-ink);padding:.05rem .4rem;margin-inline-start:.4rem;vertical-align:middle}
+.grid{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:var(--s4) var(--s3)}
+.grid a{text-decoration:none;display:grid;gap:.35rem}
+.grid .frame{aspect-ratio:4/3;background:#E8E8E8;overflow:hidden;display:flex;align-items:flex-end;padding:.5rem}
+.grid .frame img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(.95);margin:-.5rem}
+.grid .frame i{font:400 .8rem var(--f-text);font-style:normal;color:var(--a-grey)}
+.grid b{font:700 1.05rem/1.3 var(--f-display)}
+@media (min-width:721px){.grid{grid-template-columns:repeat(4,1fr);gap:var(--s5)}.a-sect{grid-template-columns:3fr 9fr;column-gap:var(--s6)}.a-sect>*:not(h2){grid-column:2}.winners{grid-template-columns:repeat(3,1fr)}.winners li{grid-template-columns:1fr}}
+.work{padding:var(--s5) var(--pad) var(--s6);display:grid;gap:var(--s5)}
+@media (min-width:721px){.work{grid-template-columns:7fr 5fr;gap:var(--s7);align-items:start}}
+.back{display:inline-flex;align-items:center;min-height:44px;font-weight:500}
+.work h1{font:700 var(--t-h1)/1.02 var(--f-display);text-wrap:balance}
+.work dl{display:grid;grid-template-columns:auto 1fr;gap:.3rem 1rem;font-size:var(--t-small)}
+.work dt{color:var(--a-grey)}
+.work .desc{font:400 1.1rem/1.7 var(--f-display);max-width:var(--measure)}
+.media{background:#E8E8E8;min-height:200px;display:grid;place-items:center;position:relative}
+.media>a{display:block;width:100%;justify-self:stretch}
+.media img{width:100%;height:auto;display:block}
+.media .fail{display:none;padding:var(--s5);text-align:center;gap:var(--s2)}
+.media.failed img{display:none}.media.failed .fail{display:grid}
+.media figcaption{position:absolute;inset-inline-start:0;bottom:0;background:var(--a-ph-bg);color:var(--a-ph-ink);font-size:.75rem;padding:.1rem .4rem}
+.media.failed figcaption{display:none}
+.vid{aspect-ratio:16/9;width:100%;display:grid;place-items:center;gap:.5rem;background:#2A2A2A;color:#F4F2EE;text-decoration:none;font-weight:500}
+.credit{border:1px solid var(--a-rule);padding:var(--s4);display:grid;gap:var(--s3)}
+.credit p{font-family:var(--f-display);font-size:1.05rem}
+.keep{white-space:nowrap}
+.credit .btn2{justify-self:start}
+.status{font-size:var(--t-small);font-weight:500;min-height:1.4em}
+.a-foot{padding:var(--s6) var(--pad);font-size:var(--t-small);color:var(--a-grey);display:grid;gap:.4rem}
+.a-empty{padding:var(--s4);border:1px dashed var(--a-rule);color:var(--a-grey)}
+.winners .sample{color:var(--a-ph-ink)}
+@media (min-width:721px){.a-head h1{font-size:4.4rem}.a-sect h2{font-size:2.2rem}}
+.grid .sample{color:var(--a-ph-ink);justify-self:start;margin:0}

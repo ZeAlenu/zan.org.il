@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { readWorks, slugForIndex } from "./fixtures";
 
-test.fixme("B3", async ({ page }) => {
+test("B3", async ({ page }) => {
   const work = readWorks("works.json")[0];
   const slug = slugForIndex(0);
   await page.goto(`/works/${slug}`);
@@ -20,8 +20,10 @@ test.fixme("B3", async ({ page }) => {
   expect(missing?.status()).toBe(404);
   await expect(page.getByText("העבודה לא נמצאה", { exact: true })).toBeVisible();
 
+  const client = await page.context().newCDPSession(page);
+  await client.send("Network.setCacheDisabled", { cacheDisabled: true });
   await page.route(`**${work.mediaUrl}`, (route) => route.abort());
   await page.goto(`/works/${slug}`);
   await expect(page.getByText("לא ניתן להציג את היצירה כאן", { exact: true })).toBeVisible();
-  await expect(page.locator(`a[href="${work.mediaUrl}"]`)).toBeVisible();
+  await expect(page.getByRole("link", { name: "למקור היצירה", exact: true })).toBeVisible();
 });

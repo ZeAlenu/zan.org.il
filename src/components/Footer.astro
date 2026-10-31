@@ -1,0 +1,29 @@
+---
+import { site } from "../data/site";
+---
+
+<footer class="foot">
+  <div>
+    <h2>התנועה</h2>
+    <ul>
+      <li><a href="/about">מי אנחנו</a></li>
+      <li><a href="/vision">החזון</a></li>
+      <li><a href="/missions">משימות</a></li>
+    </ul>
+  </div>
+  <div>
+    <h2>קואליציה</h2>
+    <ul>
+      <li><a href="/coalition">הארגונים</a></li>
+      <li><a href="/hashiva-shoftenu">השיבה שופטינו כבראשונה</a></li>
+    </ul>
+  </div>
+  <div>
+    <h2>קשר</h2>
+    <ul>
+      <li><a href={`mailto:${site.email}`} dir="ltr">{site.email}</a></li>
+      <li><a href={site.x} dir="ltr">{site.xHandle}</a></li>
+    </ul>
+  </div>
+  <p class="sign">זה עלינו.<br />בונים תקומה ציונית.</p>
+</footer>

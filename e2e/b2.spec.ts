@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { readWorks } from "./fixtures";
 
-test.fixme("B2", async ({ page }) => {
+test("B2", async ({ page }) => {
   const approved = readWorks("works.json");
   const unapproved = readWorks("works.unapproved.json");
   await page.goto("/hashiva-shoftenu");

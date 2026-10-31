@@ -1,13 +1,20 @@
 ---
-import Frame from "../layouts/Frame.astro";
+import Site from "../layouts/Site.astro";
 import { pages, site } from "../data/site";
 ---
 
-<Frame title={pages.about.title} current="about">
-  <main class="reading reading-about">
-    <h1>{site.name}</h1>
-    <p>{site.sentence}</p>
-    <p>{site.line}</p>
-    <a class="action" href="/join">{site.joinTitle}</a>
+<Site title={pages.about.title} description={pages.about.description} current="/about">
+  <main id="main">
+    <section class="page-head">
+      <span class="kicker">מי אנחנו</span>
+      <h1 class="h1">{site.name}<em aria-hidden="true">.</em></h1>
+    </section>
+    <section class="sect">
+      <h2 class="h2">בקצרה</h2>
+      <div class="prose">
+        <p>{site.sentence}</p>
+        <p>{site.line}.</p>
+      </div>
+    </section>
   </main>
-</Frame>
+</Site>

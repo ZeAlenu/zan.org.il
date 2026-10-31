@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test.fixme("A1", async ({ page }) => {
+test("A1", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: "בונים תקומה ציונית" })).toBeVisible();
   await expect(page.getByText("מאזרח צופה לאזרח שותף", { exact: true })).toBeVisible();

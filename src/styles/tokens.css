@@ -1,0 +1,13 @@
+/* זה עלינו v3 tokens. Source of truth: tokens.json */
+:root{
+ --ink:#00163F;--ink-2:#001E52;--blue:#00359A;--paper:#F3EFE6;--soft:#E2DDD1;--seam:#283A5E;
+ --orange:#F05400;--orange-hot:#FF8A4C;--orange-ink:#A33A00;--on-orange:#141414;
+ --error:#FFB49A;--error-on-paper:#9E2A00;--success:#9FE0B8;
+ --f-display:'Frank Ruhl Libre',serif;--f-text:Rubik,sans-serif;
+ --t-display:3.6rem;--t-h1:2.6rem;--t-h2:1.8rem;--t-h3:1.3rem;--t-lede:1.15rem;--t-body:1rem;--t-small:.875rem;
+ --s1:.25rem;--s2:.5rem;--s3:.75rem;--s4:1rem;--s5:1.5rem;--s6:2rem;--s7:3rem;--s8:4.5rem;
+ --pad:1.15rem;--measure:62ch;--target:44px;--btn:52px;
+ /* archive sub-identity (placeholder until [מאשר] signs off) */
+ --a-paper:#F5F5F5;--a-ink:#1F1F1F;--a-grey:#5A5A5A;--a-rule:#D0D0D0;--a-ph-bg:#FFF3C4;--a-ph-ink:#5C4300;
+}
+@media (min-width:721px){:root{--t-display:6.4rem;--t-h1:4.4rem;--t-h2:2.2rem;--t-h3:1.5rem;--t-lede:1.35rem;--t-body:1.0625rem;--t-small:.9rem;--pad:2rem}}

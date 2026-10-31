@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { readWorks, slugForIndex } from "./fixtures";
 
-test.fixme("B4", async ({ page, context }) => {
+test("B4", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   const work = readWorks("works.json")[0];
   const credit = `${work.title} / ${work.artist}, השיבה שופטינו כבראשונה, CC BY-SA 4.0`;

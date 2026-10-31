@@ -1,0 +1,30 @@
+---
+import "../styles/archive.css";
+import Base from "./Base.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Base title={title} description={description} archive>
+  <header>
+    <p class="ph-banner">סקיצה זמנית. העיצוב והמיתוג של הארכיון ממתינים לאישור [מאשר].</p>
+    <div class="a-bar">
+      <a class="a-mark" href="/hashiva-shoftenu">השיבה שופטינו כבראשונה</a>
+    </div>
+  </header>
+  <slot />
+  <footer class="a-foot">
+    <p>
+      השיבה שופטינו כבראשונה. כל העבודות ברישיון
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.he">CC BY-SA 4.0</a>.
+    </p>
+  </footer>
+  <script>
+    import "../scripts/nav.ts";
+  </script>
+</Base>

@@ -1,0 +1,87 @@
+---
+import { site } from "../data/site";
+
+interface Props {
+  sitekey?: string;
+}
+
+const { sitekey = "" } = Astro.props;
+
+const professions = [
+  "משפטים",
+  "עיצוב",
+  "פיתוח תוכנה",
+  "כתיבה ותוכן",
+  "חינוך",
+  "רפואה וטיפול",
+  "הפקה ואירועים",
+  "שיווק ודיגיטל",
+  "מחקר",
+  "כספים",
+];
+
+const areas = [
+  "צפון",
+  "חיפה והקריות",
+  "שרון",
+  "מרכז וגוש דן",
+  "ירושלים והסביבה",
+  "שפלה",
+  "דרום",
+  "יהודה ושומרון",
+  "אונליין בלבד",
+];
+
+const times = ["שעה בשבוע", "כמה שעות בשבוע", "משימה חד־פעמית"] as const;
+---
+
+<p class="alert" id="join-alert" role="alert" hidden></p>
+<form class="form" id="join" novalidate>
+  <p class="hp">
+    <label for="company">חברה</label>
+    <input id="company" name="company" type="text" tabindex="-1" autocomplete="off" />
+  </p>
+  <div class="field">
+    <label for="name">שם</label>
+    <input id="name" name="name" type="text" autocomplete="name" aria-describedby="name-err" />
+    <p class="err" id="name-err" hidden></p>
+  </div>
+  <div class="field">
+    <label for="reach">טלפון או מייל</label>
+    <input id="reach" name="reach" type="text" inputmode="email" autocomplete="email" dir="auto" aria-describedby="reach-err" />
+    <p class="err" id="reach-err" hidden></p>
+  </div>
+  <fieldset class="field" id="time" aria-describedby="time-err">
+    <legend>כמה זמן יש</legend>
+    <div class="opts">
+      {
+        times.map((time) => (
+          <label class="opt">
+            <input type="radio" name="time" value={time} />
+            {time}
+          </label>
+        ))
+      }
+    </div>
+    <p class="err" id="time-err" hidden></p>
+  </fieldset>
+  <div class="field">
+    <label for="profession">מקצוע או תחום</label>
+    <input id="profession" name="profession" type="text" list="profs" aria-describedby="prof-h" />
+    <p class="hint" id="prof-h">לא חובה. אפשר לבחור מהרשימה או לכתוב</p>
+    <datalist id="profs">
+      {professions.map((item) => <option value={item} />)}
+    </datalist>
+  </div>
+  <div class="field">
+    <label for="area">אזור</label>
+    <select id="area" name="area" aria-describedby="area-err">
+      <option value="">בחירה</option>
+      {areas.map((area) => <option value={area}>{area}</option>)}
+    </select>
+    <p class="err" id="area-err" hidden></p>
+  </div>
+  {sitekey ? <div class="cf-turnstile" data-sitekey={sitekey}></div> : null}
+  <button class="cta" type="submit">שליחה</button>
+  <p class="or"><a class="link" href={site.whatsapp} rel="noopener">או הצטרפו לקהילת הוואטסאפ</a></p>
+</form>

@@ -1,20 +1,28 @@
 ---
-import "@fontsource/secular-one/hebrew-400.css";
-import "@fontsource/secular-one/latin-400.css";
+import "@fontsource/frank-ruhl-libre/hebrew-400.css";
+import "@fontsource/frank-ruhl-libre/hebrew-500.css";
+import "@fontsource/frank-ruhl-libre/hebrew-700.css";
+import "@fontsource/frank-ruhl-libre/hebrew-900.css";
+import "@fontsource/frank-ruhl-libre/latin-400.css";
+import "@fontsource/frank-ruhl-libre/latin-500.css";
+import "@fontsource/frank-ruhl-libre/latin-700.css";
+import "@fontsource/frank-ruhl-libre/latin-900.css";
 import "@fontsource/rubik/hebrew-400.css";
-import "@fontsource/rubik/hebrew-700.css";
+import "@fontsource/rubik/hebrew-500.css";
 import "@fontsource/rubik/latin-400.css";
-import "@fontsource/rubik/latin-700.css";
-import "../styles/global.css";
+import "@fontsource/rubik/latin-500.css";
+import "../styles/tokens.css";
+import "../styles/site.css";
 import { pageForPath, site } from "../data/site";
 
 interface Props {
   title: string;
   description?: string;
+  archive?: boolean;
 }
 
 const page = pageForPath(Astro.url.pathname);
-const { title, description = page?.description ?? site.sentence } = Astro.props;
+const { title, description = page?.description ?? site.sentence, archive = false } = Astro.props;
 const headline = page?.headline ?? title;
 const path = (page?.path ?? Astro.url.pathname).replace(/\/+$/, "") || "/";
 const canonical = new URL(path, Astro.site).href;
@@ -53,10 +61,10 @@ const imageAlt = `${headline} — ${site.name}`;
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=3" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3" />
-    <meta name="theme-color" content="#003090" />
+    <meta name="theme-color" content="#00163F" />
   </head>
-  <body>
-    <a class="skip" href="#content">לתוכן</a>
+  <body class={archive ? "archive" : undefined}>
+    <a class="skip" href="#main">דילוג לתוכן</a>
     <slot />
   </body>
 </html>
