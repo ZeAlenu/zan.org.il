@@ -1,4 +1,4 @@
-name: Build
+name: PR build and link check
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: build-${{ github.workflow }}-${{ github.ref }}
+  group: pr-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
@@ -15,10 +15,22 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
       - run: npm run build
+      - name: Link check (internal links in built site; broken = fail)
+        run: |
+          set -euo pipefail
+          version=v0.24.2
+          archive="lychee-$(uname -m)-unknown-linux-gnu.tar.gz"
+          dir=$(mktemp -d)
+          curl -fsSL -o "$dir/$archive" "https://github.com/lycheeverse/lychee/releases/download/lychee-${version}/${archive}"
+          tar -xzf "$dir/$archive" -C "$dir"
+          lychee=$(find "$dir" -type f -name lychee -print -quit)
+          log=$(mktemp)
+          "$lychee" --offline --no-progress --root-dir "$GITHUB_WORKSPACE/dist/client" --include-fragments 'dist/client/**/*.html' | tee "$log"
+          grep -qE '[1-9][0-9]* Total' "$log"
