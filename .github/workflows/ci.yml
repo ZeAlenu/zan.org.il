@@ -1,4 +1,4 @@
-name: PR build, link check, preview
+name: PR build and link check
 
 on:
   pull_request:
@@ -34,71 +34,3 @@ jobs:
           log=$(mktemp)
           "$lychee" --offline --no-progress --root-dir "$GITHUB_WORKSPACE/dist/client" --include-fragments 'dist/client/**/*.html' | tee "$log"
           grep -qE '[1-9][0-9]* Total' "$log"
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: dist
-          path: dist
-          retention-days: 3
-
-  preview:
-    needs: build
-    # Fork PRs get no secrets: skip upload.
-    if: github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    permissions:
-      contents: read
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
-      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
-        with:
-          name: dist
-          path: dist
-      - name: Upload Worker version (no deploy)
-        id: upload
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          PR: ${{ github.event.pull_request.number }}
-          SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          set -o pipefail
-          npx wrangler versions upload --preview-alias "pr-${PR}" --message "PR #${PR} ${SHA}" 2>&1 | tee upload.log
-          alias_url=$(grep -oE 'https://pr-[0-9]+-[^ ]+\.workers\.dev' upload.log | head -1 || true)
-          version_url=$(grep -oE 'https://[0-9a-f]{8}-[^ ]+\.workers\.dev' upload.log | head -1 || true)
-          echo "alias_url=${alias_url}" >> "$GITHUB_OUTPUT"
-          echo "version_url=${version_url}" >> "$GITHUB_OUTPUT"
-          test -n "${alias_url}${version_url}"
-      - name: Post preview URL
-        env:
-          GH_TOKEN: ${{ github.token }}
-          ALIAS_URL: ${{ steps.upload.outputs.alias_url }}
-          VERSION_URL: ${{ steps.upload.outputs.version_url }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          set -euo pipefail
-          marker='<!-- worker-preview -->'
-          body=$(mktemp)
-          {
-            printf '%s\n' "$marker"
-            printf '**Preview** (Worker version, not deployed to prod)\n'
-            printf -- '- PR alias: %s\n' "$ALIAS_URL"
-            printf -- '- This commit: %s\n' "$VERSION_URL"
-            printf 'Commit: %s\n' "$HEAD_SHA"
-          } > "$body"
-          payload=$(mktemp)
-          jq -n --rawfile body "$body" '{body: $body}' > "$payload"
-          comment_id=$(gh api --paginate "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" --jq "[.[] | select(.body | contains(\"$marker\")) | .id] | .[]")
-          comment_id=${comment_id%%$'\n'*}
-          if [ -n "$comment_id" ]; then
-            gh api --method PATCH "repos/${GITHUB_REPOSITORY}/issues/comments/${comment_id}" --input "$payload"
-          else
-            gh api --method POST "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" --input "$payload"
-          fi
